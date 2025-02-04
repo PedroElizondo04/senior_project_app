@@ -14,3 +14,13 @@ communicate with each other, and to form teams with an assigned advisor.
 ### Advisor: 
 Dr. Jonathan Reyes (jonatan.reyes01@utrgv.edu)
 
+### Codespace Setup Instructiosn
+```sh
+chmod u+x codespace_setup.sh
+./codespace_setup.sh
+```
+Then:
+```sh
+chmod u+x codespace_activate.sh
+./codespace_activate.sh
+```
