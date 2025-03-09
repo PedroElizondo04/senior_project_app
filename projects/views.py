@@ -27,3 +27,8 @@ def landingPage(request, role):
     """
     context = { "role": role.upper(), }
     return render(request, "projects/landingPage.html", context)
+def projectProposalPage(request):
+    """
+    The page to create the project proposal to convince others to join.
+    """
+    return render(request, "projects/projectProposalPage.html")
