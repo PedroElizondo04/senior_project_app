@@ -21,3 +21,9 @@ def loginPage(request):
     The login page for all users.
     """
     return render(request, "projects/loginPage.html")
+def landingPage(request, role):
+    """
+    The landing page for all users. Contains big action buttons depending on the role.
+    """
+    context = { "role": role.upper(), }
+    return render(request, "projects/landingPage.html", context)
