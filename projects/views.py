@@ -38,6 +38,12 @@ def advisorListPage(request):
     View a list of advisors and their contact information. 
     """
     return render(request, "projects/advisorListPage.html")
+def advisorProfileViewPage(request, name):
+    """
+    View an individual advisor and their contact information.
+    """
+    context = { "name": name, }
+    return render(request, "projects/advisorProfileViewPage.html", context)
 def projectProposalPage(request):
     """
     The page to create the project proposal to convince others to join.

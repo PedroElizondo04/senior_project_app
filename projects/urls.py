@@ -6,5 +6,6 @@ urlpatterns = [
     path("landing/<str:role>/", views.landingPage, name="landing"),
     path("<int:project_id>/view/", views.projectViewPage, name="projectViewPage"),
     path("advisor/", views.advisorListPage, name="advisorList"),
+    path("advisor/<str:name>", views.advisorProfileViewPage, name="advisorProfileView"),
     path("projectproposal", views.projectProposalPage, name="projectProposal"),
 ]
