@@ -33,6 +33,11 @@ def projectViewPage(request, project_id):
     """
     context = { "project_id": project_id, }
     return render(request, "projects/projectViewPage.html", context)
+def advisorListPage(request):
+    """
+    View a list of advisors and their contact information. 
+    """
+    return render(request, "projects/advisorListPage.html")
 def projectProposalPage(request):
     """
     The page to create the project proposal to convince others to join.

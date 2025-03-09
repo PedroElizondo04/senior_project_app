@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile List</title>
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <a href="{% url 'landing' 'student' %}"> Back to Landing Page </a> <br>
+    <ul>
+        <li>
+            <img src="/static/askar/askar_nurbekov.jpg" alt="nurbekov_profile_image" width="100">
+            <h2><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Askar Nurbekov</a></h2>
+            <p>Lecturer I</p>
+            <h4>askar.nurbekov01@utrgv.edu</h4>
+        </li>
+        <li>
+            <img src="/static/askar/jonatan_reyes.jpg" alt="reyes_profile_image" width="100">
+            <h2><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Jonatan Reyes</a></h2>
+            <p>Assistant Professor of Practice</p>
+            <h4>jonatan.reyes01@utrgv.edu</h4>
+        </li>
+        <li>
+            <img src="/static/askar/jonatan_reyes.jpg" alt="reyes_profile_image" width="100">
+            <h2><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Erik Enriquez</a></h2>
+            <p>Assistant Professor of Practice</p>
+            <h4>erik.enriquez01@utrgv.edu</h4>
+        </li>
+    </ul>
+
+</body>
+
+</html>
