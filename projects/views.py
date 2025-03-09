@@ -44,6 +44,11 @@ def advisorProfileViewPage(request, name):
     """
     context = { "name": name, }
     return render(request, "projects/advisorProfileViewPage.html", context)
+def projectListPage(request):
+    """
+    The list page for projects, contains a table of projects and the ability to filter, apply, etc.
+    """
+    return render(request, "projects/projectListPage.html")
 def projectProposalPage(request):
     """
     The page to create the project proposal to convince others to join.
