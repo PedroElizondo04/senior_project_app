@@ -27,6 +27,12 @@ def landingPage(request, role):
     """
     context = { "role": role.upper(), }
     return render(request, "projects/landingPage.html", context)
+def projectViewPage(request, project_id):
+    """
+    The view page of a project to see its author, description, skills, etc.
+    """
+    context = { "project_id": project_id, }
+    return render(request, "projects/projectViewPage.html", context)
 def projectProposalPage(request):
     """
     The page to create the project proposal to convince others to join.
