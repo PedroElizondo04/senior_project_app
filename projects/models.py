@@ -1,23 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.utils.timezone import now
-
-# Custom User model with role-based access
-class User(AbstractUser):
-    ROLE_CHOICES = [
-        ('student', 'Student'),
-        ('advisor', 'Advisor'),
-        ('admin', 'Admin'),
-    ]
-    
-    email = models.EmailField(unique=True)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
-    
-    USERNAME_FIELD = 'email'  # Use email as login field
-    REQUIRED_FIELDS = ['username']  # Keep username for compatibility
-    
-    def __str__(self):
-        return f"{self.email} ({self.role})"
 
 # Project model with different statuses
 class Project(models.Model):
@@ -26,6 +9,7 @@ class Project(models.Model):
         ('in_process', 'In Process'),
         ('completed', 'Completed'),
         ('archived', 'Archived'),
+        ('trash', 'Trash'),
     ]
     
     title = models.CharField(max_length=255)
@@ -39,10 +23,14 @@ class Project(models.Model):
     
     def update_status(self):
         """ Updates project status based on members and advisor """
-        if self.students.count() >= 2 and self.advisor:
-            self.status = 'in_process'
-        if self.students.count() == self.member_limit and self.advisor:
-            self.status = 'completed'
+        if self.students.count() < 2 and not self.advisor:
+            self.status = 'in_process'  # Still forming a group
+
+        elif self.students.count() >= 2 and self.advisor:
+            if self.students.count() == self.member_limit:
+                self.status = 'active'  # Fully formed team with advisor
+            else:
+                self.status = 'in_process'  # Has advisor but not full team
         self.save()
     
     def __str__(self):
@@ -51,9 +39,6 @@ class Project(models.Model):
 # Student model
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    major = models.CharField(max_length=100, blank=True)
-    graduation_year = models.PositiveIntegerField(null=True, blank=True)
-    skills = models.TextField(blank=True)
     created_project = models.OneToOneField(Project, on_delete=models.SET_NULL, null=True, blank=True, related_name='creator')
     
     def apply_to_project(self, project):
@@ -70,6 +55,9 @@ class Student(models.Model):
         
         ProjectApplication.objects.filter(student=self).exclude(id=application.id).update(status="nullified")
     
+        if self.created_project:
+            self.created_project.mark_as_trash()
+
     def __str__(self):
         return self.user.username
 
@@ -81,13 +69,6 @@ class Advisor(models.Model):
     def apply_to_project(self, project):
         """ Advisors apply to be part of a student project """
         AdvisorApplication.objects.create(advisor=self, project=project)
-    
-    def __str__(self):
-        return self.user.username
-
-# Admin model
-class Admin(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.user.username
