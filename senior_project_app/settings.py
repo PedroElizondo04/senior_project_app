@@ -70,6 +70,7 @@ TEMPLATES = [
     },
 ]
 
+STATIC_URL = "static/"
 WSGI_APPLICATION = 'senior_project_app.wsgi.application'
 
 
