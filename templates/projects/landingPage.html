@@ -5,16 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
-    <link href="css/style.css" rel="stylesheet">
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
 </head>
 
 <body>
+
     <!-- Header:
     - Image:
     - Name:
     - Role:
     - UTRGV LOGO
 -->
+<div class="container">
+    <div class="header">
+        <span>John Doe, <span class="role">Student</span></span>
+        <img src="utrgv.svg" alt="UTRGV Logo" class="logo">
+    </div>
+</div>
 
     <!-- Body:
     - Back Button:
@@ -39,11 +48,12 @@
             <a href="% url 'advisorList' %}"> Advisors </a> <br>
         
 -->
-    <a href="{% url 'projectProposal' %}"> create project </a> <br>
+    <div class="button-container">
+        <a href="{% url 'projectProposal' %}" class="landingbutton">Create Projects</a>
+        <a href="{% url 'projectList' %}" class="landingbutton">View Projects</a>
+        <a href="{% url 'advisorList' %}" class="landingbutton">Advisors</a>
+    </div>
 
-    <a href="{% url 'projectList' %}"> view projects </a><br>
-
-    <a href="{% url 'advisorList'  %}"> view advisors </a><br>
 </body>
 
 </html>

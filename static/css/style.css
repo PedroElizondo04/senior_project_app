@@ -1,0 +1,222 @@
+/* Reset default margins and padding */
+body, h1, p {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Full white background */
+body {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 60px; /* Prevents content from hiding behind the header */
+}
+
+/* Header spanning across the page */
+header {
+    background: #333;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+/* Header text */
+.welcome {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(110, 110, 110); /* Only "Welcome" is gray */
+}
+
+.bold-text {
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+}
+
+/* Logo */
+.logo {
+    height: 50px;
+}
+
+/* Centering the Login Box */
+.login-box {
+    background: white;
+    width: 80%;
+    max-width: 400px;
+    padding: 40px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Adjusted for better centering */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Move login text higher */
+.login-box p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    margin-top: -5px;
+}
+
+/* Input Labels */
+label {
+    font-size: 16px;
+    color: #c4512a;
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+/* Input Fields */
+.input-field {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* Login Button */
+.login-button {
+    background-color: #c4512a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: 150px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #a03e1e;
+}
+
+/* User info section in header */
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Role text */
+.role {
+    color: #e44d26;
+    font-weight: bold;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    margin-top: 100px;
+}
+
+/* Landing Page Buttons */
+.landingbutton {
+    background-color: #e44d26;
+    color: white;
+    font-size: 40px; /* Reduced from 50px */
+    font-weight: bold;
+    padding: 60px 80px; /* Adjusted for better responsiveness */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    min-width: 200px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.landingbutton:hover {
+    background-color: #c43d1e;
+}
+
+.title-input {
+    width: 96%;
+    font-size: 63px;
+    font-weight: bold;
+    background-color: #e0e0e0;
+    border: none;
+    padding: 5px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.title-input:focus {
+    outline: none;
+    background-color: #d6d6d6;
+}
+
+.description-input {
+    width: 96%;
+    font-size: 15px;
+    font-weight: normal;
+    background-color: #e0e0e0;
+    border: none;
+    padding-bottom: 400px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.description-input:focus {
+    outline: none;
+    background-color: #d6d6d6;
+}
+
+.skills-input {
+    width: 50%;
+    font-size: 15px;
+    font-weight: normal;
+    background-color: #e0e0e0;
+    border: none;
+    padding-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.skills-input:focus {
+    outline: none;
+    background-color: #d6d6d6;
+}
+
+/* Submit Button */
+.submit-button {
+    background-color: #c4512a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    width: 150px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #a03e1e;
+}
