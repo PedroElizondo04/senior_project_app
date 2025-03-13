@@ -17,8 +17,8 @@ body {
 }
 
 /* Header spanning across the page */
-header {
-    background: #333;
+.header {
+    background: #a6a5a5;
     color: white;
     width: 100%;
     padding: 15px;
