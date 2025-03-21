@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 
+class Skill(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+    
 # Project model with different statuses
 class Project(models.Model):
     STATUS_CHOICES = [
@@ -14,9 +20,12 @@ class Project(models.Model):
     
     title = models.CharField(max_length=255)
     description = models.TextField()
-    skills_required = models.TextField()
-    member_limit = models.IntegerField(default=4)
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='active')
+    skills_required = models.ManyToManyField(Skill, blank=True)
+    member_limit = models.IntegerField(
+        choices=[(2, "2"), (3, "3"), (4, "4")],  # Only allow 2, 3, or 4
+        default=4
+    )
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='in_process')
     created_at = models.DateTimeField(auto_now_add=True)
     advisor = models.ForeignKey("Advisor", on_delete=models.SET_NULL, null=True, blank=True)
     students = models.ManyToManyField("Student", blank=True)
