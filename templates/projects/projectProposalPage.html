@@ -4,18 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Project Details</title>
-    {% load static %}
+    <title>ProjectDetails</title>
+    {% load static %} 
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <div class="user-info">
-            <span class="name">John Doe, <span class="role">Student</span></span>
-            <img src="{% static 'images/utrgv_logo.png' %}" alt="UTRGV Logo">
+    <div class="container">
+        <div class="header">
+            <span>John Doe, <span class="role">Student</span></span>
+            <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
         </div>
-    </header>
+    </div>
 
     <a href="{% url 'projectList' %}" class="back-link">← Project List</a>
 
@@ -41,5 +41,4 @@
 
     <button class="submit-button">Submit</button>
 </body>
-
 </html>

@@ -10,15 +10,15 @@ body {
     background-color: #ffffff;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     justify-content: center;
     min-height: 100vh;
-    padding-top: 60px; /* Prevents content from hiding behind the header */
+    padding-top: 90px; /* Prevents content from hiding behind the header */
 }
 
 /* Header spanning across the page */
 .header {
-    background: #a6a5a5;
+    background: #494949;
     color: white;
     width: 100%;
     padding: 15px;
@@ -126,6 +126,13 @@ label {
     font-weight: bold;
 }
 
+.main-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
 /* Button Container */
 .button-container {
     display: flex;
@@ -135,22 +142,36 @@ label {
     margin-top: 100px;
 }
 
-/* Landing Page Buttons */
+/* Landing Page Buttons with PNG Icons */
 .landingbutton {
     background-color: #e44d26;
     color: white;
-    font-size: 40px; /* Reduced from 50px */
+    font-size: 24px;
     font-weight: bold;
-    padding: 60px 80px; /* Adjusted for better responsiveness */
+    padding: 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     text-align: center;
-    min-width: 200px;
+    height: 220px;
+    width: 300px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column; /* Stack icon and text */
+    align-items: center; /* Center align */
+    justify-content: center;
+    text-decoration: none; /* Remove underline */
 }
 
+/* PNG Icons centered at the top */
+.button-icon {
+    width: 60px;  /* Adjust icon size */
+    height: auto;
+    margin-bottom: 10px; /* Space between icon and text */
+}
+
+/* Hover Effect */
 .landingbutton:hover {
     background-color: #c43d1e;
 }
@@ -220,3 +241,273 @@ label {
 .submit-button:hover {
     background-color: #a03e1e;
 }
+
+/* Universal box-sizing */
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Container to keep table within website bounds */
+  .table-container {
+    width: auto;  /* Adjust as needed */
+    padding: 20px 20px;    /* Add horizontal padding */
+    margin: 0 auto;
+    
+  }
+  
+  /* Table styling */
+  .profile-table {
+    width: auto;
+    table-layout: fixed;  /* Equal column widths */
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  
+  /* Table cells */
+  .profile-table td {
+    text-align: left;
+    vertical-align: top;
+    padding: 20px;
+  }
+  
+  /* Profile Card Styling */
+  .profile-card {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;       /* pick a width that fits your design */
+    margin: 0 auto;     /* center the card itself within the table cell */
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+    background-color: #fff;
+  }
+
+  .info {
+    text-align: left;
+    margin-left: 10px;
+    margin-right: auto; /* keeps text left, pushes image to the right */
+  }
+
+.back-link-advisor{
+    margin-left: 10px;
+}
+
+/* Link Styling Within Cards */
+.profile-card a {
+    text-decoration: none;
+    color: inherit;
+}
+.profile-card a:hover {
+    text-decoration: underline;
+}
+
+/* Profile Details Section */
+.profile-details {
+    display: grid;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+/* Profile Picture (Square) */
+.profile-details .profile-picture {
+    width: 250px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 0; /* Ensures the image is square */
+    margin-left: 25px;
+}
+
+/* Profile Info */
+.profile-details {
+    text-align: left;
+}
+.advisor-name {
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    margin-left: 25px;
+    color: #e44d26;
+}
+.advisor-title {
+    font-size: 20px;
+    margin-bottom: 5px;
+    margin-left: 25px;
+}
+.advisor-email {
+    margin: 0;
+    color: #e44d26;
+    margin-left: 25px;
+}
+
+/* Advisor Description */
+.advisor-description {
+    top: 35%;
+    position: absolute;
+    font-size: 21px;
+    margin-left: 310px;
+    margin-right: auto;
+}
+
+/* Two-Column Layout for Courses and Skills */
+.two-column {
+    font-size: 21px;
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+    margin-left: 310px;
+    top: 45%;
+    position: absolute;
+}
+.two-column > div {
+    font-size: 21px;
+    flex: 1;
+    min-width: 250px;
+}
+.two-column h3 {
+    font-size: 21px;
+    color: #e44d26;
+}
+
+/* Profile Card List Styles (if used elsewhere) */
+.profile-card img {
+    width: 175px;
+    height: 230px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 10px;
+}
+.profile-card h3 {
+    font-weight: bold;
+    color: #e44d26;
+    margin-top: 0;
+}
+.profile-card p {
+    color: #000;
+    margin-top: 0;
+}
+.profile-card h4 {
+    color: #e44d26;
+    margin-bottom: 0;
+}
+
+/* Main Container for content */
+.main-container {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    position: relative;
+    left: 10px;
+    bottom: 80px;
+    
+  }
+  
+  /* Back link styling */
+  .back-link-advisor {
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #494949;
+    text-decoration: none;
+    font-size: 16px;
+    border: 1px solid #494949;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  .back-link-advisor:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Project Card */
+  .project-card {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+  }
+  
+  .project-title {
+    font-size: 35px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .project-description {
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  
+  .project-details p {
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  
+  .project-details strong {
+    color: #e44d26;
+  }
+  
+  /* Button Row */
+  .button-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  /* Apply and Favorite Buttons */
+  .apply-button,
+  .favorite-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .apply-button {
+    background-color: #c4512a;
+    color: #fff;
+  }
+  
+  .apply-button:hover {
+    background-color: #a03e1e;
+  }
+  
+  .favorite-button {
+    background-color: #494949;
+    color: #fff;
+  }
+  
+  .favorite-button:hover {
+    background-color: #333;
+  }
+
+
+
+  /* Hide the native checkbox */
+.star-checkbox {
+    display: none;
+  }
+  
+  /* Make the label clickable (cursor) */
+  .star-label {
+    cursor: pointer;
+    /* You can also add spacing or alignment here if needed */
+    margin-left: 30%;
+  }
+  
+  /* The star icon itself */
+  .star-icon {
+    font-size: 1.5rem; /* adjust size as needed */
+    color: #ccc;       /* gray star by default */
+    transition: color 0.2s ease-in-out;
+  }
+  
+  /* When the checkbox is checked, turn the star gold (or any color) */
+  .star-checkbox:checked + .star-icon {
+    color: gold;
+  }

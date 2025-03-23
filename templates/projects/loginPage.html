@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login Page</title>
-    <link rel="stylesheet" href="static/css/style.css">
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
         <div class="header">
             <span class="welcome"><strong>Welcome</strong> <span class="bold-text">Faculty and Students!</span></span>
-            <img src="utrgv.svg" alt="UTRGV Logo" class="logo">
+            <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
         </div>
 
         <div class="login-box">

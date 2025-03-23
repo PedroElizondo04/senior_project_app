@@ -1,41 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    <link href="css/style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advisor Profile</title>
+  {% load static %}
+  <link href="{% static 'css/style.css' %}" class="back-link-advisor" rel="stylesheet">
 </head>
-
 <body>
 
-    <a href="{% url 'advisorList'  %}">Back to advisors list</a><br>
-    <h1>Askar Nurbekov</h1>
-    <img src="/static/askar/askar_nurbekov.jpg" alt="nurbekov_profile_image" width="100">
-    <p>Lecturer I</p>
-    <h4>askar.nurbekov01@utrgv.edu</h4>
-    <h3> Description: </h3>
-    <p> I am currently a Lecturer I in the Department of Computer Science at the University of Texas Rio Grande Valley
-        (UTRGV).<br> I am an absolute god at leetcode, and I do three hard leetcode problems everyday while I have my
-        breakfast (alfazick on leetcode.com). I also have a FIDE Chess rating of 2049.</p>
+  <!-- Fixed Header -->
+  <div class="header">
+    <span class="bold-text">John Doe, <span class="role">Student</span></span>
+    <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+  </div>
 
-    <h3>Courses Taught:</h3>
-    <ul>
-        <li>Computer Science I</li>
-        <li>Programming Unix/Linux Environments</li>
-        <li>Systems Programming</li>
-        <li>Advanced Operataing Systems(Graduaate Course)</li>
-    </ul>
+  <!-- Profile List Wrapper -->
+  <div class="profile-list">
+    <div class="profile-card2">
+      <p>
+        <a href="{% url 'advisorList' %}">Back to advisors list</a>
+      </p>
+      
+      <!-- Profile Details Section -->
+      <div class="profile-details">
+        <img src="{% static 'advisorpic.png' %}" alt="nurbekov_profile_image" class="profile-picture">
+        <div class="info">
+          <h3 class="advisor-name">Askar Nurbekov</h3>
+          <p class="advisor-title">Lecturer I</p>
+          <h4 class="advisor-email">askar.nurbekov01@utrgv.edu</h4>
+        </div>
+      </div>
+      
+      <div>
+        <!-- Advisor Description -->
+        <p class="advisor-description">
+          I am currently a Lecturer I in the Department of Computer Science at the University of Texas Rio Grande Valley (UTRGV).<br>
+          I am an absolute god at leetcode, and I do three hard leetcode problems every day while I have my breakfast (<strong>alfazick</strong> on leetcode.com). I also have a FIDE Chess rating of 2049.
+        </p>
+      </div>
+      
+      <!-- Two-Column Layout for Courses and Skills -->
+      <div class="two-column">
+        <div class="courses">
+          <h3>Courses Taught:</h3>
+          <ul>
+            <li>Computer Science I</li>
+            <li>Programming Unix/Linux Environments</li>
+            <li>Systems Programming</li>
+            <li>Advanced Operating Systems (Graduate Course)</li>
+          </ul>
+        </div>
+        <div class="skills">
+          <h3>Skills:</h3>
+          <ul>
+            <li>Machine Learning</li>
+            <li>Computer Vision</li>
+            <li>Cybersecurity</li>
+            <li>Information Systems Security</li>
+            <li>Lebron James of Leetcode</li>
+          </ul>
+        </div>
+      </div>
+      
+    </div> <!-- .profile-card -->
+  </div> <!-- .profile-list -->
 
-    <h3>Skills:</h3>
-    <ul>
-        <li>Machine Learning</li>
-        <li>Computer Vision</li>
-        <li>Cybersecurity</li>
-        <li>Information Systems Security</li>
-        <li>Lebron James of Leetcode</li>
-    </ul>
 </body>
-
 </html>

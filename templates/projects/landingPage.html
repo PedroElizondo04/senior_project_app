@@ -21,9 +21,11 @@
 <div class="container">
     <div class="header">
         <span>John Doe, <span class="role">Student</span></span>
-        <img src="utrgv.svg" alt="UTRGV Logo" class="logo">
+        <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
     </div>
 </div>
+
+
 
     <!-- Body:
     - Back Button:
@@ -48,12 +50,23 @@
             <a href="% url 'advisorList' %}"> Advisors </a> <br>
         
 -->
-    <div class="button-container">
-        <a href="{% url 'projectProposal' %}" class="landingbutton">Create Projects</a>
-        <a href="{% url 'projectList' %}" class="landingbutton">View Projects</a>
-        <a href="{% url 'advisorList' %}" class="landingbutton">Advisors</a>
+    <div class="main-content">
+        <h1>What would you like to do?</h1>
+        <div class="button-container">
+            <a href="{% url 'projectProposal' %}" class="landingbutton">
+                <img src="{% static 'create-project.png' %}" alt="Create Icon" class="button-icon">
+                Create Projects
+            </a>
+            <a href="{% url 'projectList' %}" class="landingbutton">
+                <img src="{% static 'view-projects.png' %}" alt="View Project" class="button-icon">
+                View Projects
+            </a>
+            <a href="{% url 'advisorList' %}" class="landingbutton">
+                <img src="{% static 'advisor.png' %}" alt="View Project" class="button-icon">
+                Advisors
+            </a>
+        </div>
     </div>
-
 </body>
 
 </html>

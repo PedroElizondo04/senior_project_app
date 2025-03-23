@@ -1,20 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    <link href="css/style.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ByteSync Project</title>
+  {% load static %}
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
 </head>
 
 <body>
-    <a href="{% url 'projectList' %}"> Back to Student List</a> <br>
-    <h1>Title: </h1> <br>
-    <h2>Description:</h2><br>
-    <h3>Skills needed:</h3><br>
-    <h3>Members:</h3><br>
-    <h4>Advisor:</h4><br>
-</body>
+  <!-- Fixed Header -->
+  <div class="header">
+    <span class="bold-text">John Doe, <span class="role">Student</span></span>
+    <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo" />
+  </div>
 
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Back link -->
+    <a href="{% url 'projectList' %}" class="back-link-advisor">Back to Student List</a>
+
+    <!-- Project Card -->
+    <div class="project-card">
+      <h2 class="project-title">ByteSync - A Simple File Synchronization Tool</h2>
+      <p class="project-description">
+        ByteSync is a command-line tool that allows users to sync files between two
+        directories efficiently. The tool will detect changes in files by using a
+        hashing approach (e.g., SHA-256) to detect file modifications and minimize
+        unnecessary file transfers. Users can configure exclusions via a .bytesync
+        file or .gitignore to prevent certain files from being synchronized. An
+        optional logging system will keep track of synchronization actions.
+      </p>
+
+      <div class="project-details">
+        <p><strong>Skills needed:</strong> Rust, Algorithms, Linux, C, Concurrency Programming</p>
+        <p><strong>Members:</strong> 3/4<br>Jimmy McGill, Kim Wexler, Howard Hamlin</p>
+        <p><strong>Advisor:</strong> N/A</p>
+      </div>
+
+      <div class="button-row">
+        <button class="apply-button">Apply</button>
+        <button class="favorite-button">Favorite</button>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
