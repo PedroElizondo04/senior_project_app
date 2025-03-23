@@ -1,0 +1,11 @@
+title,description,status,member_limit,advisor_username
+AI Research,A project on artificial intelligence,in_process,4,advisor1
+Web App,Building a web application,active,3,advisor2
+Cybersecurity Tool,Developing a security application,in_process,4,advisor3
+Blockchain Voting,Secure voting using blockchain,completed,4,advisor4
+Machine Learning Model,Training a model for prediction,active,3,advisor5
+Cloud Infrastructure,Deploying scalable cloud solutions,in_process,4,advisor6
+IoT Smart Home,Building an IoT-based home automation system,archived,3,advisor7
+Autonomous Drones,Developing AI-driven drone navigation,in_process,4,advisor8
+Data Science Dashboard,Creating interactive data visualizations,active,3,advisor9
+Network Security Scanner,Building a tool for network vulnerability analysis,completed,4,advisor10
