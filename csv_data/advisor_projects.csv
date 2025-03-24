@@ -1,0 +1,11 @@
+title,description,status,member_limit,advisor_username,skills_required
+AI Research,A project on artificial intelligence,in_process,4,advisor1,Machine Learning, Python, AI Ethics
+Web App,Building a web application,active,3,advisor2,JavaScript, React, HTML, CSS
+Cybersecurity Tool,Developing a security application,in_process,4,advisor3,Penetration Testing, Python, Security
+Blockchain Voting,Secure voting using blockchain,completed,4,advisor4,Blockchain, Cryptography, Smart Contracts
+Machine Learning Model,Training a model for prediction,active,3,advisor5,Python, TensorFlow, Data Science
+Cloud Infrastructure,Deploying scalable cloud solutions,in_process,4,advisor6,AWS, Docker, Kubernetes
+IoT Smart Home,Building an IoT-based home automation system,archived,3,advisor7,IoT, Raspberry Pi, MQTT
+Autonomous Drones,Developing AI-driven drone navigation,in_process,4,advisor8,Computer Vision, Robotics, Python
+Data Science Dashboard,Creating interactive data visualizations,active,3,advisor9,Data Visualization, Pandas, D3.js
+Network Security Scanner,Building a tool for network vulnerability analysis,completed,4,advisor10,Network Security, Python, Ethical Hacking
