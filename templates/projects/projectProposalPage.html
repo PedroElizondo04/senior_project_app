@@ -4,23 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    <link href="css/style.css" rel="stylesheet">
+    <title>ProjectDetails</title>
+    {% load static %} 
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
-    <a href="{% url 'projectList' %}"> Back to Student List</a> <br>
-    title: <br> <input type="text"></input> <br>
-    description:<br> <input type="text"></input><br>
-    skills needed:<br> <input type="text"></input><br>
-    members:<br> <select name="members">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-    </select><br>
-    <input type="submit"></input>
+    <div class="container">
+        <div class="header">
+            <span>John Doe, <span class="role">Student</span></span>
+            <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+        </div>
+    </div>
 
+    <a href="{% url 'projectList' %}" class="back-link">← Project List</a>
+
+    <input type="text" class="title-input" value="Project Title">
+
+    <input type="text" class="description-input" value="Description">
+
+    <label for="skills">Skills needed:</label>
+    <input type="text" class="skills-input" value="">
+
+    <main class="project-container">
+
+        <div class="form-group">
+            <label for="members">Members:</label>
+            <select id="members">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4" selected>Max Members</option>
+            </select>
+        </div>
+    </main>
+
+    <button class="submit-button">Submit</button>
 </body>
-
 </html>
