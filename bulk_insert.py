@@ -43,10 +43,16 @@ def import_advisors():
 
             user, created = User.objects.get_or_create(username=username, defaults={"password": password})
 
+            # Ensure an Advisor instance is created
+            advisor, advisor_created = Advisor.objects.get_or_create(user=user)
+
             if created:
                 print(f"✅ Created advisor: {username}")
             else:
                 print(f"⚠️ Skipping duplicate advisor: {username}")
+
+            if advisor_created:
+                print(f"✅ Created Advisor entry for user: {username}")
 
 
 def import_skills():
