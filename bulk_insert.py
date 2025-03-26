@@ -7,6 +7,7 @@ django.setup()
 
 from django.contrib.auth.models import User
 from projects.models import Student, Advisor, Project, Skill
+from django.contrib.contenttypes.models import ContentType
 
 # Directory where CSV files are stored
 CSV_DIR = os.path.join(os.path.dirname(__file__), "csv_data")
@@ -108,7 +109,10 @@ def import_advisor_projects():
                 print(f"⚠️ Warning: Advisor '{advisor_username}' not found. Skipping project '{title}'.")
                 continue
 
-            # Create project
+            # Get Advisor ContentType
+            advisor_content_type = ContentType.objects.get_for_model(Advisor)
+
+            # Create project with author fields
             project, created = Project.objects.get_or_create(
                 title=title,
                 defaults={
@@ -116,6 +120,8 @@ def import_advisor_projects():
                     "status": status,
                     "member_limit": member_limit,
                     "advisor": advisor,
+                    "author_type": advisor_content_type,  # Set author type to Advisor
+                    "author_id": advisor.id,  # Set author ID to Advisor's ID
                 }
             )
 
@@ -126,7 +132,7 @@ def import_advisor_projects():
                     project.skills_required.add(skill)
 
                 projects_created += 1
-                print(f"✅ Created project: {title} (Advisor: {advisor_username})")
+                print(f"✅ Created project: {title} (Author: {advisor_username})")
             else:
                 print(f"⚠️ Skipping duplicate project: {title}")
 
