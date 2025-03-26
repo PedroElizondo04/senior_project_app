@@ -78,10 +78,8 @@ def projectListPage(request):
     """
     The list page for projects, contains a table of projects and the ability to filter, apply, etc.
     """
-<<<<<<< HEAD
     projects = Project.objects.all()
     return render(request, "projects/projectListPage.html", {'projects': projects})
-=======
     role = get_user_role(request.user)
     projects = Project.objects.all()
 
@@ -89,12 +87,10 @@ def projectListPage(request):
     return render(request, "projects/projectListPage.html", context)
 
 @login_required(login_url="login")
->>>>>>> main
 def projectProposalPage(request):
     """
     The page to create the project proposal to convince others to join.
     """
-<<<<<<< HEAD
     if request.method == "POST":
         title = request.POST.get("title")
         description = request.POST.get("description")
@@ -119,7 +115,6 @@ def projectProposalPage(request):
         return redirect("projectList") # Go back to the tihngy
 
     return render(request, "projects/projectProposalPage.html")
-=======
     role = get_user_role(request.user)
     if request.method == "POST":
         title = request.POST.get("title")
@@ -145,4 +140,3 @@ def get_user_role(user):
     elif hasattr(user, 'advisor'):
         return "ADVISOR"
     return "UNKNOWN"
->>>>>>> main
