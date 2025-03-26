@@ -30,7 +30,6 @@
             <th>Members</th>
             <th></th>
         </tr>
-        
         <tr bgcolor="#ffffff">
             <th>
                 <label class="star-label">
@@ -45,6 +44,7 @@
               <th>3/4</th>
               <th>Edit</th>
         </tr>
+
         <tr bgcolor="#ffffff">
             <th>
                 <label class="star-label">
@@ -73,258 +73,42 @@
             <th>3/4</th>
             <th>Join</th>
         </tr>
+    {% for project in projects %}
+    {% cycle 'Angelo Brian' 'Justin Olvera' 'Kevin Ygbuhay' 'Alejandro Garcia' 'Joaquin Martinez' 'Dante Mortalla' as authors silent%}
+    <tr bgcolor="#ffffff">
         <tr bgcolor="#ffffff">
             <th>
                 <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
+                    <input type="checkbox" class="star-checkbox" />
+                    <span class="star-icon">&#9733;</span>
                 </label>
-              </th>
-            <th>Alex Pereira</th>
-            <th><a href={% url 'projectViewPage' 1 %}> ByteSync - A Simple File Sy...</a> </th>
-            <th>Rust, algorithms, Linux, CLI, Concurre...</th>
-            <th>Available</th>
-            <th>2/4</th>
-            <th>Join</th>
+            </th>
+            <th>{{ authors }}</th>
+            <th>
+                <a href="{% url 'projectViewPage' project.id %}">
+                    {{ project.title }}
+                </a>
+            </th>
+            <th>
+                {% for skill in project.skills_required.all %}
+                    {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    No skills
+                {% endfor %}
+            </th>
+            <th>{{ project.get_status_display }}</th>
+            <th>{{ project.students.count }}/{{ project.member_limit }}</th>
+            <th>
+                {% if project.status == "in_process" %}
+                    Join
+                {% elif project.status == "active" %}
+                    Active
+                {% else %}
+                    View
+                {% endif %}
+            </th>
         </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Pedro Elizondo</th>
-            <th><a href={% url 'projectViewPage' 1 %}> AR Woodworking Visualizer </a> </th>
-            <th>C++, Augmented Reality, Database, Web...</th>
-            <th>Available</th>
-            <th>3/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Alex Pereira</th>
-            <th><a href={% url 'projectViewPage' 1 %}> ByteSync - A Simple File Sy...</a> </th>
-            <th>Rust, algorithms, Linux, CLI, Concurre...</th>
-            <th>Available</th>
-            <th>2/4</th>
-            <th>Join</th>
-        </tr >
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Pedro Elizondo</th>
-            <th><a href={% url 'projectViewPage' 1 %}> AR Woodworking Visualizer </a> </th>
-            <th>C++, Augmented Reality, Database, Web...</th>
-            <th>Available</th>
-            <th>3/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Alex Pereira</th>
-            <th><a href={% url 'projectViewPage' 1 %}> ByteSync - A Simple File Sy...</a> </th>
-            <th>Rust, algorithms, Linux, CLI, Concurre...</th>
-            <th>Available</th>
-            <th>2/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Pedro Elizondo</th>
-            <th><a href={% url 'projectViewPage' 1 %}> AR Woodworking Visualizer </a> </th>
-            <th>C++, Augmented Reality, Database, Web...</th>
-            <th>Available</th>
-            <th>3/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Alex Pereira</th>
-            <th><a href={% url 'projectViewPage' 1 %}> ByteSync - A Simple File Sy...</a> </th>
-            <th>Rust, algorithms, Linux, CLI, Concurre...</th>
-            <th>Available</th>
-            <th>2/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Pedro Elizondo</th>
-            <th><a href={% url 'projectViewPage' 1 %}> AR Woodworking Visualizer </a> </th>
-            <th>C++, Augmented Reality, Database, Web...</th>
-            <th>Available</th>
-            <th>3/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Alex Pereira</th>
-            <th><a href={% url 'projectViewPage' 1 %}> ByteSync - A Simple File Sy...</a> </th>
-            <th>Rust, algorithms, Linux, CLI, Concurre...</th>
-            <th>Available</th>
-            <th>2/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Pedro Elizondo</th>
-            <th><a href={% url 'projectViewPage' 1 %}> AR Woodworking Visualizer </a> </th>
-            <th>C++, Augmented Reality, Database, Web...</th>
-            <th>Available</th>
-            <th>3/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Alex Pereira</th>
-            <th><a href={% url 'projectViewPage' 1 %}> ByteSync - A Simple File Sy...</a> </th>
-            <th>Rust, algorithms, Linux, CLI, Concurre...</th>
-            <th>Available</th>
-            <th>2/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Pedro Elizondo</th>
-            <th><a href={% url 'projectViewPage' 1 %}> AR Woodworking Visualizer </a> </th>
-            <th>C++, Augmented Reality, Database, Web...</th>
-            <th>Available</th>
-            <th>3/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Alex Pereira</th>
-            <th><a href={% url 'projectViewPage' 1 %}> ByteSync - A Simple File Sy...</a> </th>
-            <th>Rust, algorithms, Linux, CLI, Concurre...</th>
-            <th>Available</th>
-            <th>2/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Pedro Elizondo</th>
-            <th><a href={% url 'projectViewPage' 1 %}> AR Woodworking Visualizer </a> </th>
-            <th>C++, Augmented Reality, Database, Web...</th>
-            <th>Available</th>
-            <th>3/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Alex Pereira</th>
-            <th><a href={% url 'projectViewPage' 1 %}> ByteSync - A Simple File Sy...</a> </th>
-            <th>Rust, algorithms, Linux, CLI, Concurre...</th>
-            <th>Available</th>
-            <th>2/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Pedro Elizondo</th>
-            <th><a href={% url 'projectViewPage' 1 %}> AR Woodworking Visualizer </a> </th>
-            <th>C++, Augmented Reality, Database, Web...</th>
-            <th>Available</th>
-            <th>3/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Alex Pereira</th>
-            <th><a href={% url 'projectViewPage' 1 %}> ByteSync - A Simple File Sy...</a> </th>
-            <th>Rust, algorithms, Linux, CLI, Concurre...</th>
-            <th>Available</th>
-            <th>2/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Pedro Elizondo</th>
-            <th><a href={% url 'projectViewPage' 1 %}> AR Woodworking Visualizer </a> </th>
-            <th>C++, Augmented Reality, Database, Web...</th>
-            <th>Available</th>
-            <th>3/4</th>
-            <th>Join</th>
-        </tr>
+    {% endfor %}
     </table>
 </body>
 

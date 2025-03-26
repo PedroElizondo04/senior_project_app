@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
+from django.shortcuts import redirect
+from .models import Project, Skill
 # Create your views here.
 
 # def loginPage(request):
@@ -48,9 +50,33 @@ def projectListPage(request):
     """
     The list page for projects, contains a table of projects and the ability to filter, apply, etc.
     """
-    return render(request, "projects/projectListPage.html")
+    projects = Project.objects.all()
+    return render(request, "projects/projectListPage.html", {'projects': projects})
 def projectProposalPage(request):
     """
     The page to create the project proposal to convince others to join.
     """
+    if request.method == "POST":
+        title = request.POST.get("title")
+        description = request.POST.get("description")
+        skills_input = request.POST.get("skills", "")
+        member_limit = int(request.POST.get("member_limit", 4))
+
+        # Create the project
+        project = Project.objects.create(
+            title=title,
+            description=description,
+            member_limit=member_limit,
+            status="in_process",
+        )
+
+        # Handle skills input (comma-separated)
+        skill_names = [s.strip() for s in skills_input.split(",") if s.strip()]
+        for name in skill_names:
+            skill, _ = Skill.objects.get_or_create(name=name)
+            project.skills_required.add(skill)
+
+        project.save()
+        return redirect("projectList") # Go back to the tihngy
+
     return render(request, "projects/projectProposalPage.html")

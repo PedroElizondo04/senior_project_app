@@ -19,23 +19,27 @@
 
     <a href="{% url 'projectList' %}" class="back-link">← Project List</a>
 
-    <input type="text" class="title-input" value="Project Title">
+    <form method="POST" action="{% url 'projectProposal' %}">
+        {% csrf_token %}
 
-    <input type="text" class="description-input" value="Description">
+        <label for="title">Project Title:</label>
+        <input type="text" name="title" id="title" class="title-input" required>
 
-    <label for="skills">Skills needed:</label>
-    <input type="text" class="skills-input" value="">
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description" class="description-input" required>
 
-    <main class="project-container">
+        <label for="skills">Skills needed (comma-separated):</label>
+        <input type="text" name="skills" id="skills" class="skills-input">
 
-        <div class="form-group">
-            <label for="members">Members:</label>
-            <select id="members">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4" selected>Max Members</option>
-            </select>
+        <label for="members">Members:</label>
+        <select name="member_limit" id="members">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected>Max Members</option>
+        </select>
+
+        <button type="submit" class="submit-button">Submit</button>
+    </form>
         </div>
     </main>
 
