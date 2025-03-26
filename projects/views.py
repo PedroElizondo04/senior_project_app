@@ -8,21 +8,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 def loginPage(request):
-    if request.user.is_authenticated:
-        return redirect("landing")  # Redirect logged-in users
-
+    """
+    The login page for all users.
+    Handles login authentication.
+    """
     if request.method == "POST":
-        email = request.POST["username"]  # User enters email
+        username = request.POST["username"]
         password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
 
-        try:
-            user = User.objects.get(email=email)  # Find user by email
-            authenticated_user = authenticate(request, username=user.username, password=password)  # Authenticate using username
-        except User.DoesNotExist:
-            authenticated_user = None  # No user found
-
-        if authenticated_user is not None:
-            login(request, authenticated_user)
+        if user is not None:
+            login(request, user)
             return redirect("landing")  # Redirect to landing page
         else:
             messages.error(request, "Invalid email or password.")
@@ -36,7 +32,10 @@ def landingPage(request):
     """
     role = get_user_role(request.user)
     
-    context = {"role": role}
+    context = {
+        "role": role,
+        "user": request.user  # Explicitly passing user
+    }
     return render(request, "projects/landingPage.html", context)
 
 @login_required(login_url="login")
@@ -104,6 +103,10 @@ def projectProposalPage(request):
         return redirect('projectListPage')  # Redirect to the project list after submission
 
     return render(request, "projects/projectProposalPage.html", {"role": role})
+
+@login_required(login_url="login")
+def studentListPage(request):
+    return
 
 def get_user_role(user):
     if user.is_superuser:
