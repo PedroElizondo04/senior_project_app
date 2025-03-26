@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 urlpatterns = [
@@ -10,3 +12,6 @@ urlpatterns = [
     path("projects/", views.projectListPage, name="projectList"),
     path("projectproposal", views.projectProposalPage, name="projectProposal"),
 ]
+
+if settings.DEBUG:  # Serve media files in development
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
