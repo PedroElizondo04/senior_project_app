@@ -147,10 +147,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
     'https://localhost:8000',
 ]
-<<<<<<< HEAD
-=======
 
 # for images
 MEDIA_URL = '/media/'  # URL path for media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directory where media files are stored
->>>>>>> main
