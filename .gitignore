@@ -1,6 +1,8 @@
+senior_project_app/__pycache__/
 __pycache__/
 *.pyc
 *.pyo
 venv/
 .env
 poetry.lock
+db.sqlite3

@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 class Skill(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -18,6 +20,9 @@ class Project(models.Model):
         ('trash', 'Trash'),
     ]
     
+    author_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    author_id = models.PositiveIntegerField()
+    author = GenericForeignKey('author_type', 'author_id')
     title = models.CharField(max_length=255)
     description = models.TextField()
     skills_required = models.ManyToManyField(Skill, blank=True)
@@ -29,6 +34,7 @@ class Project(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     advisor = models.ForeignKey("Advisor", on_delete=models.SET_NULL, null=True, blank=True)
     students = models.ManyToManyField("Student", blank=True)
+    advisor = models.ForeignKey("Advisor", on_delete=models.SET_NULL, null=True, related_name="projects")  # One-to-Many relationship
     
     def update_status(self):
         """ Updates project status based on members and advisor """
@@ -74,11 +80,12 @@ class Student(models.Model):
 class Advisor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
-    
+    image = models.ImageField(upload_to='advisor_images/', blank=True, null=True)  # Uploads images to MEDIA_ROOT/advisor_images
+
     def apply_to_project(self, project):
         """ Advisors apply to be part of a student project """
         AdvisorApplication.objects.create(advisor=self, project=project)
-    
+
     def __str__(self):
         return self.user.username
 

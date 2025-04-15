@@ -1,11 +1,11 @@
-title,description,status,member_limit,advisor_username,skills_required
-AI Research,A project on artificial intelligence,in_process,4,advisor1@utrgv.edu,Machine Learning, Python, AI Ethics
-Web App,Building a web application,active,3,advisor2@utrgv.edu,JavaScript, React, HTML, CSS
-Cybersecurity Tool,Developing a security application,in_process,4,advisor3@utrgv.edu,Penetration Testing, Python, Security
-Blockchain Voting,Secure voting using blockchain,completed,4,advisor4@utrgv.edu,Blockchain, Cryptography, Smart Contracts
-Machine Learning Model,Training a model for prediction,active,3,advisor5@utrgv.edu,Python, TensorFlow, Data Science
-Cloud Infrastructure,Deploying scalable cloud solutions,in_process,4,advisor6@utrgv.edu,AWS, Docker, Kubernetes
-IoT Smart Home,Building an IoT-based home automation system,archived,3,advisor7@utrgv.edu,IoT, Raspberry Pi, MQTT
-Autonomous Drones,Developing AI-driven drone navigation,in_process,4,advisor8@utrgv.edu,Computer Vision, Robotics, Python
-Data Science Dashboard,Creating interactive data visualizations,active,3,advisor9@utrgv.edu,Data Visualization, Pandas, D3.js
-Network Security Scanner,Building a tool for network vulnerability analysis,completed,4,advisor10@utrgv.edu,Network Security, Python, Ethical Hacking
+title,description,status,member_limit,advisor_username,skills_required,author_email
+AI Research,A project on artificial intelligence,in_process,4,advisor1@utrgv.edu,"Machine Learning, Python, AI Ethics",advisor1@utrgv.edu
+Web App,Building a web application,active,3,advisor2@utrgv.edu,"JavaScript, React, HTML, CSS",advisor2@utrgv.edu
+Cybersecurity Tool,Developing a security application,in_process,4,advisor3@utrgv.edu,"Penetration Testing, Python, Security",advisor3@utrgv.edu
+Blockchain Voting,Secure voting using blockchain,completed,4,advisor4@utrgv.edu,"Blockchain, Cryptography, Smart Contracts",advisor4@utrgv.edu
+Machine Learning Model,Training a model for prediction,active,3,advisor5@utrgv.edu,"Python, TensorFlow, Data Science",advisor5@utrgv.edu
+Cloud Infrastructure,Deploying scalable cloud solutions,in_process,4,advisor6@utrgv.edu,"AWS, Docker, Kubernetes",advisor6@utrgv.edu
+IoT Smart Home,Building an IoT-based home automation system,archived,3,advisor7@utrgv.edu,"IoT, Raspberry Pi, MQTT",advisor7@utrgv.edu
+Autonomous Drones,Developing AI-driven drone navigation,in_process,4,advisor8@utrgv.edu,"Computer Vision, Robotics, Python",advisor8@utrgv.edu
+Data Science Dashboard,Creating interactive data visualizations,active,3,advisor9@utrgv.edu,"Data Visualization, Pandas, D3.js",advisor9@utrgv.edu
+Network Security Scanner,Building a tool for network vulnerability analysis,completed,4,advisor10@utrgv.edu,"Network Security, Python, Ethical Hacking",advisor10@utrgv.edu
