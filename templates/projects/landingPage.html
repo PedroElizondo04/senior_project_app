@@ -1,72 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- templates/home.html -->
+{% extends 'projects/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    {% load static %}
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+{% block title %}Home{% endblock %}
 
-</head>
-
-<body>
-
-    <!-- Header:
-    - Image:
-    - Name:
-    - Role:
-    - UTRGV LOGO
--->
-<div class="container">
-    <div class="header">
-        <span>John Doe, <span class="role">Student</span></span>
-        <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
-    </div>
-</div>
-
-
-
-    <!-- Body:
-    - Back Button:
-        - Name of previous page:
-    -
--->
-    <!--right now the list here is simply hard code, but once we start connecting the backend,
-        this list will change depending on the role.
-
-        probably something like:
-        if role == 'student'
-            <a href="% url 'projectProposal' %}"> create project </a> <br>
-            <a href="% url 'projectProposal' %}"> create project </a> <br>
-            <a href="% url 'projectProposal' %}"> create project </a> <br>
-        elif role == 'advisor' %
-            <a href="% url 'projectList.myGroups' %}">My Groups</a> <br>
-            <a href="% url 'projectList' %}"> View Projects</a> <br>
-            <a href="% url 'studentList' %}"> View Students </a> <br>
-        else  admin %
-            <a href="% url 'projectList' %}"> Projects </a> <br>
-            <a href="% url 'projectList' %}"> Students</a> <br>
-            <a href="% url 'advisorList' %}"> Advisors </a> <br>
-        
--->
-    <div class="main-content">
-        <h1>What would you like to do?</h1>
-        <div class="button-container">
-            <a href="{% url 'projectProposal' %}" class="landingbutton">
-                <img src="{% static 'create-project.png' %}" alt="Create Icon" class="button-icon">
-                Create Projects
-            </a>
-            <a href="{% url 'projectList' %}" class="landingbutton">
-                <img src="{% static 'view-projects.png' %}" alt="View Project" class="button-icon">
-                View Projects
-            </a>
-            <a href="{% url 'advisorList' %}" class="landingbutton">
-                <img src="{% static 'advisor.png' %}" alt="View Project" class="button-icon">
-                Advisors
-            </a>
-        </div>
-    </div>
-</body>
-
-</html>
+{% block content %}
+<h1 class="title">Welcome to My Site!</h1>
+<p>This is the homepage.</p>
+{% endblock %}
