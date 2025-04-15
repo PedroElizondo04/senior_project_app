@@ -6,25 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login Page</title>
     {% load static %}
+    <!-- Bulma CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+    <!-- Your Custom Styles -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <span class="welcome"><strong>Welcome</strong> <span class="bold-text">Faculty and Students!</span></span>
-            <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
-        </div>
+    <!-- Header -->
+    <header class="header">
+        <span class="welcome">
+            <strong>Welcome</strong> <span class="bold-text">Faculty and Students!</span>
+        </span>
+        <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+    </header>
 
-        <div class="login-box">
-            <h2 class="login-title">Login to access your senior project!</h2>
-            <label>Email:</label>
-            <input type="email" class="input-field"><br>
-            <label>Password:</label>
-            <input type="password" class="input-field"><br>
-            <a href="{% url 'landing' 'student' %}" class="login-button">Login</a>
+    <!-- Login Box -->
+    <section class="section">
+        <div class="container">
+            <div class="box login-box has-text-centered">
+                <h2 class="title is-4 mb-4">Login to access your senior project!</h2>
+
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        <input type="email" class="input" placeholder="Enter your email">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Password</label>
+                    <div class="control">
+                        <input type="password" class="input" placeholder="Enter your password">
+                    </div>
+                </div>
+
+                <div class="field mt-4">
+                    <div class="control">
+                        <a href="{% url 'landing' 'student' %}" class="button is-login is-fullwidth">
+                            Login
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 </body>
 
 </html>

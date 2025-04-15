@@ -4,112 +4,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Project List</title>
     {% load static %}
+    <!-- Bulma CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="header">
-            <span>John Doe, <span class="role">Student</span></span>
-            <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+    <!-- Fixed Header -->
+    <header class="header">
+        <span>John Doe, <span class="role">Student</span></span>
+        <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+    </header>
+
+    <!-- Main Content -->
+    <section class="section" style="padding-top: 120px;">
+        <div class="container">
+
+            <a href="{% url 'landing' 'student' %}" class="button is-light mb-5">
+                ← Back to Landing Page
+            </a>
+
+            <div class="table-container">
+                <table class="table is-striped is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Star</th>
+                            <th>Author</th>
+                            <th>Title</th>
+                            <th>Skills</th>
+                            <th>Project Status</th>
+                            <th>Members</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Hardcoded Entries -->
+                        <tr>
+                            <td>
+                                <label class="star-label">
+                                    <input type="checkbox" class="star-checkbox" />
+                                    <span class="star-icon">&#9733;</span>
+                                </label>
+                            </td>
+                            <td>Me</td>
+                            <td><a href="{% url 'projectViewPage' 1 %}">My Project</a></td>
+                            <td>Python, Machine Learning, Database...</td>
+                            <td>Joined</td>
+                            <td>3/4</td>
+                            <td>Edit</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="star-label">
+                                    <input type="checkbox" class="star-checkbox" />
+                                    <span class="star-icon">&#9733;</span>
+                                </label>
+                            </td>
+                            <td>Alex Pereira</td>
+                            <td><a href="{% url 'projectViewPage' 1 %}">ByteSync - A Simple File Sy...</a></td>
+                            <td>Rust, algorithms, Linux, CLI, Concurre...</td>
+                            <td>Available</td>
+                            <td>2/4</td>
+                            <td>Join</td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <label class="star-label">
+                                    <input type="checkbox" class="star-checkbox" />
+                                    <span class="star-icon">&#9733;</span>
+                                </label>
+                            </td>
+                            <td>Pedro Elizondo</td>
+                            <td><a href="{% url 'projectViewPage' 1 %}">AR Woodworking Visualizer</a></td>
+                            <td>C++, Augmented Reality, Database, Web...</td>
+                            <td>Available</td>
+                            <td>3/4</td>
+                            <td>Join</td>
+                        </tr>
+
+                        <!-- Dynamic Projects -->
+                        {% for project in projects %}
+                        {% cycle 'Angelo Brian' 'Justin Olvera' 'Kevin Ygbuhay' 'Alejandro Garcia' 'Joaquin Martinez' 'Dante Mortalla' as authors silent %}
+                        <tr>
+                            <td>
+                                <label class="star-label">
+                                    <input type="checkbox" class="star-checkbox" />
+                                    <span class="star-icon">&#9733;</span>
+                                </label>
+                            </td>
+                            <td>{{ authors }}</td>
+                            <td>
+                                <a href="{% url 'projectViewPage' project.id %}">
+                                    {{ project.title }}
+                                </a>
+                            </td>
+                            <td>
+                                {% for skill in project.skills_required.all %}
+                                    {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                                {% empty %}
+                                    No skills
+                                {% endfor %}
+                            </td>
+                            <td>{{ project.get_status_display }}</td>
+                            <td>{{ project.students.count }}/{{ project.member_limit }}</td>
+                            <td>
+                                {% if project.status == "in_process" %}
+                                    Join
+                                {% elif project.status == "active" %}
+                                    Active
+                                {% else %}
+                                    View
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
         </div>
-    </div>
+    </section>
 
-    <a href="{% url 'landing' 'student' %}"> Back to Landing Page </a> <br>
-    <table bgcolor="#d6d6d6">
-        
-        <tr>
-            <th>Star</th>
-            <th>Author</th>
-            <th>Title</th>
-            <th>Skills</th>
-            <th>Project Status</th>
-            <th>Members</th>
-            <th></th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-              <th>Me</th>
-              <th><a href="{% url 'projectViewPage' 1 %}">My Project</a></th>
-              <th>Python, Machine Learning, Database...</th>
-              <th>Joined</th>
-              <th>3/4</th>
-              <th>Edit</th>
-        </tr>
-
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Alex Pereira</th>
-            <th><a href={% url 'projectViewPage' 1 %}> ByteSync - A Simple File Sy...</a> </th>
-            <th>Rust, algorithms, Linux, CLI, Concurre...</th>
-            <th>Available</th>
-            <th>2/4</th>
-            <th>Join</th>
-        </tr>
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </th>
-            <th>Pedro Elizondo</th>
-            <th><a href={% url 'projectViewPage' 1 %}> AR Woodworking Visualizer </a> </th>
-            <th>C++, Augmented Reality, Database, Web...</th>
-            <th>Available</th>
-            <th>3/4</th>
-            <th>Join</th>
-        </tr>
-    {% for project in projects %}
-    {% cycle 'Angelo Brian' 'Justin Olvera' 'Kevin Ygbuhay' 'Alejandro Garcia' 'Joaquin Martinez' 'Dante Mortalla' as authors silent%}
-    <tr bgcolor="#ffffff">
-        <tr bgcolor="#ffffff">
-            <th>
-                <label class="star-label">
-                    <input type="checkbox" class="star-checkbox" />
-                    <span class="star-icon">&#9733;</span>
-                </label>
-            </th>
-            <th>{{ authors }}</th>
-            <th>
-                <a href="{% url 'projectViewPage' project.id %}">
-                    {{ project.title }}
-                </a>
-            </th>
-            <th>
-                {% for skill in project.skills_required.all %}
-                    {{ skill.name }}{% if not forloop.last %}, {% endif %}
-                {% empty %}
-                    No skills
-                {% endfor %}
-            </th>
-            <th>{{ project.get_status_display }}</th>
-            <th>{{ project.students.count }}/{{ project.member_limit }}</th>
-            <th>
-                {% if project.status == "in_process" %}
-                    Join
-                {% elif project.status == "active" %}
-                    Active
-                {% else %}
-                    View
-                {% endif %}
-            </th>
-        </tr>
-    {% endfor %}
-    </table>
 </body>
 
 </html>

@@ -1,9 +1,58 @@
-<!-- templates/home.html -->
-{% extends 'projects/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}Home{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Landing Page</title>
+    {% load static %}
+    <!-- Bulma CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+    <!-- Your Custom Styles -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
 
-{% block content %}
-<h1 class="title">Welcome to My Site!</h1>
-<p>This is the homepage.</p>
-{% endblock %}
+<body>
+
+    <!-- Fixed Header -->
+    <header class="header">
+        <span class="welcome">
+            John Doe, <span class="role">Student</span>
+        </span>
+        <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+    </header>
+
+    <!-- Main Content -->
+    <section class="section" style="padding-top: 120px;">
+        <div class="container has-text-centered">
+            <h1 class="title is-3 mb-6">What would you like to do?</h1>
+
+            <div class="columns is-centered is-variable is-8 is-multiline">
+                <div class="column is-one-third">
+                    <a href="{% url 'projectProposal' %}" class="landingbutton">
+                        <img src="{% static 'create-project.png' %}" alt="Create Icon" class="button-icon">
+                        Create Projects
+                    </a>
+                </div>
+
+                <div class="column is-one-third">
+                    <a href="{% url 'projectList' %}" class="landingbutton">
+                        <img src="{% static 'view-projects.png' %}" alt="View Project" class="button-icon">
+                        View Projects
+                    </a>
+                </div>
+
+                <div class="column is-one-third">
+                    <a href="{% url 'advisorList' %}" class="landingbutton">
+                        <img src="{% static 'advisor.png' %}" alt="Advisors Icon" class="button-icon">
+                        Advisors
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+</html>
+
