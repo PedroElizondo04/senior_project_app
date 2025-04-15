@@ -1,18 +1,27 @@
-from django.http import HttpResponse
+# projects/views.py
+
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
-from .models import Project, Skill, Advisor, Student, ProjectApplication, AdvisorApplication
+from .models import Advisor, Student
+from .services import (
+    get_user_role,
+    get_visible_projects_for_user,
+    can_student_create_project,
+    validate_member_limit,
+    create_project_with_author,
+    attach_skills_to_project,
+    link_project_to_creator,
+)
 
-
+# -------------------------------
+# LOGIN PAGE
+# -------------------------------
 def loginPage(request):
-    """
-    The login page for all users.
-    Handles login authentication.
-    """
+    """Login view for all users"""
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -20,126 +29,114 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect("landing")  # Redirect to landing page
+            return redirect("landing")
         else:
             messages.error(request, "Invalid email or password.")
-
     return render(request, "projects/loginPage.html")
 
+
+# -------------------------------
+# LANDING PAGE
+# -------------------------------
 @login_required(login_url="login")
 def landingPage(request):
-    """
-    The landing page for all users. Contains big action buttons depending on the role.
-    """
+    """Landing page with actions based on user role"""
     role = get_user_role(request.user)
-    
-    context = {
-        "role": role,
-        "user": request.user  # Explicitly passing user
-    }
-    return render(request, "projects/landingPage.html", context)
+    return render(request, "projects/landingPage.html", {"role": role, "user": request.user})
 
-@login_required(login_url="login")
-def projectViewPage(request, project_id):
-    """
-    The view page of a project to see its author, description, skills, etc.
-    """
-    project = get_object_or_404(Project, id=project_id)
-    role = get_user_role(request.user)
-    
-    context = {"project": project, "role": role}
-    return render(request, "projects/projectViewPage.html", context)
 
-@login_required(login_url="login")
-def advisorListPage(request):
-    """
-    View a list of advisors and their contact information. 
-    """
-    role = get_user_role(request.user)
-    
-    advisors = Advisor.objects.all()
-    context = {"advisors": advisors, "role": role}
-    return render(request, "projects/advisorListPage.html", context)
-
-@login_required(login_url="login")
-def advisorProfileViewPage(request, name):
-    """
-    View an individual advisor and their contact information.
-    """
-    role = get_user_role(request.user)
-
-    advisor = get_object_or_404(Advisor, user__username=name)
-    context = {"advisor": advisor, "role": role}
-    return render(request, "projects/advisorProfileViewPage.html", context)
-
+# -------------------------------
+# PROJECT LIST PAGE
+# -------------------------------
 @login_required(login_url="login")
 def projectListPage(request):
-    """
-    The list page for projects, contains a table of projects and the ability to filter, apply, etc.
-    """
-    projects = Project.objects.all()
-    return render(request, "projects/projectListPage.html", {'projects': projects})
+    """List of projects visible to the current user"""
     role = get_user_role(request.user)
-    projects = Project.objects.all()
+    projects = get_visible_projects_for_user(request.user)
+    return render(request, "projects/projectListPage.html", {"projects": projects, "role": role})
 
-    context = {"projects": projects, "role": role}
-    return render(request, "projects/projectListPage.html", context)
 
+# -------------------------------
+# PROJECT PROPOSAL (CREATE)
+# -------------------------------
 @login_required(login_url="login")
 def projectProposalPage(request):
-    """
-    The page to create the project proposal to convince others to join.
-    """
+    """Create a project as student, advisor, or admin"""
+    role = get_user_role(request.user)
+
+    if role not in ["STUDENT", "ADVISOR", "ADMIN"]:
+        return HttpResponseForbidden("Only students, advisors or admins can create projects.")
+
     if request.method == "POST":
         title = request.POST.get("title")
         description = request.POST.get("description")
         skills_input = request.POST.get("skills", "")
         member_limit = int(request.POST.get("member_limit", 4))
 
-        # Create the project
-        project = Project.objects.create(
-            title=title,
-            description=description,
-            member_limit=member_limit,
-            status="in_process",
-        )
+        if not validate_member_limit(member_limit):
+            messages.error(request, "Member limit must be between 2 and 4.")
+            return redirect("projectProposalPage")
 
-        # Handle skills input (comma-separated)
-        skill_names = [s.strip() for s in skills_input.split(",") if s.strip()]
-        for name in skill_names:
-            skill, _ = Skill.objects.get_or_create(name=name)
-            project.skills_required.add(skill)
+        if role == "STUDENT":
+            student = get_object_or_404(Student, user=request.user)
+            if not can_student_create_project(student):
+                messages.error(request, "You can only create one project.")
+                return redirect("projectListPage")
 
-        project.save()
-        return redirect("projectList") # Go back to the tihngy
+        # Create and configure project
+        project = create_project_with_author(title, description, member_limit, request.user, role)
+        attach_skills_to_project(project, skills_input)
+        link_project_to_creator(project, request.user, role)
 
-    return render(request, "projects/projectProposalPage.html")
-    role = get_user_role(request.user)
-    if request.method == "POST":
-        title = request.POST.get("title")
-        description = request.POST.get("description")
-        student = get_object_or_404(Student, user=request.user)
-        
-        project = Project.objects.create(
-            title=title, 
-            description=description, 
-            created_at=now()
-        )
-        student.created_project = project
-        student.save()
-        return redirect('projectListPage')  # Redirect to the project list after submission
+        project.update_status()
+        return redirect("projectListPage")
 
     return render(request, "projects/projectProposalPage.html", {"role": role})
 
+
+# -------------------------------
+# PROJECT DETAIL PAGE
+# -------------------------------
+@login_required(login_url="login")
+def projectViewPage(request, project_id):
+    """View an individual project’s info"""
+    from .models import Project
+    role = get_user_role(request.user)
+    project = get_object_or_404(Project, id=project_id)
+    return render(request, "projects/projectViewPage.html", {"project": project, "role": role})
+
+
+# -------------------------------
+# ADVISOR LIST
+# -------------------------------
+@login_required(login_url="login")
+def advisorListPage(request):
+    """View all advisors"""
+    role = get_user_role(request.user)
+    advisors = Advisor.objects.all()
+    return render(request, "projects/advisorListPage.html", {"advisors": advisors, "role": role})
+
+
+# -------------------------------
+# ADVISOR PROFILE VIEW
+# -------------------------------
+@login_required(login_url="login")
+def advisorProfileViewPage(request, name):
+    """View an individual advisor"""
+    role = get_user_role(request.user)
+    advisor = get_object_or_404(Advisor, user__username=name)
+    return render(request, "projects/advisorProfileViewPage.html", {"advisor": advisor, "role": role})
+
+
+# -------------------------------
+# STUDENT LIST (For advisors/admins)
+# -------------------------------
 @login_required(login_url="login")
 def studentListPage(request):
-    return
-
-def get_user_role(user):
-    if user.is_superuser:
-        return "ADMIN"
-    elif hasattr(user, 'student'):
-        return "STUDENT"
-    elif hasattr(user, 'advisor'):
-        return "ADVISOR"
-    return "UNKNOWN"
+    """Visible only to advisors and admins"""
+    role = get_user_role(request.user)
+    if role not in ["ADVISOR", "ADMIN"]:
+        return HttpResponseForbidden("Only advisors and admins can view students.")
+    
+    students = Student.objects.all()
+    return render(request, "projects/studentListPage.html", {"students": students, "role": role})
