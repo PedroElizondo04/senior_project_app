@@ -22,21 +22,19 @@ def import_students():
 
         for row in reader:
             username = row["username"]
-            password = row["password"]  # Ensure passwords are hashed
+            password = row["password"]  # Read plain-text password from CSV
 
-            user, created = User.objects.get_or_create(username=username, defaults={"password": password})
-
-            # Ensure a Student instance is created
-            student, student_created = Student.objects.get_or_create(user=user)
+            user, created = User.objects.get_or_create(username=username)
 
             if created:
+                user.set_password(password)  # Hash the password properly
+                user.save()
                 print(f"✅ Created user: {username}")
-            else:
-                print(f"⚠️ Skipping duplicate user: {username}")
+
+            student, student_created = Student.objects.get_or_create(user=user)
 
             if student_created:
                 print(f"✅ Created Student entry for user: {username}")
-
 
 def import_advisors():
     """Bulk import advisors from advisors.csv"""
@@ -47,22 +45,19 @@ def import_advisors():
 
         for row in reader:
             username = row["username"].strip()
-            password = row["password"].strip()  # Ensure passwords are hashed
+            password = row["password"].strip()
 
             user, created = User.objects.get_or_create(username=username)
+
             if created:
-                user.set_password(password)  # Hash the password
+                user.set_password(password)  # Hash the password properly
                 user.save()
                 print(f"✅ Created user: {username}")
 
-            # Ensure an Advisor instance is created
             advisor, advisor_created = Advisor.objects.get_or_create(user=user)
 
             if advisor_created:
                 print(f"✅ Created Advisor entry for user: {username}")
-            else:
-                print(f"⚠️ Skipping duplicate advisor entry: {username}")
-
 
 def import_skills():
     """Bulk import skills from skills.csv"""
@@ -132,7 +127,7 @@ def import_advisor_projects():
                     project.skills_required.add(skill)
 
                 projects_created += 1
-                print(f"✅ Created project: {title} (Author: {advisor_username})")
+                print(f"✅ Created project: {title} (Author: {advisor.user.username})")
             else:
                 print(f"⚠️ Skipping duplicate project: {title}")
 

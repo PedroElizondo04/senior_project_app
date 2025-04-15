@@ -1,9 +1,63 @@
-<!-- templates/home.html -->
-{% extends 'projects/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Landing Page</title>
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
 
-{% block title %}Home{% endblock %}
+    <div class="container">
+        <div class="header">
+            <span>
+                {% if request.user.get_full_name %}
+                    {{ request.user.get_full_name }}
+                {% else %}
+                    {{ request.user.username }}
+                {% endif %}
+                , <span class="role">{{ role }}</span>
+            </span>
+        </div>
+    </div>
 
-{% block content %}
-<h1 class="title">Welcome to My Site!</h1>
-<p>This is the homepage.</p>
-{% endblock %}
+    <div class="main-content">
+        <h1>What would you like to do?</h1>
+        <div class="button-container">
+
+            {% if role == "STUDENT" %}
+                <a href="{% url 'projectList' %}" class="landingbutton">
+                    <img src="{% static 'view-projects.png' %}" alt="View Projects" class="button-icon">
+                    Join Project
+                </a>
+                <a href="{% url 'projectProposal' %}" class="landingbutton">
+                    <img src="{% static 'create-project.png' %}" alt="Create Project" class="button-icon">
+                    Create Project
+                </a>
+                <a href="{% url 'advisorList' %}" class="landingbutton">
+                    <img src="{% static 'advisor.png' %}" alt="View Advisors" class="button-icon">
+                    View Advisors
+                </a>
+
+            {% elif role == "ADVISOR" %}
+                <a href="{% url 'projectList' %}" class="landingbutton">
+                    <img src="{% static 'view-projects.png' %}" alt="View Projects" class="button-icon">
+                    View Projects
+                </a>
+                <a href="{% url 'projectList' %}" class="landingbutton">
+                    <img src="{% static 'view-groups.png' %}" alt="My Groups" class="button-icon">
+                    My Groups
+                </a>
+                <a href="{% url 'studentList' %}" class="landingbutton">
+                    <img src="{% static 'students.png' %}" alt="View Students" class="button-icon">
+                    View Students
+                </a>
+            {% else %}
+                <p>Error: Unknown role detected. Please contact support.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>
