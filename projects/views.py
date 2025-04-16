@@ -77,8 +77,6 @@ def projectListPage(request):
     """
     The list page for projects, contains a table of projects and the ability to filter, apply, etc.
     """
-    projects = Project.objects.all()
-    return render(request, "projects/projectListPage.html", {'projects': projects})
     role = get_user_role(request.user)
     projects = Project.objects.all()
 

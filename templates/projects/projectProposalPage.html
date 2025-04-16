@@ -1,21 +1,68 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-  </head>
-  <body>
-  <section class="section">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project List</title>
+  {% load static %}
+  <!-- Bulma CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+  <!-- Custom Styles -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Fixed Header -->
+  <header class="header">
+    <span>John Doe, <span class="role">Student</span></span>
+    <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+  </header>
+
+  <!-- Main Content -->
+
+  <section class="section" style="padding-top: 90px;">
     <div class="container">
-      <h1 class="title">
-        Hello World
-      </h1>
-      <p class="subtitle">
-        My first website with <strong>Bulma</strong>!
-      </p>
+      <div class="container">
+
+        <a href="{% url 'landingPage' %}" class="button is-light mb-5">
+          ← Back to Landing Page
+        </a>
+
+        <div class="header">
+          <span>John Doe, <span class="role">Student</span></span>
+          <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+        </div>
+      </div>
+
+      <form method="POST" action="{% url 'projectProposal' %}">
+        {% csrf_token %}
+
+        <label for="title">Project Title:</label>
+        <input type="text" name="title" id="title" class="title-input" required>
+
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description" class="description-input" required>
+
+        <label for="skills">Skills needed (comma-separated):</label>
+        <input type="text" name="skills" id="skills" class="skills-input">
+
+        <label for="members">Members:</label>
+        <select name="member_limit" id="members">
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4" selected>Max Members</option>
+        </select>
+
+      </form>
+      <button class="submit-button">Submit</button>
     </div>
+    </div>
+    </main>
+
   </section>
-  </body>
+
+</body>
+
 </html>
