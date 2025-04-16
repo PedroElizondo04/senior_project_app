@@ -20,7 +20,7 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect("landing")  # Redirect to landing page
+            return redirect("landing")
         else:
             messages.error(request, "Invalid email or password.")
 
@@ -35,7 +35,7 @@ def landingPage(request):
     
     context = {
         "role": role,
-        "user": request.user  # Explicitly passing user
+        "user": request.user
     }
     return render(request, "projects/landingPage.html", context)
 
