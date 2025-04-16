@@ -13,7 +13,9 @@
     <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
   </div>
 
-  <a href="{% url 'landing' 'student' %}" class="back-link">Back to Landing Page</a>
+            <a href="{% url 'landingPage' %}" class="button is-light mb-5">
+                ← Back to Landing Page
+            </a>
 
   <h2>Advisors</h2>
   <!-- Wrap the table in a container -->
@@ -23,17 +25,17 @@
         <td>
           <div class="profile-card">
             <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Askar Nurbekov</a></h3>
+              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Askar Nurbekov</a></h3>
               <p>Lecturer I</p>
               <h4><a href="mailto:askar.nurbekov01@utrgv.edu">askar.nurbekov01@utrgv.edu</a></h4>
             </div>
-            <img src="{% static 'advisorpic.png' %}" alt="nurbekov_profile_image">
+            <img src="{% static 'askar_nurbekov.jpg' %}" alt="nurbekov_profile_image">
           </div>
         </td>
         <td>
           <div class="profile-card">
             <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Jonatan Reyes</a></h3>
+              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Jonatan Reyes</a></h3>
               <p>Assistant Professor of Practice</p>
               <h4><a href="mailto:jonatan.reyes01@utrgv.edu">jonatan.reyes01@utrgv.edu</a></h4>
             </div>
@@ -43,11 +45,11 @@
         <td>
           <div class="profile-card">
             <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Erik Enriquez</a></h3>
+              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Erik Enriquez</a></h3>
               <p>Lecturer I</p>
               <h4><a href="mailto:erik.enriquez01@utrgv.edu">erik.enriquez01@utrgv.edu</a></h4>
             </div>
-            <img src="{% static 'advisorpic.png' %}" alt="enriquez_profile_image">
+            <img src="{% static 'erik_enriquez.jpg' %}" alt="enriquez_profile_image">
           </div>
         </td>
       </tr>
@@ -55,31 +57,31 @@
         <td>
           <div class="profile-card">
             <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Askar Nurbekov</a></h3>
+              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Marzieh Ayati</a></h3>
               <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">askar.nurbekov01@utrgv.edu</a></h4>
+              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">marzieh.ayati@utrgv.edu</a></h4>
             </div>
-            <img src="{% static 'advisorpic.png' %}" alt="nurbekov_profile_image">
+            <img src="{% static 'marzieh-ayati-02.jpg' %}" alt="nurbekov_profile_image">
           </div>
         </td>
         <td>
           <div class="profile-card">
             <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Askar Nurbekov</a></h3>
+              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Marzieh Ayati</a></h3>
               <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">askar.nurbekov01@utrgv.edu</a></h4>
+              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">timothy.wylie@utrgv.edu</a></h4>
             </div>
-            <img src="{% static 'advisorpic.png' %}" alt="nurbekov_profile_image">
+            <img src="{% static 'timothy-wylie.jpg' %}" alt="nurbekov_profile_image">
           </div>
         </td>
         <td>
           <div class="profile-card">
             <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Askar Nurbekov</a></h3>
+              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Emmett Tomai</a></h3>
               <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">askar.nurbekov01@utrgv.edu</a></h4>
+              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">emmett.tomai@utrgv.edu</a></h4>
             </div>
-            <img src="{% static 'advisorpic.png' %}" alt="nurbekov_profile_image">
+            <img src="{% static 'emmett-tomai.jpg' %}" alt="nurbekov_profile_image">
           </div>
         </td>
       </tr>
