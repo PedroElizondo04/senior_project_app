@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.core.exceptions import ValidationError
 
 from .models import Advisor, Student
 from .services import (
@@ -15,6 +16,7 @@ from .services import (
     create_project_with_author,
     attach_skills_to_project,
     link_project_to_creator,
+    create_user_account,
 )
 
 # -------------------------------
@@ -137,6 +139,32 @@ def studentListPage(request):
     role = get_user_role(request.user)
     if role not in ["ADVISOR", "ADMIN"]:
         return HttpResponseForbidden("Only advisors and admins can view students.")
-    
+
     students = Student.objects.all()
     return render(request, "projects/studentListPage.html", {"students": students, "role": role})
+
+
+# -------------------------------
+# CREATE ACCOUNT PAGE (Admin-only)
+# -------------------------------
+@login_required(login_url="login")
+def createAccountPage(request):
+    """Allow an admin to manually create a user account"""
+    if not request.user.is_superuser:
+        return HttpResponseForbidden("Only admins can create user accounts.")
+
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        email = request.POST.get("email")
+        try:
+            user, created = create_user_account(username, password, email)
+            if created:
+                messages.success(request, f"User '{username}' created successfully.")
+            else:
+                messages.info(request, f"User '{username}' already exists.")
+        except ValidationError as e:
+            messages.error(request, str(e))
+        return redirect("landing")
+
+    return render(request, "projects/createAccountPage.html")

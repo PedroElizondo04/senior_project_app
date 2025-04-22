@@ -9,39 +9,39 @@ django.setup()
 from django.contrib.auth.models import User
 from projects.models import Student, Advisor, Project, Skill
 from django.contrib.contenttypes.models import ContentType
+from projects.services import create_user_account
+from django.core.exceptions import ValidationError
 
 # Setup logging
 logging.basicConfig(
     filename="import_log.txt",
-    filemode="w",  # Overwrite each time
+    filemode="w",
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
 def log(message):
-    print(message)  # Show on console
+    print(message)
     logging.info(message)
 
-# CSV Directory
 CSV_DIR = os.path.join(os.path.dirname(__file__), "csv_data")
 
 def import_students():
-    """Bulk import students from students.csv"""
     csv_file = os.path.join(CSV_DIR, "students.csv")
-
     with open(csv_file, newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
-
         for row in reader:
             username = row["username"]
             password = row["password"]
             project_title = row.get("project_title", "").strip()
 
-            user, created = User.objects.get_or_create(username=username)
-            if created:
-                user.set_password(password)
-                user.save()
-                log(f"✅ Created user: {username}")
+            try:
+                user, created = create_user_account(username=username, password=password)
+                if created:
+                    log(f"✅ Created user: {username}")
+            except ValidationError as e:
+                log(f"❌ Error creating user {username}: {str(e)}")
+                continue
 
             student, student_created = Student.objects.get_or_create(user=user)
 
@@ -57,7 +57,6 @@ def import_students():
             if student_created:
                 log(f"✅ Created Student entry for user: {username}")
 
-
 def import_advisors():
     """Bulk import advisors from advisors.csv"""
     csv_file = os.path.join(CSV_DIR, "advisors.csv")
@@ -68,51 +67,46 @@ def import_advisors():
         for row in reader:
             username = row["username"].strip()
             password = row["password"].strip()
+            bio = row.get("bio", "").strip()
 
-            user, created = User.objects.get_or_create(username=username)
-            if created:
-                user.set_password(password)
-                user.save()
-                log(f"✅ Created user: {username}")
+            try:
+                user, created = create_user_account(username=username, password=password)
+                if created:
+                    log(f"✅ Created user: {username}")
+            except ValidationError as e:
+                log(f"❌ Error creating user {username}: {str(e)}")
+                continue
 
             advisor, advisor_created = Advisor.objects.get_or_create(user=user)
-
             if advisor_created:
+                advisor.bio = bio
+                advisor.save()
                 log(f"✅ Created Advisor entry for user: {username}")
             else:
                 log(f"⚠️ Skipping duplicate advisor entry: {username}")
 
 
 def import_skills():
-    """Bulk import skills from skills.csv"""
     csv_file = os.path.join(CSV_DIR, "skills.csv")
-
     with open(csv_file, newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
-
         existing_skills = set(Skill.objects.values_list("name", flat=True))
         skills_to_create = []
-
         for row in reader:
             skill_name = row["name"].strip()
             if skill_name and skill_name not in existing_skills:
                 skills_to_create.append(Skill(name=skill_name))
-
         if skills_to_create:
             Skill.objects.bulk_create(skills_to_create)
             log(f"✅ Successfully imported {len(skills_to_create)} new skills")
         else:
             log("⚠️ No new skills to import (all already exist)")
 
-
 def import_advisor_projects():
-    """Bulk import advisor-created projects from advisor_projects.csv"""
     csv_file = os.path.join(CSV_DIR, "advisor_projects.csv")
-
     with open(csv_file, newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
         projects_created = 0
-
         for row in reader:
             title = row["title"].strip()
             description = row["description"].strip()
@@ -128,7 +122,6 @@ def import_advisor_projects():
                 continue
 
             author_type = ContentType.objects.get_for_model(Advisor)
-
             project, created = Project.objects.get_or_create(
                 title=title,
                 defaults={
@@ -145,22 +138,17 @@ def import_advisor_projects():
                 for skill_name in skills_required:
                     skill, _ = Skill.objects.get_or_create(name=skill_name)
                     project.skills_required.add(skill)
-
                 project.update_status()
                 projects_created += 1
                 log(f"✅ Created project: {title} (Advisor: {advisor_username})")
             else:
                 log(f"⚠️ Skipping duplicate project: {title}")
-
     log(f"🎉 Successfully imported {projects_created} advisor-created projects")
-
 
 if __name__ == "__main__":
     log("🚀 Starting bulk import...")
-
     import_students()
     import_advisors()
     import_skills()
     import_advisor_projects()
-
     log("🎉 Data import complete!")
