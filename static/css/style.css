@@ -255,7 +255,9 @@ body {
 }
 
 .section {
-  padding-top: 10px; /* accounts for fixed header */
+  padding-top: 40px; /* keep your top padding */
+  padding-left: 0.5rem; /* add this */
+  padding-right: 0.5rem; /* add this */
 }
 
 a.back-link-text {
@@ -276,7 +278,7 @@ a.back-link-text:hover {
   text-decoration: underline;
 }
 
-Navbar
+/*Navbar*/
 
 /* nudge the name in from the left */
 .navbar-brand .navbar-item {
@@ -296,4 +298,60 @@ Navbar
 .head{ 
   margin-top: 70px; 
 } 
+
+.navbar-name {
+  font-family: 'Patua One', cursive;
+  font-size: 1.5rem;
+  font-weight: Bold; /* Patua One is naturally bold */
+}
+
+.student-text {
+  color: #e44d26; /* orange color */
+  font-weight: bold; /* optional, if you want Student to pop a little more */
+}
+
+
+/*Dropmenu*/
+.select select {
+  background-color: #4a565b;
+  color: white;
+  font-family: 'Red Hat Text', sans-serif;
+  font-weight: 600; /* SemiBold */
+  border: none;
+  height: 2.5rem;
+  font-size: 1rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+  padding-right: 1rem;
+}
+
+.select select:hover {
+  background-color: #5a666b;
+}
+
+/*Submit and Apply Button*/
+.button.is-orange {
+  background-color: #e44d26;
+  color: white;
+  font-weight: bold;
+  font-family: 'Patua One', cursive;
+}
+
+.button.is-orange:hover {
+  background-color: #c43d1e;
+}
+
+.button-right-align {
+  text-align: right;
+  margin-top: 2rem;
+}
+
+/*Patua One Text*/
+.label {
+  color: #000;
+  font-weight: bold;
+  font-family: 'Patua One', cursive;
+}
 

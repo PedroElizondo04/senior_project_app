@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,80 +6,129 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Project List</title>
-  {% load static %}
+
   <!-- Bulma CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+
   <!-- Custom Styles -->
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
-<body>
+<body class="has-navbar-fixed-top">
 
-  <!-- Header -->
-
-  <body class="has-navbar-fixed-top">
-    <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
-      <!-- Name on the far left -->
-      <div class="navbar-brand">
-        <a class="navbar-item" style="padding-left: 0;">
-          John Doe, <span class="tag is-info">Student</span>
-        </a>
+  <!-- Navbar -->
+  <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item navbar-name" style="padding-left: 0;">
+        John Doe, <span class="student-text">Student</span>
+      </a>
   
-        <!-- burger toggle, if you need it -->
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navMenu"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navMenu" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" style="padding-right: 0;">
+          <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
         </a>
       </div>
+    </div>
+  </nav>
   
-      <!-- Logo on the far right -->
-      <div id="navMenu" class="navbar-menu">
-        <div class="navbar-end">
-          <a class="navbar-item" style="padding-right: 0;">
-              <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo" />
-          </a>
-        </div>
-      </div>
-    </nav>
+  
 
   <!-- Main Content -->
+  <section class="section">
+    <div class="container">
 
-        <a href="{% url 'landingPage' %}" class="button is-light mb-5">
-          ← Back to Landing Page
-        </a>
+      <!-- Back Button -->
+      <a href="{% url 'landingPage' %}" class="button is-light mb-5">
+        ← Back to Landing Page
+      </a>
 
+      <!-- Form -->
       <form method="POST" action="{% url 'projectProposal' %}">
         {% csrf_token %}
 
-        <label for="title">Project Title:</label>
-        <input type="text" name="title" id="title" class="title-input" required>
+        <!-- Project Title Input -->
+        <div class="field">
+          <div class="control">
+            <input
+              type="text"
+              name="title"
+              class="input is-large has-background-light has-text-black"
+              placeholder="Project Title"
+              style="background-color: #d3d3d3; border: none; font-weight: bold;"
+              required
+            >
+          </div>
+        </div>
 
-        <label for="description">Description:</label>
-        <input type="text" name="description" id="description" class="description-input" required>
+        <!-- Project Description Textarea -->
+        <div class="field">
+          <div class="control">
+            <textarea
+              name="description"
+              id="description"
+              class="textarea has-background-light has-text-black"
+              placeholder="Description"
+              style="background-color: #d3d3d3; border: none; font-weight: bold; min-height: 240px;"
+              required
+            ></textarea>
+          </div>
+        </div>
 
-        <label for="skills">Skills needed (comma-separated):</label>
-        <input type="text" name="skills" id="skills" class="skills-input">
+        <div class="columns is-mobile">
+  
+          <!-- Skills Input -->
+          <div class="column">
+            <div class="field" style="max-width: 400px;">
+              <label class="label label-special">Skills needed:</label>
+              <div class="control">
+                <input
+                  type="text"
+                  name="skills"
+                  id="skills"
+                  class="input has-background-light has-text-black"
+                  placeholder="Ex.) Rust, Algorithms, Linux, C++, CLI"
+                  style="background-color: #d3d3d3; border: none; font-weight: bold;"
+                >
+              </div>
+            </div>
+          </div>
+        
+          <!-- Members Dropdown -->
+          <div class="column">
+            <div class="field">
+              <label class="label label-special" for="members">Members:</label>
+              <div class="control">
+                <div class="select is-custom">
+                  <select name="member_limit" id="members">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4" selected>Max Members</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        </div>
 
-        <label for="members">Members:</label>
-        <select name="member_limit" id="members">
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4" selected>Max Members</option>
-        </select>
+        <!-- Submit Button -->
+        
+  <div class="button-right-align">
+    <button type="submit" class="button is-orange is-medium" style="padding: 1rem 2rem;">
+      Submit
+    </button>
+  </div>
+</form>
 
-      </form>
-      <button class="submit-button">Submit</button>
     </div>
-    </div>
-    </main>
-
   </section>
 
 </body>
