@@ -255,5 +255,45 @@ body {
 }
 
 .section {
-  padding-top: 250px; /* accounts for fixed header */
+  padding-top: 10px; /* accounts for fixed header */
 }
+
+a.back-link-text {
+  all: unset;
+  position: left;
+  top: 6rem; /* Adjust this based on your header’s real height */
+  left: 1rem;
+  bottom: 6rem;
+  z-index: 1001;
+  font-weight: bold;
+  color: #494949;
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+a.back-link-text:hover {
+  text-decoration: underline;
+}
+
+Navbar
+
+/* nudge the name in from the left */
+.navbar-brand .navbar-item {
+  padding-left: 1rem;  /* increase this if you want more space */
+}
+
+/* nudge the logo in from the right */
+.navbar-end .navbar-item {
+  padding-right: 1rem; /* increase this if you want more space */
+}
+
+.navbar { 
+  height: 70px; 
+  padding: 0 1rem; 
+} 
+
+.head{ 
+  margin-top: 70px; 
+} 
+

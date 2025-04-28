@@ -1,136 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Project List</title>
     {% load static %}
-    <!-- Bulma CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
-    <!-- Custom Styles -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
-
 <body>
 
-    <!-- Fixed Header -->
-    <header class="header">
-        <span>John Doe, <span class="role">Student</span></span>
-        <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
-    </header>
+<!-- Fixed Header -->
+<header class="header">
+    <span>John Doe, <span class="role">Student</span></span>
+    <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+</header>
 
-    <!-- Main Content -->
-    <section class="section" style="padding-top: 120px;">
-        <div class="container">
+<!-- Main Content -->
+<section class="section" style="padding-top: 120px;">
+    <div class="container">
 
-            <a href="{% url 'landingPage' %}" class="button is-light mb-5">
-                ← Back to Landing Page
-            </a>
-
-            <div class="table-container">
-                <table class="table is-striped is-hoverable is-fullwidth">
-                    <thead>
-                        <tr>
-                            <th>Star</th>
-                            <th>Author</th>
-                            <th>Title</th>
-                            <th>Skills</th>
-                            <th>Project Status</th>
-                            <th>Members</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Hardcoded Entries -->
-                        <tr>
-                            <td>
-                                <label class="star-label">
-                                    <input type="checkbox" class="star-checkbox" />
-                                    <span class="star-icon">&#9733;</span>
-                                </label>
-                            </td>
-                            <td>Me</td>
-                            <td><a href="{% url 'projectViewPage' 1 %}">My Project</a></td>
-                            <td>Python, Machine Learning, Database...</td>
-                            <td>Joined</td>
-                            <td>3/4</td>
-                            <td>Edit</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <label class="star-label">
-                                    <input type="checkbox" class="star-checkbox" />
-                                    <span class="star-icon">&#9733;</span>
-                                </label>
-                            </td>
-                            <td>Alex Pereira</td>
-                            <td><a href="{% url 'projectViewPage' 1 %}">ByteSync - A Simple File Sy...</a></td>
-                            <td>Rust, algorithms, Linux, CLI, Concurre...</td>
-                            <td>Available</td>
-                            <td>2/4</td>
-                            <td>Join</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <label class="star-label">
-                                    <input type="checkbox" class="star-checkbox" />
-                                    <span class="star-icon">&#9733;</span>
-                                </label>
-                            </td>
-                            <td>Pedro Elizondo</td>
-                            <td><a href="{% url 'projectViewPage' 1 %}">AR Woodworking Visualizer</a></td>
-                            <td>C++, Augmented Reality, Database, Web...</td>
-                            <td>Available</td>
-                            <td>3/4</td>
-                            <td>Join</td>
-                        </tr>
-
-                        <!-- Dynamic Projects -->
-                        {% for project in projects %}
-                        {% cycle 'Angelo Brian' 'Justin Olvera' 'Kevin Ygbuhay' 'Alejandro Garcia' 'Joaquin Martinez' 'Dante Mortalla' as authors silent %}
-                        <tr>
-                            <td>
-                                <label class="star-label">
-                                    <input type="checkbox" class="star-checkbox" />
-                                    <span class="star-icon">&#9733;</span>
-                                </label>
-                            </td>
-                            <td>{{ authors }}</td>
-                            <td>
-                                <a href="{% url 'projectViewPage' project.id %}">
-                                    {{ project.title }}
-                                </a>
-                            </td>
-                            <td>
-                                {% for skill in project.skills_required.all %}
-                                    {{ skill.name }}{% if not forloop.last %}, {% endif %}
-                                {% empty %}
-                                    No skills
-                                {% endfor %}
-                            </td>
-                            <td>{{ project.get_status_display }}</td>
-                            <td>{{ project.students.count }}/{{ project.member_limit }}</td>
-                            <td>
-                                {% if project.status == "in_process" %}
-                                    Join
-                                {% elif project.status == "active" %}
-                                    Active
-                                {% else %}
-                                    View
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
+        <!-- Back link -->
+        <div class="mb-3">
+           ????
         </div>
-    </section>
+
+        <!-- Title -->
+        <h1 class="title is-3 mb-4">Projects</h1>
+
+        <!-- Filter and Search -->
+        <div class="level mb-3">
+            <div class="level-left">
+                <div class="level-item">
+                    <div class="dropdown is-hoverable">
+                        <div class="dropdown-trigger">
+                            <button class="button is-light" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span>Filter</span>
+                                <span class="icon is-small">
+                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <input class="input" type="text" placeholder="Search..." />
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Table -->
+        <div class="table-container">
+            <table class="table is-striped is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Star</th>
+                        <th>Author</th>
+                        <th>Title</th>
+                        <th>Skills</th>
+                        <th>Project Status</th>
+                        <th>Members</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Example Entries -->
+                    <tr>
+                        <td>
+                            <label class="star-label">
+                                <input type="checkbox" class="star-checkbox" />
+                                <span class="star-icon">&#9733;</span>
+                            </label>
+                        </td>
+                        <td>Me</td>
+                        <td><a href="{% url 'projectViewPage' 1 %}">My Project</a></td>
+                        <td>Python, Machine Learning, Database...</td>
+                        <td>Joined</td>
+                        <td>3/4</td>
+                        <td><button class="button is-small is-dark">Edit</button></td>
+                    </tr>
+
+                    <!-- More hardcoded or dynamic entries -->
+                    {% for project in projects %}
+                    {% cycle 'Angelo Brian' 'Justin Olvera' 'Kevin Ygbuhay' 'Alejandro Garcia' 'Joaquin Martinez' 'Dante Mortalla' as authors silent %}
+                    <tr>
+                        <td>
+                            <label class="star-label">
+                                <input type="checkbox" class="star-checkbox" />
+                                <span class="star-icon">&#9733;</span>
+                            </label>
+                        </td>
+                        <td>{{ authors }}</td>
+                        <td><a href="{% url 'projectViewPage' project.id %}">{{ project.title }}</a></td>
+                        <td>
+                            {% for skill in project.skills_required.all %}
+                                {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                No skills
+                            {% endfor %}
+                        </td>
+                        <td>{{ project.get_status_display }}</td>
+                        <td>{{ project.students.count }}/{{ project.member_limit }}</td>
+                        <td>
+                            {% if project.status == "in_process" %}
+                                <button class="button is-small is-warning">Join</button>
+                            {% elif project.status == "active" %}
+                                <button class="button is-small is-success">Active</button>
+                            {% else %}
+                                <button class="button is-small">View</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
 
 </body>
-
 </html>
