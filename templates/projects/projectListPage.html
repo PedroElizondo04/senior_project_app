@@ -10,20 +10,36 @@
 </head>
 <body>
 
-<!-- Fixed Header -->
-<header class="header">
-    <span>John Doe, <span class="role">Student</span></span>
-    <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo">
-</header>
-
+<!-- Navbar -->
+<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item navbar-name" style="padding-left: 0;">
+        John Doe, <span class="student-text">Student</span>
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navMenu" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" style="padding-right: 0;">
+          <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
+        </a>
+      </div>
+    </div>
+  </nav>
 <!-- Main Content -->
-<section class="section" style="padding-top: 120px;">
+<section class="section">
     <div class="container">
 
         <!-- Back link -->
-        <div class="mb-3">
-           ????
-        </div>
+        <a href="{% url 'landingPage' %}" class="button is-light mb-5">
+          ← Back to Landing Page
+        </a>
 
         <!-- Title -->
         <h1 class="title is-3 mb-4">Projects</h1>
@@ -50,75 +66,76 @@
                 </div>
             </div>
         </div>
-
-        <!-- Project Table -->
-        <div class="table-container">
-            <table class="table is-striped is-hoverable is-fullwidth">
-                <thead>
-                    <tr>
-                        <th>Star</th>
-                        <th>Author</th>
-                        <th>Title</th>
-                        <th>Skills</th>
-                        <th>Project Status</th>
-                        <th>Members</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Example Entries -->
-                    <tr>
-                        <td>
-                            <label class="star-label">
-                                <input type="checkbox" class="star-checkbox" />
-                                <span class="star-icon">&#9733;</span>
-                            </label>
-                        </td>
-                        <td>Me</td>
-                        <td><a href="{% url 'projectViewPage' 1 %}">My Project</a></td>
-                        <td>Python, Machine Learning, Database...</td>
-                        <td>Joined</td>
-                        <td>3/4</td>
-                        <td><button class="button is-small is-dark">Edit</button></td>
-                    </tr>
-
-                    <!-- More hardcoded or dynamic entries -->
-                    {% for project in projects %}
-                    {% cycle 'Angelo Brian' 'Justin Olvera' 'Kevin Ygbuhay' 'Alejandro Garcia' 'Joaquin Martinez' 'Dante Mortalla' as authors silent %}
-                    <tr>
-                        <td>
-                            <label class="star-label">
-                                <input type="checkbox" class="star-checkbox" />
-                                <span class="star-icon">&#9733;</span>
-                            </label>
-                        </td>
-                        <td>{{ authors }}</td>
-                        <td><a href="{% url 'projectViewPage' project.id %}">{{ project.title }}</a></td>
-                        <td>
-                            {% for skill in project.skills_required.all %}
-                                {{ skill.name }}{% if not forloop.last %}, {% endif %}
-                            {% empty %}
-                                No skills
-                            {% endfor %}
-                        </td>
-                        <td>{{ project.get_status_display }}</td>
-                        <td>{{ project.students.count }}/{{ project.member_limit }}</td>
-                        <td>
-                            {% if project.status == "in_process" %}
-                                <button class="button is-small is-warning">Join</button>
-                            {% elif project.status == "active" %}
-                                <button class="button is-small is-success">Active</button>
-                            {% else %}
-                                <button class="button is-small">View</button>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+          
+ 
+    <!-- Project Table -->
+    <div class="table-container">
+        <table class="table is-striped is-hoverable is-fullwidth custom-table">
+          <thead>
+            <tr>
+              <th>Star</th>
+              <th>Author</th>
+              <th>Title</th>
+              <th>Skills</th>
+              <th>Project Status</th>
+              <th>Members</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+  
+          <tbody>
+            <!-- Hardcoded First Entry -->
+            <tr>
+              <td>
+                <label class="star-label">
+                  <input type="checkbox" class="star-checkbox" />
+                  <span class="star-icon">&#9733;</span>
+                </label>
+              </td>
+              <td>Me</td>
+              <td><a href="{% url 'projectViewPage' 1 %}">My Project</a></td>
+              <td class="custom-skill-cell">Python, Machine Learning, Database...</td>
+              <td>Joined</td>
+              <td>3/4</td>
+              <td>
+                <button class="button is-small is-dark">Edit</button>
+              </td>
+            </tr>
+  
+            <!-- Dynamic Project Entries -->
+            {% for project in projects %}
+            {% cycle 'Angelo Brian' 'Justin Olvera' 'Kevin Ygbuhay' 'Alejandro Garcia' 'Joaquin Martinez' 'Dante Mortalla' as authors silent %}
+            <tr>
+              <td>
+                <label class="star-label">
+                  <input type="checkbox" class="star-checkbox" />
+                  <span class="star-icon">&#9733;</span>
+                </label>
+              </td>
+              <td>{{ authors }}</td>
+              <td><a href="{% url 'projectViewPage' project.id %}">{{ project.title }}</a></td>
+              <td class="custom-skill-cell">
+                {% for skill in project.skills_required.all %}
+                  {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                  No skills
+                {% endfor %}
+              </td>
+              <td>{{ project.get_status_display }}</td>
+              <td>{{ project.students.count }}/{{ project.member_limit }}</td>
+              <td>
+                <button class="button is-small is-warning">Join</button>
+              </td>
+            </tr>
+            {% endfor %}
+  
+          </tbody>
+        </table>
+      </div>
+  
     </div>
-</section>
+  </section>
+          
 
 </body>
 </html>

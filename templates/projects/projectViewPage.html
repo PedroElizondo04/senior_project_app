@@ -5,44 +5,123 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ByteSync Project</title>
   {% load static %}
+  <!-- Bulma CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet" />
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
 </head>
 
 <body>
-  <!-- Fixed Header -->
-  <div class="header">
-    <span class="bold-text">John Doe, <span class="role">Student</span></span>
-    <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo" />
+
+<!-- Navbar -->
+<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item navbar-name" style="padding-left: 0;">
+      John Doe, <span class="student-text">Student</span>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
 
-  <!-- Main Container -->
-  <div class="main-container">
-    <!-- Back link -->
-    <a href="{% url 'projectList' %}" class="back-link-advisor">Back to Student List</a>
-
-    <!-- Project Card -->
-    <div class="project-card">
-      <h2 class="project-title">ByteSync - A Simple File Synchronization Tool</h2>
-      <p class="project-description">
-        ByteSync is a command-line tool that allows users to sync files between two
-        directories efficiently. The tool will detect changes in files by using a
-        hashing approach (e.g., SHA-256) to detect file modifications and minimize
-        unnecessary file transfers. Users can configure exclusions via a .bytesync
-        file or .gitignore to prevent certain files from being synchronized. An
-        optional logging system will keep track of synchronization actions.
-      </p>
-
-      <div class="project-details">
-        <p><strong>Skills needed:</strong> Rust, Algorithms, Linux, C, Concurrency Programming</p>
-        <p><strong>Members:</strong> 3/4<br>Jimmy McGill, Kim Wexler, Howard Hamlin</p>
-        <p><strong>Advisor:</strong> N/A</p>
-      </div>
-
-      <div class="button-row">
-        <button class="apply-button">Apply</button>
-        <button class="favorite-button">Favorite</button>
-      </div>
+  <div id="navMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <a class="navbar-item" style="padding-right: 0;">
+        <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
+      </a>
     </div>
   </div>
+</nav>
+
+<!-- Main Content -->
+<section class="section" style="padding-top: 1px;">
+  <div class="container">
+
+    <!-- Back link -->
+    <div class="mb-5">
+      <a href="{% url 'projectList' %}" class="button is-light mb-5">
+        ← Back to Project List Page
+      </a>
+    </div>
+
+    <!-- Project Title -->
+    <h1 class="title is-2 mb-2">
+      ByteSync - A Simple File Synchronization Tool
+    </h1>
+
+    <!-- Line under title -->
+    <hr class="my-4">
+
+    <!-- Project Description -->
+    <div class="content mb-5">
+      <p>
+        ByteSync is a command-line tool that allows users to sync files between two directories efficiently. 
+        The tool will detect changes in files (new, modified, or deleted) and update the target directory accordingly.
+        It will support different sync modes, such as one-way sync (source to destination) and two-way sync (bidirectional synchronization).
+      </p>
+      <p>
+        To improve performance, ByteSync will use hashing (e.g., SHA-256) to detect file changes and minimize unnecessary file transfers.
+        Users can configure exclusions via a .bytesyncignore file, similar to .gitignore, to prevent certain files from being synchronized.
+      </p>
+      <p>
+        Additionally, an optional logging system will keep track of synchronization actions.
+      </p>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Skills, Members, Advisor, Buttons -->
+    <div class="columns is-variable is-8">
+
+      <!-- Left Column (Skills) -->
+      <div class="column is-4">
+        <p class="has-text-weight-bold mb-2">Skills needed:</p>
+        <ul>
+          <li>Rust</li>
+          <li>Algorithms</li>
+          <li>Linux</li>
+          <li>CLI</li>
+          <li>Concurrent Programming</li>
+        </ul>
+      </div>
+
+      <!-- Right Section: Members + Advisor + Buttons -->
+      <div class="column is-8">
+        <div class="columns is-multiline">
+
+          <!-- Members Section -->
+          <div class="column is-6">
+            <p class="has-text-weight-bold mb-2">
+              Members: <span class="has-text-weight-normal">3/4</span>
+            </p>
+            <p>Jimmy McGill</p>
+            <p>Kim Wexler</p>
+            <p>Howard Hamlin</p>
+          </div>
+
+          <!-- Advisor Section -->
+          <div class="column is-3">
+            <p class="has-text-weight-bold mb-2">Advisor:</p>
+            <p>N/A</p>
+          </div>
+
+          <!-- Buttons Section -->
+          <div class="column is-3">
+            <div class="is-flex is-flex-direction-column align-buttons">
+              <button class="button is-orange half-width is-tall mb-3">Apply</button>
+              <button class="button is-gray half-width is-tall">Favorite</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 </body>
 </html>

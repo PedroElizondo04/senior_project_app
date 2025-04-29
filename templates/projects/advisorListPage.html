@@ -5,87 +5,185 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Profile List</title>
   {% load static %}
+  <!-- Bulma CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+  <!-- Custom Styles -->
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
+
 <body>
-  <div class="header">
-    <span>John Doe, <span class="role">Student</span></span>
-    <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+
+<!-- Navbar -->
+<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item navbar-name" style="padding-left: 0;">
+      John Doe, <span class="student-text">Student</span>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
 
-            <a href="{% url 'landingPage' %}" class="button is-light mb-5">
-                ← Back to Landing Page
-            </a>
-
-  <h2>Advisors</h2>
-  <!-- Wrap the table in a container -->
-  <div class="table-container">
-    <table class="profile-table">
-      <tr>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Askar Nurbekov</a></h3>
-              <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">askar.nurbekov01@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'askar_nurbekov.jpg' %}" alt="nurbekov_profile_image">
-          </div>
-        </td>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Jonatan Reyes</a></h3>
-              <p>Assistant Professor of Practice</p>
-              <h4><a href="mailto:jonatan.reyes01@utrgv.edu">jonatan.reyes01@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'advisorpic.png' %}" alt="reyes_profile_image">
-          </div>
-        </td>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Erik Enriquez</a></h3>
-              <p>Lecturer I</p>
-              <h4><a href="mailto:erik.enriquez01@utrgv.edu">erik.enriquez01@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'erik_enriquez.jpg' %}" alt="enriquez_profile_image">
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Marzieh Ayati</a></h3>
-              <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">marzieh.ayati@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'marzieh-ayati-02.jpg' %}" alt="nurbekov_profile_image">
-          </div>
-        </td>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Marzieh Ayati</a></h3>
-              <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">timothy.wylie@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'timothy-wylie.jpg' %}" alt="nurbekov_profile_image">
-          </div>
-        </td>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}">Emmett Tomai</a></h3>
-              <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">emmett.tomai@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'emmett-tomai.jpg' %}" alt="nurbekov_profile_image">
-          </div>
-        </td>
-      </tr>
-    </table>
+  <div id="navMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <a class="navbar-item" style="padding-right: 0;">
+        <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
+      </a>
+    </div>
   </div>
+</nav>
+
+<!-- Main Section -->
+<section class="section" style="padding-top: 1px;">
+  <div class="container is-fluid">
+
+    <a href="{% url 'landingPage' %}" class="button is-light mb-5">
+      ← Back to Landing Page
+    </a>
+
+    <h2 class="title is-2 mb-5">Advisors</h2>
+
+    <div class="columns is-multiline">
+
+      <!-- Advisor 1 -->
+      <div class="column is-one-third">
+        <a href="{% url 'advisorProfileView' 'advisor1@utrgv.edu' %}" class="card-link-wrapper">
+          <div class="card p-5 advisor-card">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-200x200">
+                  <img src="{% static 'askar_nurbekov.jpg' %}" alt="Askar Nurbekov" style="object-fit: contain; height: 200px; width: 200px;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <h3 class="title is-3 mb-3 advisor-name">Askar Nurbekov</h3>
+                  <p class="is-size-5 mb-2">Lecturer I</p> <!-- job title bigger -->
+                  <p class="is-size-6 mt-2 advisor-email">askar.nurbekov01@utrgv.edu</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Advisor 2 -->
+      <div class="column is-one-third">
+        <a href="{% url 'advisorProfileView' 'advisor2@utrgv.edu' %}" class="card-link-wrapper">
+          <div class="card p-5 advisor-card">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-200x200">
+                  <img src="{% static 'advisorpic.png' %}" alt="Jonatan Reyes" style="object-fit: contain; height: 200px; width: 200px;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <h3 class="title is-3 mb-3 advisor-name">Jonatan Reyes</h3>
+                  <p class="is-size-5 mb-2">Assistant Professor of Practice</p> <!-- bigger -->
+                  <p class="is-size-6 mt-2 advisor-email">jonatan.reyes01@utrgv.edu</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Advisor 3 -->
+      <div class="column is-one-third">
+        <a href="{% url 'advisorProfileView' 'advisor3@utrgv.edu' %}" class="card-link-wrapper">
+          <div class="card p-5 advisor-card">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-200x200">
+                  <img src="{% static 'erik_enriquez.jpg' %}" alt="Erik Enriquez" style="object-fit: contain; height: 200px; width: 200px;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <h3 class="title is-3 mb-3 advisor-name">Erik Enriquez</h3>
+                  <p class="is-size-5 mb-2">Lecturer I</p>
+                  <p class="is-size-6 mt-2 advisor-email">erik.enriquez01@utrgv.edu</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Advisor 4 -->
+      <div class="column is-one-third">
+        <a href="{% url 'advisorProfileView' 'advisor4@utrgv.edu' %}" class="card-link-wrapper">
+          <div class="card p-5 advisor-card">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-200x200">
+                  <img src="{% static 'marzieh-ayati-02.jpg' %}" alt="Marzieh Ayati" style="object-fit: contain; height: 200px; width: 200px;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <h3 class="title is-3 mb-3 advisor-name">Marzieh Ayati</h3>
+                  <p class="is-size-5 mb-2">Lecturer I</p>
+                  <p class="is-size-6 mt-2 advisor-email">marzieh.ayati@utrgv.edu</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Advisor 5 -->
+      <div class="column is-one-third">
+        <a href="{% url 'advisorProfileView' 'advisor5@utrgv.edu' %}" class="card-link-wrapper">
+          <div class="card p-5 advisor-card">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-200x200">
+                  <img src="{% static 'timothy-wylie.jpg' %}" alt="Timothy Wylie" style="object-fit: contain; height: 200px; width: 200px;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <h3 class="title is-3 mb-3 advisor-name">Timothy Wylie</h3>
+                  <p class="is-size-5 mb-2">Lecturer I</p>
+                  <p class="is-size-6 mt-2 advisor-email">timothy.wylie@utrgv.edu</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Advisor 6 -->
+      <div class="column is-one-third">
+        <a href="{% url 'advisorProfileView' 'advisor6@utrgv.edu' %}" class="card-link-wrapper">
+          <div class="card p-5 advisor-card">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-200x200">
+                  <img src="{% static 'emmett-tomai.jpg' %}" alt="Emmett Tomai" style="object-fit: contain; height: 200px; width: 200px;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <h3 class="title is-3 mb-3 advisor-name">Emmett Tomai</h3>
+                  <p class="is-size-5 mb-2">Lecturer I</p>
+                  <p class="is-size-6 mt-2 advisor-email">emmett.tomai@utrgv.edu</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 </body>
 </html>

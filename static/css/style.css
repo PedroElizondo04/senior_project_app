@@ -101,6 +101,8 @@ body {
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease-in-out;
   text-decoration: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .landingbutton:hover {
@@ -112,6 +114,7 @@ body {
   height: auto;
   margin-bottom: 10px;
 }
+
 
 .title-input,
 .description-input,
@@ -355,3 +358,209 @@ a.back-link-text:hover {
   font-family: 'Patua One', cursive;
 }
 
+
+/* Table */
+
+.custom-table {
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.custom-table th {
+  background-color: #e0e0e0;
+  color: #494949;
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: 'Patua One', cursive;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.custom-table td {
+  font-size: 0.95rem;
+  vertical-align: middle;
+  font-family: 'Red Hat Text', sans-serif; /* or Patua One if you want all */
+}
+
+.star-label {
+  cursor: pointer;
+}
+
+.star-icon {
+  font-size: 1.2rem;
+  color: #ccc; /* unfilled star color */
+}
+
+.star-checkbox:checked + .star-icon {
+  color: gold; /* filled star color when checked */
+}
+
+.button.is-dark,
+.button.is-warning,
+.button.is-success {
+  font-family: 'Patua One', cursive;
+  font-weight: bold;
+}
+
+.custom-skill-cell {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* Advisor Card */
+
+/* Advisor Name */
+.advisor-name {
+  color: #e44d26;
+  text-decoration: none;
+  font-size: 1.75rem;
+  font-family: 'Patua One', cursive;
+  font-weight: bold;
+  position: relative;
+  z-index: 5;
+}
+
+/* Advisor Email */
+.advisor-email {
+  color: #e44d26;
+  font-size: 1rem;
+  font-weight: normal;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0;
+}
+
+/* Remove all link overrides (you don't need these anymore!) */
+
+/* Advisor Card */
+.advisor-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Advisor Card Hover */
+.advisor-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+/* Fix media-content padding inside advisor cards */
+.advisor-card .media-content {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Fix content line-height and padding inside advisor cards */
+.advisor-card .content {
+  line-height: 3.5;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+h3.advisor-name {
+  color: #e44d26 !important;
+  text-decoration: none;
+  font-size: 1.75rem;
+  font-family: 'Patua One', cursive;
+  font-weight: bold;
+  position: relative;
+  z-index: 5;
+}
+
+
+/*Advisor Profile */
+
+/* Make the advisor name orange */
+h1.title.has-text-danger {
+  color: #e44d26 !important; /* Strong orange */
+}
+
+/* Make the email link orange and underlined */
+a.has-text-link {
+  color: #e44d26 !important; /* Same strong orange */
+  text-decoration: underline !important;
+}
+
+/* On hover, make the email slightly brighter */
+a.has-text-link:hover {
+  color: #ff5722 !important; /* Lighter/brighter orange on hover */
+  text-decoration: underline;
+}
+
+/* Make the entire advisor section bigger */
+.advisor-profile {
+  padding: 2rem;
+  font-size: 1.25rem; /* Increase base font size */
+}
+
+/* Make the advisor image bigger */
+.advisor-profile .image img {
+  width: 300px;  /* Bigger image */
+  height: 300px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+/* Make name even bigger and orange */
+.advisor-profile h1.title {
+  font-size: 2.5rem; /* Bigger title */
+  color: #e44d26 !important;
+}
+
+/* Email styling */
+.advisor-profile a.has-text-link {
+  color: #e44d26 !important;
+  text-decoration: underline;
+  font-size: 1.1rem; /* Slightly bigger email text */
+}
+
+/* Email hover brighter */
+.advisor-profile a.has-text-link:hover {
+  color: #ff5722 !important;
+}
+
+/* Project View */
+
+.align-buttons {
+  margin-left: 0rem; /* ← more space (was 1.5rem before) */
+}
+
+.button.is-orange {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+}
+
+.button.is-orange:hover {
+  background-color: #e64a19;
+  color: white;
+}
+
+.button.is-gray {
+  background-color: #4a4a4a;
+  color: white;
+  border: none;
+}
+
+.button.is-gray:hover {
+  background-color: #363636;
+  color: white;
+}
+
+.half-width {
+  width: 100%;
+}
+
+.is-tall {
+  height: 3rem;
+  font-size: 1.25rem;
+}

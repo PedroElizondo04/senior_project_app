@@ -14,13 +14,28 @@
 
 <body>
 
-    <!-- Fixed Header -->
-    <header class="header">
-        <span class="welcome">
-            John Doe, <span class="role">Student</span>
-        </span>
-        <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
-    </header>
+<!-- Navbar -->
+<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item navbar-name" style="padding-left: 0;">
+        John Doe, <span class="student-text">Student</span>
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navMenu" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" style="padding-right: 0;">
+          <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
+        </a>
+      </div>
+    </div>
+  </nav>
 
     <!-- Main Content -->
     <section class="section" style="padding-top: 120px;">
