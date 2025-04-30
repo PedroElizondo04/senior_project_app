@@ -564,3 +564,43 @@ a.has-text-link:hover {
   height: 3rem;
   font-size: 1.25rem;
 }
+
+/* Navbar */
+/* Disable hover effects for navbar items */
+.navbar-item:hover {
+  background-color: transparent !important;  /* Disable background change on hover */
+  color: inherit !important;  /* Inherit text color, so it doesn't change on hover */
+}
+
+/* Optional: Disable hover effects on navbar burger button */
+.navbar-burger:hover {
+  background-color: transparent !important;
+}
+
+/* Optional: Disable hover effects for navbar dropdown */
+.navbar-dropdown a:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+/* Disable cursor change on name, role, and logo */
+.navbar-item {
+  cursor: auto !important;  /* Prevent cursor change on hover for name, role, and logo */
+}
+
+/* Enable cursor pointer only on the logout link */
+.navbar-item.has-text-light {
+  cursor: pointer !important;  /* Make the logout link clickable */
+}
+
+/* Align logout link to the left of the logo */
+.navbar-end {
+  display: flex;
+  align-items: center;
+}
+
+/* Add spacing between the logout link and the logo */
+.navbar-item {
+  margin-right: 10px; /* Adjust space between logout link and logo */
+}
+
+

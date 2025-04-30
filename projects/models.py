@@ -32,7 +32,7 @@ class Project(models.Model):
     )
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='in_process')
     created_at = models.DateTimeField(auto_now_add=True)
-    advisor = models.ForeignKey("Advisor", on_delete=models.SET_NULL, null=True, blank=True)
+
     students = models.ManyToManyField("Student", blank=True)
     advisor = models.ForeignKey("Advisor", on_delete=models.SET_NULL, null=True, related_name="projects")  # One-to-Many relationship
     
@@ -122,3 +122,13 @@ class AdvisorApplication(models.Model):
     
     def __str__(self):
         return f"{self.advisor.user.username} -> {self.project.title} ({self.status})"
+
+def get_user_role(user):
+    """Function to return the role of the user"""
+    if user.is_superuser:
+        return "Admin"
+    elif hasattr(user, 'student'):
+        return "Student"
+    elif hasattr(user, 'advisor'):
+        return "Advisor"
+    return "UNKNOWN"

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Advisor Profile</title>
+  <title>{{ advisor.user.first_name }} {{ advisor.user.last_name }} - Profile</title>
   {% load static %}
   <!-- Bulma CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
@@ -16,8 +17,9 @@
 <!-- Navbar -->
 <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item navbar-name" style="padding-left: 0;">
-      John Doe, <span class="student-text">Student</span>
+    <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
+      <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
+      <span class="role">{{ role }}</span>  <!-- Displays role dynamically -->
     </a>
 
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
@@ -29,7 +31,13 @@
 
   <div id="navMenu" class="navbar-menu">
     <div class="navbar-end">
-      <a class="navbar-item" style="padding-right: 0;">
+      <!-- Logout Link -->
+      <a href="{% url 'logout' %}" class="navbar-item has-text-light" style="cursor: pointer; margin-right: 10px;">
+        Log out
+      </a>
+
+      <!-- UTRGV Logo -->
+      <a class="navbar-item" style="padding-right: 0; cursor: auto;">
         <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
       </a>
     </div>
@@ -51,16 +59,22 @@
 
         <!-- Left Column: Name + Image + Job Title + Email -->
         <div class="column is-3 has-text-centered">
-          <h1 class="title">Askar Nurbekov</h1>
+          <h1 class="title">{{ advisor.user.first_name }} {{ advisor.user.last_name }}</h1> <!-- Advisor Name -->
 
           <figure class="image">
-            <img src="{% static 'askar_nurbekov.jpg' %}" alt="nurbekov_profile_image">
+            <!-- Advisor Image -->
+            <img src="{% if advisor.image %}{{ advisor.image.url }}{% else %}{% static 'default_profile.png' %}{% endif %}" alt="{{ advisor.user.first_name }} {{ advisor.user.last_name }}">
           </figure>
 
-          <p class="subtitle is-6 mt-3">Lecturer I</p>
+          <p class="subtitle is-6 mt-3">Professor</p> <!-- Hardcoded job title -->
           <p class="mt-1">
-            <a href="mailto:askar.nurbekov01@utrgv.edu" class="has-text-link">
-              askar.nurbekov01@utrgv.edu
+            <!-- Advisor Email -->
+            <a href="mailto:{{ advisor.user.email }}" class="has-text-link">
+              {% if advisor.user.email %}
+                {{ advisor.user.email }}
+              {% else %}
+                N/A
+              {% endif %}
             </a>
           </p>
         </div>
@@ -68,9 +82,7 @@
         <!-- Right Column: Description + Courses + Skills -->
         <div class="column">
           <p class="is-size-5 mb-5">
-            I am currently a Lecturer I in the Department of Computer Science at the University of Texas Rio Grande Valley (UTRGV).
-            I am an absolute god at leetcode, and I do three hard leetcode problems everyday while I have my breakfast
-            (<strong>alfazick</strong> on leetcode.com). I also have a FIDE Chess rating of 2049.
+            {{ advisor.bio }}  <!-- Advisor bio dynamically fetched -->
           </p>
 
           <hr class="my-4">
@@ -79,22 +91,22 @@
             <div class="column">
               <h3 class="title is-5 mb-2">Courses Taught:</h3>
               <ul>
-                <li>Computer Science I</li>
-                <li>Programming Unix/Linux Environments</li>
-                <li>Objected Oriented Programming in Java</li>
-                <li>Systems Programming</li>
-                <li>Advanced Operating Systems (Graduate Course)</li>
+                <li>Computer Science I</li>  <!-- Hardcoded course -->
+                <li>Programming Unix/Linux Environments</li>  <!-- Hardcoded course -->
+                <li>Objected Oriented Programming in Java</li>  <!-- Hardcoded course -->
+                <li>Systems Programming</li>  <!-- Hardcoded course -->
+                <li>Advanced Operating Systems (Graduate Course)</li>  <!-- Hardcoded course -->
               </ul>
             </div>
 
             <div class="column">
               <h3 class="title is-5 mb-2">Skills:</h3>
               <ul>
-                <li>Machine Learning</li>
-                <li>Computer Vision</li>
-                <li>Cybersecurity</li>
-                <li>Information Systems Security</li>
-                <li>Lebron James of Leetcode</li>
+                <li>Machine Learning</li>  <!-- Hardcoded skill -->
+                <li>Computer Vision</li>  <!-- Hardcoded skill -->
+                <li>Cybersecurity</li>  <!-- Hardcoded skill -->
+                <li>Information Systems Security</li>  <!-- Hardcoded skill -->
+                <li>Lebron James of Leetcode</li>  <!-- Hardcoded skill -->
               </ul>
             </div>
           </div>
@@ -104,9 +116,18 @@
       </div> <!-- End Advisor Columns -->
     </div> <!-- End Advisor Profile -->
 
+    <!-- Edit Profile Button for Admins -->
+    {% if role == "Admin" %}
+      <div class="mt-4">
+        <!-- The Admin Edit Profile Button, now with dynamic URL -->
+        <a href="/admin/projects/advisor/{{ advisor.id }}/change/" class="button is-primary">
+          Edit Profile
+        </a>
+      </div>
+    {% endif %}
+
   </div> <!-- End Container -->
 </section>
 
 </body>
 </html>
-

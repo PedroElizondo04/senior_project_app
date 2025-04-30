@@ -2,72 +2,134 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Landing Page</title>
-    {% load static %}
-    <!-- Bulma CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
-    <!-- Your Custom Styles -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Landing Page</title>
+  {% load static %}
+  <!-- Bulma CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet" />
+  <!-- Your Custom Styles -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
 </head>
 
 <body>
 
 <!-- Navbar -->
 <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item navbar-name" style="padding-left: 0;">
-        John Doe, <span class="student-text">Student</span>
+  <div class="navbar-brand">
+    <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
+      <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
+      <span class="role">{{ role }}</span>  <!-- Displays role dynamically -->
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <!-- Logout Link -->
+      <a href="{% url 'logout' %}" class="navbar-item has-text-light" style="cursor: pointer; margin-right: 10px;">
+        Log out
       </a>
-  
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
+
+      <!-- UTRGV Logo -->
+      <a class="navbar-item" style="padding-right: 0; cursor: auto;">
+        <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
       </a>
     </div>
-  
-    <div id="navMenu" class="navbar-menu">
-      <div class="navbar-end">
-        <a class="navbar-item" style="padding-right: 0;">
-          <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
-        </a>
-      </div>
-    </div>
-  </nav>
+  </div>
+</nav>
 
-    <!-- Main Content -->
-    <section class="section" style="padding-top: 120px;">
-        <div class="container has-text-centered">
-            <h1 class="title is-3 mb-6">What would you like to do?</h1>
+<!-- Main Content -->
+<section class="section" style="padding-top: 120px;">
+  <div class="container has-text-centered">
+      <h1 class="title is-3 mb-6">What would you like to do?</h1>
 
-            <div class="columns is-centered is-variable is-8 is-multiline">
-                <div class="column is-one-third">
-                    <a href="{% url 'projectProposal' %}" class="landingbutton">
-                        <img src="{% static 'create-project.png' %}" alt="Create Icon" class="button-icon">
+      <div class="columns is-centered is-variable is-8 is-multiline">
+          {% if role == 'Student' %}
+            <!-- Student View -->
+            <div class="column is-one-third">
+                <a href="{% url 'projectProposal' %}" class="landingbutton">
+                    <img src="{% if existing_project %}{% static 'edit-project.png' %}{% else %}{% static 'create-project.png' %}{% endif %}" alt="Create Icon" class="button-icon">
+                    {% if existing_project %}
+                        Edit Project
+                    {% else %}
                         Create Projects
-                    </a>
-                </div>
-
-                <div class="column is-one-third">
-                    <a href="{% url 'projectList' %}" class="landingbutton">
-                        <img src="{% static 'view-projects.png' %}" alt="View Project" class="button-icon">
-                        View Projects
-                    </a>
-                </div>
-
-                <div class="column is-one-third">
-                    <a href="{% url 'advisorList' %}" class="landingbutton">
-                        <img src="{% static 'advisor.png' %}" alt="Advisors Icon" class="button-icon">
-                        Advisors
-                    </a>
-                </div>
+                    {% endif %}
+                </a>
             </div>
-        </div>
-    </section>
+
+            <div class="column is-one-third">
+                <a href="{% url 'projectList' %}" class="landingbutton">
+                    <img src="{% static 'view-projects.png' %}" alt="View Project" class="button-icon">
+                    View Projects
+                </a>
+            </div>
+
+            <div class="column is-one-third">
+                <a href="{% url 'advisorList' %}" class="landingbutton">
+                    <img src="{% static 'advisor.png' %}" alt="Advisors Icon" class="button-icon">
+                    Advisors
+                </a>
+            </div>
+
+          {% elif role == 'Advisor' %}
+            <!-- Advisor View -->
+            <div class="column is-one-third">
+                <!-- My Groups Button, setting show_my_groups flag to true -->
+                <a href="{% url 'projectList' %}?show_my_groups=true" class="landingbutton">
+                    <img src="{% static 'my-groups.png' %}" alt="My Groups Icon" class="button-icon">
+                    My Groups
+                </a>
+            </div>
+
+            <div class="column is-one-third">
+                <!-- View Projects Button, no filter applied -->
+                <a href="{% url 'projectList' %}" class="landingbutton">
+                    <img src="{% static 'view-projects.png' %}" alt="View Projects Icon" class="button-icon">
+                    View Projects
+                </a>
+            </div>
+
+            <div class="column is-one-third">
+                <button class="landingbutton is-disabled">
+                    <img src="{% static 'view-students.png' %}" alt="View Students Icon" class="button-icon">
+                    View Students
+                </button>
+            </div>
+
+          {% elif role == 'Admin' %}
+            <!-- Admin View -->
+            <div class="column is-one-third">
+                <a href="{% url 'projectList' %}" class="landingbutton">
+                    <img src="{% static 'projects.png' %}" alt="Projects Icon" class="button-icon">
+                    Projects
+                </a>
+            </div>
+
+            <div class="column is-one-third">
+                <button class="landingbutton is-disabled">
+                    <img src="{% static 'students.png' %}" alt="Students Icon" class="button-icon">
+                    Students
+                </button>
+            </div>
+
+            <div class="column is-one-third">
+                <a href="{% url 'advisorList' %}" class="landingbutton">
+                    <img src="{% static 'advisor.png' %}" alt="Advisors Icon" class="button-icon">
+                    Advisors
+                </a>
+            </div>
+
+          {% endif %}
+      </div>
+  </div>
+</section>
 
 </body>
 
 </html>
-

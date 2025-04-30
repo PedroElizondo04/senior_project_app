@@ -19,33 +19,35 @@
         </span>
         <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
     </header>
+    
     <!-- Login Box -->
     <section class="section" style="padding-top: 300px;">
         <div class="container">
             <div class="box login-box has-text-centered">
                 <h2 class="title is-4 mb-4">Login to access your senior project!</h2>
 
-                <div class="field">
-                    <label class="label">Email</label>
-                    <div class="control">
-                        <input type="email" class="input" placeholder="Enter your email">
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input type="email" class="input" name="username" placeholder="Enter your email" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label class="label">Password</label>
-                    <div class="control">
-                        <input type="password" class="input" placeholder="Enter your password">
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input type="password" class="input" name="password" placeholder="Enter your password" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="field mt-4">
-                    <div class="control">
-                        <a href="{% url 'landingPage' %}" class="button is-login is-fullwidth">
-                            Login
-                        </a>
+                    <div class="field mt-4">
+                        <div class="control">
+                            <button type="submit" class="button is-login is-fullwidth">Login</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </section>

@@ -3,20 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ByteSync Project</title>
+  <title>{{ project.title }}</title>  <!-- Dynamically show project title -->
   {% load static %}
-  <!-- Bulma CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet" />
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
 </head>
-
 <body>
 
 <!-- Navbar -->
 <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item navbar-name" style="padding-left: 0;">
-      John Doe, <span class="student-text">Student</span>
+      <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
+      <span class="role">{{ role }}</span>
     </a>
 
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
@@ -48,7 +47,7 @@
 
     <!-- Project Title -->
     <h1 class="title is-2 mb-2">
-      ByteSync - A Simple File Synchronization Tool
+      {{ project.title }}  <!-- Dynamically show project title -->
     </h1>
 
     <!-- Line under title -->
@@ -57,16 +56,7 @@
     <!-- Project Description -->
     <div class="content mb-5">
       <p>
-        ByteSync is a command-line tool that allows users to sync files between two directories efficiently. 
-        The tool will detect changes in files (new, modified, or deleted) and update the target directory accordingly.
-        It will support different sync modes, such as one-way sync (source to destination) and two-way sync (bidirectional synchronization).
-      </p>
-      <p>
-        To improve performance, ByteSync will use hashing (e.g., SHA-256) to detect file changes and minimize unnecessary file transfers.
-        Users can configure exclusions via a .bytesyncignore file, similar to .gitignore, to prevent certain files from being synchronized.
-      </p>
-      <p>
-        Additionally, an optional logging system will keep track of synchronization actions.
+        {{ project.description }}  <!-- Dynamically show project description -->
       </p>
     </div>
 
@@ -79,11 +69,11 @@
       <div class="column is-4">
         <p class="has-text-weight-bold mb-2">Skills needed:</p>
         <ul>
-          <li>Rust</li>
-          <li>Algorithms</li>
-          <li>Linux</li>
-          <li>CLI</li>
-          <li>Concurrent Programming</li>
+          {% for skill in project.skills_required.all %}
+            <li>{{ skill.name }}</li>
+          {% empty %}
+            <li>No skills required</li>
+          {% endfor %}
         </ul>
       </div>
 
@@ -94,17 +84,26 @@
           <!-- Members Section -->
           <div class="column is-6">
             <p class="has-text-weight-bold mb-2">
-              Members: <span class="has-text-weight-normal">3/4</span>
+              Members: <span class="has-text-weight-normal">{{ project.students.count }}/{{ project.member_limit }}</span>
             </p>
-            <p>Jimmy McGill</p>
-            <p>Kim Wexler</p>
-            <p>Howard Hamlin</p>
+            <!-- List member names -->
+            {% for member in project.students.all %}
+              <p>{{ member.user.first_name }} {{ member.user.last_name }}</p>  <!-- Display each member's name -->
+            {% empty %}
+              <p>No members</p>
+            {% endfor %}
           </div>
 
           <!-- Advisor Section -->
           <div class="column is-3">
             <p class="has-text-weight-bold mb-2">Advisor:</p>
-            <p>N/A</p>
+            <p>
+              {% if project.advisor %}
+                {{ project.advisor.user.first_name }} {{ project.advisor.user.last_name }}  <!-- Dynamically show advisor name -->
+              {% else %}
+                N/A
+              {% endif %}
+            </p>
           </div>
 
           <!-- Buttons Section -->
@@ -125,3 +124,4 @@
 
 </body>
 </html>
+

@@ -1,141 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Project List</title>
-    {% load static %}
-    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project List</title>
+  {% load static %}
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet" />
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
 </head>
 <body>
 
 <!-- Navbar -->
 <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item navbar-name" style="padding-left: 0;">
-        John Doe, <span class="student-text">Student</span>
-      </a>
-  
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-  
-    <div id="navMenu" class="navbar-menu">
-      <div class="navbar-end">
-        <a class="navbar-item" style="padding-right: 0;">
-          <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
-        </a>
-      </div>
-    </div>
-  </nav>
+  <div class="navbar-brand">
+    <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
+      <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
+      <span class="role">{{ role }}</span>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
 <!-- Main Content -->
-<section class="section">
+<section class="section" style="padding-top: 0px;">  <!-- Reduced gap between header and content -->
     <div class="container">
 
         <!-- Back link -->
-        <a href="{% url 'landingPage' %}" class="button is-light mb-5">
-          ← Back to Landing Page
+        <a href="{% url 'landingPage' %}" class="button is-light mb-5">  <!-- Reduced gap -->
+            ← Back to Landing Page
         </a>
 
         <!-- Title -->
-        <h1 class="title is-3 mb-4">Projects</h1>
+        <h1 class="title is-3 mb-5">Projects</h1>
 
         <!-- Filter and Search -->
-        <div class="level mb-3">
-            <div class="level-left">
-                <div class="level-item">
-                    <div class="dropdown is-hoverable">
-                        <div class="dropdown-trigger">
-                            <button class="button is-light" aria-haspopup="true" aria-controls="dropdown-menu">
-                                <span>Filter</span>
-                                <span class="icon is-small">
-                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
+        <div class="columns is-variable is-6 mb-0">  <!-- Reduced gap between filter and table -->
+            <!-- Filter Dropdown (half-width) -->
+            <div class="column is-half">
+                <div class="select is-half">
+                    <select disabled>
+                        <option>Filter</option>
+                        <option>Active</option>
+                        <option>In Process</option>
+                        <option>Completed</option>
+                        <option>Archived</option>
+                        <option>Trash</option>
+                    </select>
                 </div>
             </div>
-            <div class="level-right">
-                <div class="level-item">
-                    <input class="input" type="text" placeholder="Search..." />
+
+            <!-- Search Bar (half-width) -->
+            <div class="column is-half">
+                <input class="input is-small is-half" type="text" placeholder="Search" id="searchInput">
+            </div>
+        </div>
+
+        <!-- Project Table -->
+        <div class="table-container">
+            <table class="table is-striped is-hoverable is-fullwidth custom-table">
+                <thead>
+                    <tr>
+                        <th>Star</th>
+                        <th>Author</th>
+                        <th>Title</th>
+                        <th>Skills</th>
+                        <th>Project Status</th>
+                        <th>Members</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="projectTable">
+                    {% for project in projects %}
+                    <tr>
+                        <td>
+                            <label class="star-label">
+                                <input type="checkbox" class="star-checkbox" />
+                                <span class="star-icon">&#9733;</span>
+                            </label>
+                        </td>
+
+                        <!-- Check if the author is a Student or Advisor -->
+                        <td>
+                            {% if project.author and project.author.student %}
+                                <!-- If the author is a Student -->
+                                {{ project.author.student.user.first_name }} {{ project.author.student.user.last_name }}
+                            {% elif project.author and project.author.advisor %}
+                                <!-- If the author is an Advisor -->
+                                {{ project.author.advisor.user.first_name }} {{ project.author.advisor.user.last_name }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td> 
+
+                        <td>{{ project.title }}</td>
+                        <td class="custom-skill-cell">
+                            {% for skill in project.skills_required.all %}
+                                {{ skill.name }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                No skills
+                            {% endfor %}
+                        </td>
+                        <td>{{ project.get_status_display }}</td>
+                        <td>{{ project.students.count }}/{{ project.member_limit }}</td>
+                        <td>
+                            {% if project.author == user %}
+                                <!-- Edit button if user is the creator -->
+                                <a href="{% url 'projectProposal' project.id %}">
+                                    <button class="button is-small is-gray">Edit</button>
+                                </a>
+                            {% else %}
+                                <!-- Join button for others -->
+                                <a href="{% url 'projectViewPage' project.id %}">
+                                    <button class="button is-small is-warning">Join</button>
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7">No projects available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Entries Count and Pagination Below the Table -->
+        <div class="columns is-variable is-8 mb-5">
+            <!-- Entries Count (aligned to the left) -->
+            <div class="column is-narrow">
+                <span>{{ total_projects }} Entries</span>
+            </div>
+
+            <!-- Pagination (aligned to the right) -->
+            <div class="column is-narrow has-text-right">
+                <div class="pagination-links">
+                    {% for page_num in projects.paginator.page_range %}
+                    <a href="?page={{ page_num }}" class="pagination-link {% if page_num == projects.number %}is-current{% endif %}">{{ page_num }}</a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-          
- 
-    <!-- Project Table -->
-    <div class="table-container">
-        <table class="table is-striped is-hoverable is-fullwidth custom-table">
-          <thead>
-            <tr>
-              <th>Star</th>
-              <th>Author</th>
-              <th>Title</th>
-              <th>Skills</th>
-              <th>Project Status</th>
-              <th>Members</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-  
-          <tbody>
-            <!-- Hardcoded First Entry -->
-            <tr>
-              <td>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </td>
-              <td>Me</td>
-              <td><a href="{% url 'projectViewPage' 1 %}">My Project</a></td>
-              <td class="custom-skill-cell">Python, Machine Learning, Database...</td>
-              <td>Joined</td>
-              <td>3/4</td>
-              <td>
-                <button class="button is-small is-dark">Edit</button>
-              </td>
-            </tr>
-  
-            <!-- Dynamic Project Entries -->
-            {% for project in projects %}
-            {% cycle 'Angelo Brian' 'Justin Olvera' 'Kevin Ygbuhay' 'Alejandro Garcia' 'Joaquin Martinez' 'Dante Mortalla' as authors silent %}
-            <tr>
-              <td>
-                <label class="star-label">
-                  <input type="checkbox" class="star-checkbox" />
-                  <span class="star-icon">&#9733;</span>
-                </label>
-              </td>
-              <td>{{ authors }}</td>
-              <td><a href="{% url 'projectViewPage' project.id %}">{{ project.title }}</a></td>
-              <td class="custom-skill-cell">
-                {% for skill in project.skills_required.all %}
-                  {{ skill.name }}{% if not forloop.last %}, {% endif %}
-                {% empty %}
-                  No skills
-                {% endfor %}
-              </td>
-              <td>{{ project.get_status_display }}</td>
-              <td>{{ project.students.count }}/{{ project.member_limit }}</td>
-              <td>
-                <button class="button is-small is-warning">Join</button>
-              </td>
-            </tr>
-            {% endfor %}
-  
-          </tbody>
-        </table>
-      </div>
-  
+
     </div>
-  </section>
-          
+</section>
 
 </body>
 </html>
