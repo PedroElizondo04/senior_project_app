@@ -6,9 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ advisor.user.first_name }} {{ advisor.user.last_name }} - Profile</title>
   {% load static %}
-  <!-- Bulma CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
-  <!-- Custom Styles -->
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
@@ -32,7 +30,7 @@
   <div id="navMenu" class="navbar-menu">
     <div class="navbar-end">
       <!-- Logout Link -->
-      <a href="{% url 'logout' %}" class="navbar-item has-text-light" style="cursor: pointer; margin-right: 10px;">
+      <a href="{% url 'logout' %}" class="navbar-item has-text-light logout-link" style="cursor: pointer; margin-right: 10px;">
         Log out
       </a>
 
@@ -44,31 +42,23 @@
   </div>
 </nav>
 
-<!-- Main Section -->
 <section class="section" style="padding-top: 1px;">
   <div class="container">
-
-    <!-- Separated Back Link -->
     <a href="{% url 'advisorList' %}" class="button is-light mb-5">
       ← Back to Advisor List
     </a>
 
-    <!-- Advisor Profile Section -->
     <div class="advisor-profile">
       <div class="columns is-vcentered">
 
-        <!-- Left Column: Name + Image + Job Title + Email -->
         <div class="column is-3 has-text-centered">
-          <h1 class="title">{{ advisor.user.first_name }} {{ advisor.user.last_name }}</h1> <!-- Advisor Name -->
+          <h1 class="title">{{ advisor.user.first_name }} {{ advisor.user.last_name }}</h1>
 
           <figure class="image">
-            <!-- Advisor Image -->
             <img src="{% if advisor.image %}{{ advisor.image.url }}{% else %}{% static 'default_profile.png' %}{% endif %}" alt="{{ advisor.user.first_name }} {{ advisor.user.last_name }}">
           </figure>
 
-          <p class="subtitle is-6 mt-3">Professor</p> <!-- Hardcoded job title -->
           <p class="mt-1">
-            <!-- Advisor Email -->
             <a href="mailto:{{ advisor.user.email }}" class="has-text-link">
               {% if advisor.user.email %}
                 {{ advisor.user.email }}
@@ -79,54 +69,23 @@
           </p>
         </div>
 
-        <!-- Right Column: Description + Courses + Skills -->
         <div class="column">
           <p class="is-size-5 mb-5">
-            {{ advisor.bio }}  <!-- Advisor bio dynamically fetched -->
+            {{ advisor.bio }}
           </p>
+        </div>
 
-          <hr class="my-4">
-
-          <div class="columns">
-            <div class="column">
-              <h3 class="title is-5 mb-2">Courses Taught:</h3>
-              <ul>
-                <li>Computer Science I</li>  <!-- Hardcoded course -->
-                <li>Programming Unix/Linux Environments</li>  <!-- Hardcoded course -->
-                <li>Objected Oriented Programming in Java</li>  <!-- Hardcoded course -->
-                <li>Systems Programming</li>  <!-- Hardcoded course -->
-                <li>Advanced Operating Systems (Graduate Course)</li>  <!-- Hardcoded course -->
-              </ul>
-            </div>
-
-            <div class="column">
-              <h3 class="title is-5 mb-2">Skills:</h3>
-              <ul>
-                <li>Machine Learning</li>  <!-- Hardcoded skill -->
-                <li>Computer Vision</li>  <!-- Hardcoded skill -->
-                <li>Cybersecurity</li>  <!-- Hardcoded skill -->
-                <li>Information Systems Security</li>  <!-- Hardcoded skill -->
-                <li>Lebron James of Leetcode</li>  <!-- Hardcoded skill -->
-              </ul>
-            </div>
-          </div>
-
-        </div> <!-- End Right Column -->
-
-      </div> <!-- End Advisor Columns -->
-    </div> <!-- End Advisor Profile -->
-
-    <!-- Edit Profile Button for Admins -->
-    {% if role == "Admin" %}
-      <div class="mt-4">
-        <!-- The Admin Edit Profile Button, now with dynamic URL -->
-        <a href="/admin/projects/advisor/{{ advisor.id }}/change/" class="button is-primary">
-          Edit Profile
-        </a>
       </div>
-    {% endif %}
+    </div>
 
-  </div> <!-- End Container -->
+    {% if role == "Admin" %}
+    <div class="button-container">
+      <a href="/admin/projects/advisor/{{ advisor.id }}/change/" class="button is-medium is-gray roboto-font">
+        Edit Profile
+      </a>
+    </div>
+    {% endif %}
+  </div>
 </section>
 
 </body>

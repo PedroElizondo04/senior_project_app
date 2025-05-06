@@ -75,13 +75,13 @@ body {
   text-align: center;
 }
 
-.button-container {
+/*.button-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   margin-top: 100px;
-}
+} */
 
 .landingbutton {
   background-color: #e44d26;
@@ -114,7 +114,6 @@ body {
   height: auto;
   margin-bottom: 10px;
 }
-
 
 .title-input,
 .description-input,
@@ -161,7 +160,7 @@ body {
 /* Profile cards and tables */
 
 .table-container {
-  padding: 1rem;
+  padding: 0rem;
   overflow-x: auto;
 }
 
@@ -303,16 +302,15 @@ a.back-link-text:hover {
 } 
 
 .navbar-name {
-  font-family: 'Patua One', cursive;
+  font-family: 'Roboto', sans-serif;
   font-size: 1.5rem;
-  font-weight: Bold; /* Patua One is naturally bold */
+  font-weight: bold;
 }
 
 .student-text {
   color: #e44d26; /* orange color */
   font-weight: bold; /* optional, if you want Student to pop a little more */
 }
-
 
 /*Dropmenu*/
 .select select {
@@ -339,7 +337,7 @@ a.back-link-text:hover {
   background-color: #e44d26;
   color: white;
   font-weight: bold;
-  font-family: 'Patua One', cursive;
+  font-family: 'Roboto', sans-serif;
 }
 
 .button.is-orange:hover {
@@ -355,9 +353,8 @@ a.back-link-text:hover {
 .label {
   color: #000;
   font-weight: bold;
-  font-family: 'Patua One', cursive;
+  font-family: 'Roboto', sans-serif;
 }
-
 
 /* Table */
 
@@ -372,7 +369,7 @@ a.back-link-text:hover {
   color: #494949;
   font-weight: bold;
   font-size: 1rem;
-  font-family: 'Patua One', cursive;
+  font-family: 'Roboto', sans-serif;
   text-align: left;
   white-space: nowrap;
 }
@@ -380,7 +377,7 @@ a.back-link-text:hover {
 .custom-table td {
   font-size: 0.95rem;
   vertical-align: middle;
-  font-family: 'Red Hat Text', sans-serif; /* or Patua One if you want all */
+  font-family: 'Red Hat Text', sans-serif; /* or Roboto if you want all */
 }
 
 .star-label {
@@ -399,7 +396,7 @@ a.back-link-text:hover {
 .button.is-dark,
 .button.is-warning,
 .button.is-success {
-  font-family: 'Patua One', cursive;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
 }
 
@@ -418,7 +415,7 @@ a.back-link-text:hover {
   color: #e44d26;
   text-decoration: none;
   font-size: 1.75rem;
-  font-family: 'Patua One', cursive;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
   position: relative;
   z-index: 5;
@@ -426,21 +423,12 @@ a.back-link-text:hover {
 
 /* Advisor Email */
 .advisor-email {
-  color: #e44d26;
+  color: #000000;
   font-size: 1rem;
   font-weight: normal;
   display: inline-block;
   vertical-align: middle;
   margin-left: 0;
-}
-
-/* Remove all link overrides (you don't need these anymore!) */
-
-/* Advisor Card */
-.advisor-card {
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
 }
 
 /* Advisor Card Hover */
@@ -451,35 +439,16 @@ a.back-link-text:hover {
   cursor: pointer;
 }
 
-/* Fix media-content padding inside advisor cards */
-.advisor-card .media-content {
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-/* Fix content line-height and padding inside advisor cards */
-.advisor-card .content {
-  line-height: 3.5;
-  padding-left: 0;
-  padding-right: 0;
-}
-
 h3.advisor-name {
   color: #e44d26 !important;
   text-decoration: none;
   font-size: 1.75rem;
-  font-family: 'Patua One', cursive;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
   position: relative;
   z-index: 5;
 }
 
-
-/*Advisor Profile */
-
-/* Make the advisor name orange */
 h1.title.has-text-danger {
   color: #e44d26 !important; /* Strong orange */
 }
@@ -496,7 +465,6 @@ a.has-text-link:hover {
   text-decoration: underline;
 }
 
-/* Make the entire advisor section bigger */
 .advisor-profile {
   padding: 2rem;
   font-size: 1.25rem; /* Increase base font size */
@@ -528,10 +496,8 @@ a.has-text-link:hover {
   color: #ff5722 !important;
 }
 
-/* Project View */
-
 .align-buttons {
-  margin-left: 0rem; /* ← more space (was 1.5rem before) */
+  margin-left: 0rem;
 }
 
 .button.is-orange {
@@ -565,42 +531,168 @@ a.has-text-link:hover {
   font-size: 1.25rem;
 }
 
-/* Navbar */
-/* Disable hover effects for navbar items */
 .navbar-item:hover {
-  background-color: transparent !important;  /* Disable background change on hover */
-  color: inherit !important;  /* Inherit text color, so it doesn't change on hover */
+  background-color: transparent !important;
+  color: inherit !important;
 }
 
-/* Optional: Disable hover effects on navbar burger button */
 .navbar-burger:hover {
   background-color: transparent !important;
 }
 
-/* Optional: Disable hover effects for navbar dropdown */
 .navbar-dropdown a:hover {
   background-color: transparent !important;
   color: inherit !important;
 }
-/* Disable cursor change on name, role, and logo */
+
 .navbar-item {
-  cursor: auto !important;  /* Prevent cursor change on hover for name, role, and logo */
+  cursor: auto !important;
 }
 
-/* Enable cursor pointer only on the logout link */
 .navbar-item.has-text-light {
-  cursor: pointer !important;  /* Make the logout link clickable */
+  cursor: pointer !important;
 }
 
-/* Align logout link to the left of the logo */
 .navbar-end {
   display: flex;
   align-items: center;
 }
 
-/* Add spacing between the logout link and the logo */
 .navbar-item {
   margin-right: 10px; /* Adjust space between logout link and logo */
 }
 
+/* Custom gray color for the Welcome text */
+.welcome-text {
+  color: gray;
+}
 
+.logout-link {
+  font-weight: bold;
+}
+
+.logout-link:hover {
+  text-decoration: underline;
+}
+
+/* Button container with flexbox */
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Align the button to the right */
+  align-items: flex-end; /* Align the button to the bottom */
+  height: 0px; /* Adjust this height based on your layout */
+  margin-bottom: 20px; /* Add some space from the bottom if necessary */
+}
+
+/* Custom gray button style */
+.button.is-gray {
+  background-color: #4a4a4a; /* Dark gray background */
+  color: white;
+  font-family: 'Roboto', sans-serif; /* Applying Roboto font */
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem; /* Adjust padding for size */
+  border-radius: 3px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  text-align: center;
+}
+
+.button.is-gray:hover {
+  background-color: #363636; /* Slightly darker gray on hover */
+  color: white;
+  text-decoration: none;
+}
+
+/* Pagination link style */
+.custom-pagination-link {
+  color: #e44d26; /* Orange color */
+  font-weight: bold; /* Make the text bold */
+}
+
+.custom-pagination-link:hover {
+  color: #c43d1e; /* Darker orange on hover */
+}
+
+/* For the current page */
+.pagination-link.is-current {
+  background-color: #e44d26; /* Orange background for the current page */
+  color: white; /* White text */
+  font-weight: bold; /* Bold text for the current page */
+}
+
+/* Custom styling for the Project List Page Buttons */
+.project-list-button {
+  padding: 0.75rem 1.5rem; /* Uniform padding for size consistency */
+  font-size: 1rem; /* Consistent font size */
+  font-family: 'Roboto', sans-serif; /* Use Roboto font */
+  text-align: center; /* Center text inside the button */
+  border-radius: 5px; /* Rounded corners */
+  width: auto; /* Allow the button width to adjust automatically */
+  display: inline-block; /* Keep buttons inline */
+  text-transform: none; /* Ensures the text is not capitalized by default */
+  border: none; /* Remove default border */
+  box-shadow: none; /* Remove default button shadow */
+}
+
+/* Gray Button for the Project List Page */
+.project-list-button.is-gray {
+  background-color: #4a4a4a; /* Dark gray background */
+  color: white; /* White text */
+}
+
+.project-list-button.is-gray:hover {
+  background-color: #363636; /* Darker gray on hover */
+}
+
+/* Orange Button for the Project List Page with Uppercase Text */
+.project-list-button.is-orange {
+  background-color: #e44d26; /* Orange background */
+  color: white; /* White text */
+  text-transform: uppercase; /* Make text uppercase */
+}
+
+.project-list-button.is-orange:hover {
+  background-color: #c43d1e; /* Darker orange on hover */
+}
+
+/* Optional: You can also define a smaller button style for the Project List Page */
+.project-list-button.is-small {
+  padding: 0.5rem 1.25rem; /* Smaller padding for smaller buttons */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  border-radius: 4px; /* Slightly smaller border radius */
+}
+
+/* Example of a full-width button */
+.project-list-button.is-fullwidth {
+  width: 100%; /* Make the button span the full width */
+}
+
+/* Make sure buttons in the list have the same height */
+.project-list-button.is-small,
+.project-list-button.is-fullwidth {
+  height: 40px; /* Uniform height for buttons */
+}
+
+/* Custom styling for the Project List Page Buttons */
+.project-list-button {
+  padding: 0.75rem 1.5rem; /* Uniform padding for size consistency */
+  font-size: 1rem; /* Consistent font size */
+  font-family: 'Roboto', sans-serif; /* Use Roboto font */
+  text-align: center; /* Center text inside the button */
+  border-radius: 5px; /* Rounded corners */
+  width: auto; /* Allow the button width to adjust automatically */
+  display: inline-block; /* Keep buttons inline */
+  text-transform: none; /* Ensures the text is not capitalized by default */
+  border: none; /* Remove default border */
+  box-shadow: none; /* Remove default button shadow */
+}
+
+/* Orange Button for the Project List Page */
+.project-list-button.is-orange {
+  background-color: #e44d26; /* Orange background */
+  color: white; /* White text */
+}
+
+.project-list-button.is-orange:hover {
+  background-color: #c43d1e; /* Darker orange on hover */
+}

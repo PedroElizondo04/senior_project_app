@@ -13,9 +13,9 @@
 <!-- Navbar -->
 <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item navbar-name" style="padding-left: 0;">
+    <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
       <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
-      <span class="role">{{ role }}</span>
+      <span class="role">{{ role }}</span>  <!-- Displays role dynamically -->
     </a>
 
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
@@ -27,7 +27,13 @@
 
   <div id="navMenu" class="navbar-menu">
     <div class="navbar-end">
-      <a class="navbar-item" style="padding-right: 0;">
+      <!-- Logout Link -->
+      <a href="{% url 'logout' %}" class="navbar-item has-text-light logout-link" style="cursor: pointer; margin-right: 10px;">
+        Log out
+      </a>
+
+      <!-- UTRGV Logo -->
+      <a class="navbar-item" style="padding-right: 0; cursor: auto;">
         <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
       </a>
     </div>

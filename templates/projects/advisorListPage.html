@@ -29,7 +29,7 @@
   <div id="navMenu" class="navbar-menu">
     <div class="navbar-end">
       <!-- Logout Link -->
-      <a href="{% url 'logout' %}" class="navbar-item has-text-light" style="cursor: pointer; margin-right: 10px;">
+      <a href="{% url 'logout' %}" class="navbar-item has-text-light logout-link" style="cursor: pointer; margin-right: 10px;">
         Log out
       </a>
 
@@ -68,7 +68,6 @@
                 <div class="content">
                   <!-- Display advisor name -->
                   <h3 class="title is-3 mb-3 advisor-name">{{ advisor.user.first_name }} {{ advisor.user.last_name }}</h3>
-                  <p class="is-size-5 mb-2">Professor</p>  <!-- Static job title -->
                   <p class="is-size-6 mt-2 advisor-email">
                     {% if advisor.user.email %}
                       {{ advisor.user.email }}

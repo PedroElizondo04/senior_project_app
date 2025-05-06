@@ -12,20 +12,34 @@
 
 <!-- Navbar -->
 <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
-      <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
-      <span class="role">{{ role }}</span>
-    </a>
-
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-</nav>
-
+    <div class="navbar-brand">
+      <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
+        <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
+        <span class="role">{{ role }}</span>  <!-- Displays role dynamically -->
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navMenu" class="navbar-menu">
+      <div class="navbar-end">
+        <!-- Logout Link -->
+        <a href="{% url 'logout' %}" class="navbar-item has-text-light logout-link" style="cursor: pointer; margin-right: 10px;">
+          Log out
+        </a>
+  
+        <!-- UTRGV Logo -->
+        <a class="navbar-item" style="padding-right: 0; cursor: auto;">
+          <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
+        </a>
+      </div>
+    </div>
+  </nav>
+  
 <!-- Main Content -->
 <section class="section" style="padding-top: 0px;">  <!-- Reduced gap between header and content -->
     <div class="container">
@@ -38,11 +52,25 @@
         <!-- Title -->
         <h1 class="title is-3 mb-5">Projects</h1>
 
-        <!-- Filter and Search -->
-        <div class="columns is-variable is-6 mb-0">  <!-- Reduced gap between filter and table -->
-            <!-- Filter Dropdown (half-width) -->
+        <!-- Filter, Search, and My Groups/All Projects Toggle for Advisors -->
+        <div class="columns is-variable is-6 mb-3">
+            {% if role == "Advisor" %}
+                <!-- Button to toggle between "My Groups" and "All Projects" -->
+                <div class="column is-narrow">
+                    <a href="{{ toggle_button_url }}" class="button is-small is-orange project-list-button">
+                        {% if show_my_groups %}
+                            Show All Projects
+                        {% else %}
+                            My Groups
+                        {% endif %}
+                    </a>
+                </div>
+            {% endif %}
+
+            <!-- Filter Dropdown and Search (small and next to each other) -->
             <div class="column is-half">
-                <div class="select is-half">
+                <!-- Filter Dropdown -->
+                <div class="select is-small">
                     <select disabled>
                         <option>Filter</option>
                         <option>Active</option>
@@ -54,9 +82,9 @@
                 </div>
             </div>
 
-            <!-- Search Bar (half-width) -->
             <div class="column is-half">
-                <input class="input is-small is-half" type="text" placeholder="Search" id="searchInput">
+                <!-- Search Bar -->
+                <input class="input is-small" type="text" placeholder="Search" id="searchInput">
             </div>
         </div>
 
@@ -85,18 +113,15 @@
                             </label>
                         </td>
 
-                        <!-- Check if the author is a Student or Advisor -->
                         <td>
                             {% if project.author and project.author.student %}
-                                <!-- If the author is a Student -->
                                 {{ project.author.student.user.first_name }} {{ project.author.student.user.last_name }}
                             {% elif project.author and project.author.advisor %}
-                                <!-- If the author is an Advisor -->
                                 {{ project.author.advisor.user.first_name }} {{ project.author.advisor.user.last_name }}
                             {% else %}
                                 N/A
                             {% endif %}
-                        </td> 
+                        </td>
 
                         <td>{{ project.title }}</td>
                         <td class="custom-skill-cell">
@@ -110,15 +135,29 @@
                         <td>{{ project.students.count }}/{{ project.member_limit }}</td>
                         <td>
                             {% if project.author == user %}
-                                <!-- Edit button if user is the creator -->
+                                <!-- Show Edit button if user is the project author -->
                                 <a href="{% url 'projectProposal' project.id %}">
-                                    <button class="button is-small is-gray">Edit</button>
+                                    <button class="button project-list-button is-small is-gray">Edit</button>
                                 </a>
                             {% else %}
-                                <!-- Join button for others -->
+                                {% if role == 'Advisor' %}
+                                <!-- Show View button for advisors -->
                                 <a href="{% url 'projectViewPage' project.id %}">
-                                    <button class="button is-small is-warning">Join</button>
+                                    <button class="button project-list-button is-small is-gray">View</button>
                                 </a>
+                            {% elif role == 'Student' %}
+                                <!-- Show Join button for students -->
+                                <a href="{% url 'projectViewPage' project.id %}">
+                                    <button class="button project-list-button is-small is-orange">Join</button>
+                                </a>
+                            {% else %}
+                                <!-- Handle case where user has no role or unexpected role -->
+                                <a href="{% url 'projectViewPage' project.id %}">
+                                    <button class="button project-list-button is-small is-gray">Action</button>
+                                </a>
+                            {% endif %}
+                        
+
                             {% endif %}
                         </td>
                     </tr>
@@ -142,7 +181,9 @@
             <div class="column is-narrow has-text-right">
                 <div class="pagination-links">
                     {% for page_num in projects.paginator.page_range %}
-                    <a href="?page={{ page_num }}" class="pagination-link {% if page_num == projects.number %}is-current{% endif %}">{{ page_num }}</a>
+                    <a href="?page={{ page_num }}" class="pagination-link {% if page_num == projects.number %}is-current{% endif %} custom-pagination-link">
+                        {{ page_num }}
+                    </a>
                     {% endfor %}
                 </div>
             </div>
