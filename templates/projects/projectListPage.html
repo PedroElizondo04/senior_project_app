@@ -8,6 +8,75 @@
   <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet" />
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
 </head>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".favorite-btn").forEach(button => {
+        button.addEventListener("click", function () {
+          const projectId = this.getAttribute("data-project-id");
+          const icon = this.querySelector(".favorite-star");
+  
+          fetch(`/favorite/${projectId}/`, {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': '{{ csrf_token }}',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({})
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.favorited) {
+              icon.classList.add("favorited");
+              icon.innerHTML = "&#9733;";  // solid star
+            } else {
+              icon.classList.remove("favorited");
+              icon.innerHTML = "&#9734;";  // hollow star
+            }
+          });
+        });
+      });
+    });
+  </script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const filter = document.getElementById("statusFilter");
+      const tableRows = document.querySelectorAll("#projectTable tr");
+  
+      filter.addEventListener("change", function () {
+        const selected = this.value;
+  
+        tableRows.forEach(row => {
+          const status = row.getAttribute("data-status");
+  
+          if (selected === "all" || selected === status) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
+    
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.getElementById("searchInput");
+      const tableRows = document.querySelectorAll("#projectTable tr");
+  
+      searchInput.addEventListener("input", function () {
+        const query = searchInput.value.toLowerCase();
+  
+        tableRows.forEach(row => {
+          const cellsText = row.innerText.toLowerCase();
+          row.style.display = cellsText.includes(query) ? "" : "none";
+        });
+      });
+    });
+  </script>
+
 <body>
 
 <!-- Navbar -->
@@ -71,14 +140,15 @@
             <div class="column is-half">
                 <!-- Filter Dropdown -->
                 <div class="select is-small">
-                    <select disabled>
-                        <option>Filter</option>
-                        <option>Active</option>
-                        <option>In Process</option>
-                        <option>Completed</option>
-                        <option>Archived</option>
-                        <option>Trash</option>
-                    </select>
+                    <select id="statusFilter">
+                        <option value="all">Filter by Status</option>
+                        <option value="active">Active</option>
+                        <option value="in_process">In Process</option>
+                        <option value="completed">Completed</option>
+                        <option value="archived">Archived</option>
+                        <option value="trash">Trash</option>
+                      </select>
+                      
                 </div>
             </div>
 
@@ -93,6 +163,7 @@
             <table class="table is-striped is-hoverable is-fullwidth custom-table">
                 <thead>
                     <tr>
+
                         <th>Star</th>
                         <th>Author</th>
                         <th>Title</th>
@@ -105,13 +176,17 @@
 
                 <tbody id="projectTable">
                     {% for project in projects %}
-                    <tr>
+                    <tr data-status="{{ project.status }}">
                         <td>
-                            <label class="star-label">
-                                <input type="checkbox" class="star-checkbox" />
-                                <span class="star-icon">&#9733;</span>
-                            </label>
-                        </td>
+                            <button class="favorite-btn" data-project-id="{{ project.id }}">
+                              {% if user in project.favorited_by.all %}
+                                <span class="favorite-star favorited">&#9733;</span>  <!-- solid star -->
+                              {% else %}
+                                <span class="favorite-star">&#9734;</span>            <!-- hollow star -->
+                              {% endif %}
+                            </button>
+                          </td>
+                          
 
                         <td>
                             {% if project.author and project.author.student %}

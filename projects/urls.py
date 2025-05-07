@@ -3,6 +3,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from . import views
+
+from . import views
 urlpatterns = [
     path("", views.loginPage, name="home"), 
     path("login/", views.loginPage, name="login"),
@@ -16,6 +18,7 @@ urlpatterns = [
     path('projectproposal/<int:project_id>/', views.projectProposalPage, name='projectProposal'),  # For editing an existing project
     path("students/", views.studentListPage, name="studentList"),
     path('base/', views.baseView, name='base'),
+    path('favorite/<int:project_id>/', views.toggle_favorite, name='toggle_favorite'),
 ]
 
 if settings.DEBUG:  # Serve media files in development

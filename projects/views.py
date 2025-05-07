@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth import get_user_model
 
-
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 
 def loginPage(request):
@@ -220,6 +221,25 @@ def user_logout(request):
     logout(request)  # This logs the user out
     return redirect('login')
 
+@login_required
+@require_POST
+def toggle_favorite(request, project_id):
+    """
+    AJAX handler to toggle favorite status for a project.
+    """
+    project = get_object_or_404(Project, id=project_id)
+    user = request.user
+
+    if user in project.favorited_by.all():
+        project.favorited_by.remove(user)
+        favorited = False
+    else:
+        project.favorited_by.add(user)
+        favorited = True
+
+    return JsonResponse({'favorited': favorited})
+
+
 def get_user_role(user):
     """Function to return the role of the user"""
     if user.is_superuser:
@@ -232,3 +252,5 @@ def get_user_role(user):
 
 def baseView(request):
     return render(request, "base.html")
+
+

@@ -696,3 +696,21 @@ a.has-text-link:hover {
 .project-list-button.is-orange:hover {
   background-color: #c43d1e; /* Darker orange on hover */
 }
+
+
+.favorite-btn {
+  all: unset;
+  cursor: pointer;
+  display: inline;
+}
+
+.favorite-star {
+  font-size: 1.4rem;
+  color: gray;
+  transition: color 0.2s ease;
+}
+
+.favorite-star.favorited {
+  color: orange !important;
+}
+

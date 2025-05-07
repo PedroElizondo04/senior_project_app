@@ -35,6 +35,8 @@ class Project(models.Model):
 
     students = models.ManyToManyField("Student", blank=True)
     advisor = models.ForeignKey("Advisor", on_delete=models.SET_NULL, null=True, related_name="projects")  # One-to-Many relationship
+
+    favorited_by = models.ManyToManyField(User, related_name='favorite_projects', blank=True)
     
     def update_status(self):
         """ Updates project status based on members and advisor """
