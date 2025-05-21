@@ -1,49 +1,142 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ProjectDetails</title>
-  {% load static %}
+  <title>Project Proposal</title>
+
+  <!-- Bulma CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+
+  <!-- Custom Styles -->
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
-<body>
-  <div class="container">
-    <div class="header">
-      <span>John Doe, <span class="role">Student</span></span>
-      <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+<body class="has-navbar-fixed-top">
+
+  <!-- Navbar -->
+<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
+      <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
+      <span class="role">{{ role }}</span>  <!-- Displays role dynamically -->
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <!-- Logout Link -->
+      <a href="{% url 'logout' %}" class="navbar-item has-text-light logout-link" style="cursor: pointer; margin-right: 10px;">
+        Log out
+      </a>
+
+      <!-- UTRGV Logo -->
+      <a class="navbar-item" style="padding-right: 0; cursor: auto;">
+        <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
+      </a>
     </div>
   </div>
+</nav>
 
-  <a href="{% url 'projectList' %}" class="back-link">← Project List</a>
+  <!-- Main Content -->
+  <section class="section">
+    <div class="container">
 
-  <form method="POST" action="{% url 'projectProposal' %}">
-    {% csrf_token %}
+      <!-- Back Button -->
+      <a href="{% url 'landingPage' %}" class="button is-light mb-5">
+        ← Back to Landing Page
+      </a>
 
-    <label for="title">Project Title:</label>
-    <input type="text" name="title" id="title" class="title-input" required>
+      <!-- Form -->
+      <form method="POST" action="{% if project %}{% url 'projectProposal' project.id %}{% else %}{% url 'projectProposal' %}{% endif %}">
+        {% csrf_token %}
 
-    <label for="description">Description:</label>
-    <input type="text" name="description" id="description" class="description-input" required>
+        <!-- Project Title Input -->
+        <div class="field">
+          <div class="control">
+            <input
+              type="text"
+              name="title"
+              class="input is-large has-background-light has-text-black"
+              placeholder="Project Title"
+              value="{{ project.title if project else '' }}"
+              style="background-color: #d3d3d3; border: none; font-weight: bold;"
+              required
+            >
+          </div>
+        </div>
 
-    <label for="skills">Skills needed (comma-separated):</label>
-    <input type="text" name="skills" id="skills" class="skills-input">
+        <!-- Project Description Textarea -->
+        <div class="field">
+          <div class="control">
+            <textarea
+              name="description"
+              id="description"
+              class="textarea has-background-light has-text-black"
+              placeholder="Description"
+              style="background-color: #d3d3d3; border: none; font-weight: bold; min-height: 240px;"
+              required
+            >{{ project.description if project else '' }}</textarea>
+          </div>
+        </div>
 
-    <label for="members">Members:</label>
-    <select name="member_limit" id="members">
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4" selected>Max Members</option>
-    </select>
+        <div class="columns is-mobile">
 
-    <button type="submit" class="submit-button">Submit</button>
-  </form>
-  </div>
-  </main>
+          <!-- Skills Input -->
+          <div class="column">
+            <div class="field" style="max-width: 400px;">
+              <label class="label label-special">Skills needed:</label>
+              <div class="control">
+                <input
+                  type="text"
+                  name="skills"
+                  id="skills"
+                  class="input has-background-light has-text-black"
+                  placeholder="Ex.) Rust, Algorithms, Linux, C++, CLI"
+                  value="{{ project.skills_required.all|join:', ' if project else '' }}"
+                  style="background-color: #d3d3d3; border: none; font-weight: bold;"
+                >
+              </div>
+            </div>
+          </div>
 
-  <button class="submit-button">Submit</button>
+          <!-- Members Dropdown -->
+          <div class="column">
+            <div class="field">
+              <label class="label label-special" for="members">Members:</label>
+              <div class="control">
+                <div class="select is-custom">
+                  <select name="member_limit" id="members">
+                    <option value="2" {% if project and project.member_limit == 2 %}selected{% endif %}>2</option>
+                    <option value="3" {% if project and project.member_limit == 3 %}selected{% endif %}>3</option>
+                    <option value="4" {% if project and project.member_limit == 4 %}selected{% endif %}>4</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Submit Button (changed to Save Changes if editing) -->
+        <div class="button-right-align">
+          <button type="submit" class="button is-gray is-medium" style="padding: 1rem 2rem;">
+            {% if project %}Save Changes{% else %}Submit{% endif %}
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </section>
+
 </body>
 
 </html>

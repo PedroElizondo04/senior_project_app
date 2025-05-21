@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'projects.context_processors.role', 
             ],
         },
     },
@@ -151,3 +152,5 @@ CSRF_TRUSTED_ORIGINS = [
 # for images
 MEDIA_URL = '/media/'  # URL path for media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directory where media files are stored
+
+LOGIN_REDIRECT_URL = '/landingPage'  # The page to redirect after login (e.g., home page or dashboard)

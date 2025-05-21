@@ -1,513 +1,716 @@
-/* Reset default margins and padding */
-body, h1, p {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
+/* Additional custom styles for overrides or unique behaviors */
 
-/* Full white background */
 body {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: center;
-    min-height: 100vh;
-    padding-top: 90px; /* Prevents content from hiding behind the header */
+  background-color: #fff;
+  min-height: 100vh;
+  padding-top: 90px;
 }
 
-/* Header spanning across the page */
 .header {
-    background: #494949;
-    color: white;
-    width: 100%;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
+  background: #494949;
+  color: white;
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
 }
 
-/* Header text */
-.welcome {
-    font-size: 20px;
-    font-weight: bold;
-    color: rgb(110, 110, 110); /* Only "Welcome" is gray */
-}
-
-.bold-text {
-    font-size: 22px;
-    color: rgb(255, 255, 255);
-}
-
-/* Logo */
 .logo {
-    height: 50px;
+  height: 50px;
 }
 
-/* Centering the Login Box */
 .login-box {
-    background: white;
-    width: 80%;
-    max-width: 400px;
-    padding: 40px;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Adjusted for better centering */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+  background: white;
+  width: 80%;
+  max-width: 400px;
+  padding: 2.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-/* Move login text higher */
 .login-box p {
-    font-size: 18px;
-    margin-bottom: 15px;
-    margin-top: -5px;
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
 }
 
-/* Input Labels */
-label {
-    font-size: 16px;
-    color: #c4512a;
-    display: block;
-    text-align: left;
-    margin-bottom: 5px;
+.label {
+  color: #c4512a;
+  font-weight: bold;
 }
 
-/* Input Fields */
-.input-field {
-    width: 100%;
-    max-width: 300px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: block;
-    margin-bottom: 15px;
+.input {
+  margin-bottom: 1rem;
 }
 
-/* Login Button */
-.login-button {
-    background-color: #c4512a;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    width: 150px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+.button.is-login {
+  background-color: #c4512a;
+  color: white;
 }
 
-.login-button:hover {
-    background-color: #a03e1e;
-}
-
-/* User info section in header */
-.user-info {
-    display: flex;
-    align-items: center;
+.button.is-login:hover {
+  background-color: #a03e1e;
 }
 
 .user-info img {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin-right: 10px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 0.75rem;
 }
 
-/* Role text */
 .role {
-    color: #e44d26;
-    font-weight: bold;
+  color: #e44d26;
+  font-weight: bold;
 }
 
-.main-content{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+.main-content {
+  text-align: center;
 }
 
-/* Button Container */
-.button-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-    margin-top: 100px;
-}
+/*.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 100px;
+} */
 
-/* Landing Page Buttons with PNG Icons */
 .landingbutton {
-    background-color: #e44d26;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    padding: 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: center;
-    height: 220px;
-    width: 300px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column; /* Stack icon and text */
-    align-items: center; /* Center align */
-    justify-content: center;
-    text-decoration: none; /* Remove underline */
+  background-color: #e44d26;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  height: 220px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
+  text-decoration: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* PNG Icons centered at the top */
-.button-icon {
-    width: 60px;  /* Adjust icon size */
-    height: auto;
-    margin-bottom: 10px; /* Space between icon and text */
-}
-
-/* Hover Effect */
 .landingbutton:hover {
-    background-color: #c43d1e;
+  background-color: #c43d1e;
+}
+
+.button-icon {
+  width: 60px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.title-input,
+.description-input,
+.skills-input {
+  background-color: #e0e0e0;
+  border: none;
+  padding: 0.75rem;
+  width: 100%;
 }
 
 .title-input {
-    width: 96%;
-    font-size: 63px;
-    font-weight: bold;
-    background-color: #e0e0e0;
-    border: none;
-    padding: 5px;
-    margin-bottom: 10px;
-    display: block;
-}
-
-.title-input:focus {
-    outline: none;
-    background-color: #d6d6d6;
+  font-size: 2.5rem;
+  font-weight: bold;
 }
 
 .description-input {
-    width: 96%;
-    font-size: 15px;
-    font-weight: normal;
-    background-color: #e0e0e0;
-    border: none;
-    padding-bottom: 400px;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    display: block;
-}
-
-.description-input:focus {
-    outline: none;
-    background-color: #d6d6d6;
+  padding-bottom: 10rem;
+  margin-top: 2rem;
 }
 
 .skills-input {
-    width: 50%;
-    font-size: 15px;
-    font-weight: normal;
-    background-color: #e0e0e0;
-    border: none;
-    padding-bottom: 20px;
-    margin-top: 0px;
-    margin-bottom: 10px;
-    display: block;
+  width: 50%;
 }
 
+.title-input:focus,
+.description-input:focus,
 .skills-input:focus {
-    outline: none;
-    background-color: #d6d6d6;
+  outline: none;
+  background-color: #d6d6d6;
 }
 
-/* Submit Button */
 .submit-button {
-    background-color: #c4512a;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    width: 150px;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
+  background-color: #c4512a;
+  color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .submit-button:hover {
-    background-color: #a03e1e;
+  background-color: #a03e1e;
 }
 
-/* Universal box-sizing */
-* {
-    box-sizing: border-box;
-  }
-  
-  /* Container to keep table within website bounds */
-  .table-container {
-    width: auto;  /* Adjust as needed */
-    padding: 20px 20px;    /* Add horizontal padding */
-    margin: 0 auto;
-    
-  }
-  
-  /* Table styling */
-  .profile-table {
-    width: auto;
-    table-layout: fixed;  /* Equal column widths */
-    border-collapse: collapse;
-    margin: 0 auto;
-  }
-  
-  /* Table cells */
-  .profile-table td {
-    text-align: left;
-    vertical-align: top;
-    padding: 20px;
-  }
-  
-  /* Profile Card Styling */
-  .profile-card {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-    width: auto;       /* pick a width that fits your design */
-    margin: 0 auto;     /* center the card itself within the table cell */
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    padding: 20px;
-    background-color: #fff;
-  }
+/* Profile cards and tables */
 
-  .info {
-    text-align: left;
-    margin-left: 10px;
-    margin-right: auto; /* keeps text left, pushes image to the right */
-  }
-
-.back-link-advisor{
-    margin-left: 10px;
+.table-container {
+  padding: 0rem;
+  overflow-x: auto;
 }
 
-/* Link Styling Within Cards */
-.profile-card a {
-    text-decoration: none;
-    color: inherit;
-}
-.profile-card a:hover {
-    text-decoration: underline;
+.profile-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-/* Profile Details Section */
-.profile-details {
-    display: grid;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 15px;
+.profile-table td {
+  padding: 1rem;
 }
 
-/* Profile Picture (Square) */
-.profile-details .profile-picture {
-    width: 250px;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 0; /* Ensures the image is square */
-    margin-left: 25px;
+.profile-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Profile Info */
-.profile-details {
-    text-align: left;
-}
-.advisor-name {
-    font-size: 28px;
-    margin-top: 0;
-    margin-bottom: 5px;
-    margin-left: 25px;
-    color: #e44d26;
-}
-.advisor-title {
-    font-size: 20px;
-    margin-bottom: 5px;
-    margin-left: 25px;
-}
-.advisor-email {
-    margin: 0;
-    color: #e44d26;
-    margin-left: 25px;
-}
-
-/* Advisor Description */
-.advisor-description {
-    top: 35%;
-    position: absolute;
-    font-size: 21px;
-    margin-left: 310px;
-    margin-right: auto;
-}
-
-/* Two-Column Layout for Courses and Skills */
-.two-column {
-    font-size: 21px;
-    display: flex;
-    gap: 40px;
-    margin-top: 20px;
-    margin-left: 310px;
-    top: 45%;
-    position: absolute;
-}
-.two-column > div {
-    font-size: 21px;
-    flex: 1;
-    min-width: 250px;
-}
-.two-column h3 {
-    font-size: 21px;
-    color: #e44d26;
-}
-
-/* Profile Card List Styles (if used elsewhere) */
 .profile-card img {
-    width: 175px;
-    height: 230px;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto 10px;
-}
-.profile-card h3 {
-    font-weight: bold;
-    color: #e44d26;
-    margin-top: 0;
-}
-.profile-card p {
-    color: #000;
-    margin-top: 0;
-}
-.profile-card h4 {
-    color: #e44d26;
-    margin-bottom: 0;
+  width: 175px;
+  height: 230px;
+  object-fit: cover;
 }
 
-/* Main Container for content */
-.main-container {
-    width: 100%;
-    max-width: 1500px;
-    margin: 0 auto;
-    position: relative;
-    left: 10px;
-    bottom: 80px;
-    
-  }
-  
-  /* Back link styling */
-  .back-link-advisor {
-    display: inline-block;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: #494949;
-    text-decoration: none;
-    font-size: 16px;
-    border: 1px solid #494949;
-    padding: 5px 10px;
-    border-radius: 4px;
-  }
-  .back-link-advisor:hover {
-    background-color: #f0f0f0;
-  }
-  
-  /* Project Card */
-  .project-card {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-  }
-  
-  .project-title {
-    font-size: 35px;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .project-description {
-    margin-bottom: 20px;
-    line-height: 1.4;
-  }
-  
-  .project-details p {
-    margin-bottom: 10px;
-    line-height: 1.4;
-  }
-  
-  .project-details strong {
-    color: #e44d26;
-  }
-  
-  /* Button Row */
-  .button-row {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-  }
-  
-  /* Apply and Favorite Buttons */
-  .apply-button,
-  .favorite-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .apply-button {
-    background-color: #c4512a;
-    color: #fff;
-  }
-  
-  .apply-button:hover {
-    background-color: #a03e1e;
-  }
-  
-  .favorite-button {
-    background-color: #494949;
-    color: #fff;
-  }
-  
-  .favorite-button:hover {
-    background-color: #333;
-  }
+.profile-card a {
+  text-decoration: none;
+  color: inherit;
+}
 
+.profile-card a:hover {
+  text-decoration: underline;
+}
 
+.profile-details {
+  display: grid;
+  gap: 10px;
+}
 
-  /* Hide the native checkbox */
+.profile-details .profile-picture {
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+}
+
+.advisor-name {
+  font-size: 1.75rem;
+  color: #e44d26;
+}
+
+.advisor-title,
+.advisor-email {
+  margin-left: 25px;
+  font-size: 1.25rem;
+}
+
+.advisor-description {
+  font-size: 1.2rem;
+  margin: 2rem 0;
+}
+
+.two-column {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  font-size: 1.25rem;
+}
+
+.two-column h3 {
+  color: #e44d26;
+}
+
+/* Star checkbox styling */
+
 .star-checkbox {
-    display: none;
-  }
-  
-  /* Make the label clickable (cursor) */
-  .star-label {
-    cursor: pointer;
-    /* You can also add spacing or alignment here if needed */
-    margin-left: 30%;
-  }
-  
-  /* The star icon itself */
-  .star-icon {
-    font-size: 1.5rem; /* adjust size as needed */
-    color: #ccc;       /* gray star by default */
-    transition: color 0.2s ease-in-out;
-  }
-  
-  /* When the checkbox is checked, turn the star gold (or any color) */
-  .star-checkbox:checked + .star-icon {
-    color: gold;
-  }
+  display: none;
+}
+
+.star-label {
+  cursor: pointer;
+  margin-left: 30%;
+}
+
+.star-icon {
+  font-size: 1.5rem;
+  color: #ccc;
+}
+
+.star-checkbox:checked + .star-icon {
+  color: gold;
+}
+
+.section {
+  padding-top: 40px; /* keep your top padding */
+  padding-left: 0.5rem; /* add this */
+  padding-right: 0.5rem; /* add this */
+}
+
+a.back-link-text {
+  all: unset;
+  position: left;
+  top: 6rem; /* Adjust this based on your header’s real height */
+  left: 1rem;
+  bottom: 6rem;
+  z-index: 1001;
+  font-weight: bold;
+  color: #494949;
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+a.back-link-text:hover {
+  text-decoration: underline;
+}
+
+/*Navbar*/
+
+/* nudge the name in from the left */
+.navbar-brand .navbar-item {
+  padding-left: 1rem;  /* increase this if you want more space */
+}
+
+/* nudge the logo in from the right */
+.navbar-end .navbar-item {
+  padding-right: 1rem; /* increase this if you want more space */
+}
+
+.navbar { 
+  height: 70px; 
+  padding: 0 1rem; 
+} 
+
+.head{ 
+  margin-top: 70px; 
+} 
+
+.navbar-name {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.student-text {
+  color: #e44d26; /* orange color */
+  font-weight: bold; /* optional, if you want Student to pop a little more */
+}
+
+/*Dropmenu*/
+.select select {
+  background-color: #4a565b;
+  color: white;
+  font-family: 'Red Hat Text', sans-serif;
+  font-weight: 600; /* SemiBold */
+  border: none;
+  height: 2.5rem;
+  font-size: 1rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+  padding-right: 1rem;
+}
+
+.select select:hover {
+  background-color: #5a666b;
+}
+
+/*Submit and Apply Button*/
+.button.is-orange {
+  background-color: #e44d26;
+  color: white;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+}
+
+.button.is-orange:hover {
+  background-color: #c43d1e;
+}
+
+.button-right-align {
+  text-align: right;
+  margin-top: 2rem;
+}
+
+/*Patua One Text*/
+.label {
+  color: #000;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Table */
+
+.custom-table {
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.custom-table th {
+  background-color: #e0e0e0;
+  color: #494949;
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.custom-table td {
+  font-size: 0.95rem;
+  vertical-align: middle;
+  font-family: 'Red Hat Text', sans-serif; /* or Roboto if you want all */
+}
+
+.star-label {
+  cursor: pointer;
+}
+
+.star-icon {
+  font-size: 1.2rem;
+  color: #ccc; /* unfilled star color */
+}
+
+.star-checkbox:checked + .star-icon {
+  color: gold; /* filled star color when checked */
+}
+
+.button.is-dark,
+.button.is-warning,
+.button.is-success {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
+.custom-skill-cell {
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* Advisor Card */
+
+/* Advisor Name */
+.advisor-name {
+  color: #e44d26;
+  text-decoration: none;
+  font-size: 1.75rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  position: relative;
+  z-index: 5;
+}
+
+/* Advisor Email */
+.advisor-email {
+  color: #000000;
+  font-size: 1rem;
+  font-weight: normal;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0;
+}
+
+/* Advisor Card Hover */
+.advisor-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+h3.advisor-name {
+  color: #e44d26 !important;
+  text-decoration: none;
+  font-size: 1.75rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  position: relative;
+  z-index: 5;
+}
+
+h1.title.has-text-danger {
+  color: #e44d26 !important; /* Strong orange */
+}
+
+/* Make the email link orange and underlined */
+a.has-text-link {
+  color: #e44d26 !important; /* Same strong orange */
+  text-decoration: underline !important;
+}
+
+/* On hover, make the email slightly brighter */
+a.has-text-link:hover {
+  color: #ff5722 !important; /* Lighter/brighter orange on hover */
+  text-decoration: underline;
+}
+
+.advisor-profile {
+  padding: 2rem;
+  font-size: 1.25rem; /* Increase base font size */
+}
+
+/* Make the advisor image bigger */
+.advisor-profile .image img {
+  width: 300px;  /* Bigger image */
+  height: 300px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+/* Make name even bigger and orange */
+.advisor-profile h1.title {
+  font-size: 2.5rem; /* Bigger title */
+  color: #e44d26 !important;
+}
+
+/* Email styling */
+.advisor-profile a.has-text-link {
+  color: #e44d26 !important;
+  text-decoration: underline;
+  font-size: 1.1rem; /* Slightly bigger email text */
+}
+
+/* Email hover brighter */
+.advisor-profile a.has-text-link:hover {
+  color: #ff5722 !important;
+}
+
+.align-buttons {
+  margin-left: 0rem;
+}
+
+.button.is-orange {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+}
+
+.button.is-orange:hover {
+  background-color: #e64a19;
+  color: white;
+}
+
+.button.is-gray {
+  background-color: #4a4a4a;
+  color: white;
+  border: none;
+}
+
+.button.is-gray:hover {
+  background-color: #363636;
+  color: white;
+}
+
+.half-width {
+  width: 100%;
+}
+
+.is-tall {
+  height: 3rem;
+  font-size: 1.25rem;
+}
+
+.navbar-item:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.navbar-burger:hover {
+  background-color: transparent !important;
+}
+
+.navbar-dropdown a:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.navbar-item {
+  cursor: auto !important;
+}
+
+.navbar-item.has-text-light {
+  cursor: pointer !important;
+}
+
+.navbar-end {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-item {
+  margin-right: 10px; /* Adjust space between logout link and logo */
+}
+
+/* Custom gray color for the Welcome text */
+.welcome-text {
+  color: gray;
+}
+
+.logout-link {
+  font-weight: bold;
+}
+
+.logout-link:hover {
+  text-decoration: underline;
+}
+
+/* Button container with flexbox */
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Align the button to the right */
+  align-items: flex-end; /* Align the button to the bottom */
+  height: 0px; /* Adjust this height based on your layout */
+  margin-bottom: 20px; /* Add some space from the bottom if necessary */
+}
+
+/* Custom gray button style */
+.button.is-gray {
+  background-color: #4a4a4a; /* Dark gray background */
+  color: white;
+  font-family: 'Roboto', sans-serif; /* Applying Roboto font */
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem; /* Adjust padding for size */
+  border-radius: 3px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  text-align: center;
+}
+
+.button.is-gray:hover {
+  background-color: #363636; /* Slightly darker gray on hover */
+  color: white;
+  text-decoration: none;
+}
+
+/* Pagination link style */
+.custom-pagination-link {
+  color: #e44d26; /* Orange color */
+  font-weight: bold; /* Make the text bold */
+}
+
+.custom-pagination-link:hover {
+  color: #c43d1e; /* Darker orange on hover */
+}
+
+/* For the current page */
+.pagination-link.is-current {
+  background-color: #e44d26; /* Orange background for the current page */
+  color: white; /* White text */
+  font-weight: bold; /* Bold text for the current page */
+}
+
+/* Custom styling for the Project List Page Buttons */
+.project-list-button {
+  padding: 0.75rem 1.5rem; /* Uniform padding for size consistency */
+  font-size: 1rem; /* Consistent font size */
+  font-family: 'Roboto', sans-serif; /* Use Roboto font */
+  text-align: center; /* Center text inside the button */
+  border-radius: 5px; /* Rounded corners */
+  width: auto; /* Allow the button width to adjust automatically */
+  display: inline-block; /* Keep buttons inline */
+  text-transform: none; /* Ensures the text is not capitalized by default */
+  border: none; /* Remove default border */
+  box-shadow: none; /* Remove default button shadow */
+}
+
+/* Gray Button for the Project List Page */
+.project-list-button.is-gray {
+  background-color: #4a4a4a; /* Dark gray background */
+  color: white; /* White text */
+}
+
+.project-list-button.is-gray:hover {
+  background-color: #363636; /* Darker gray on hover */
+}
+
+/* Orange Button for the Project List Page with Uppercase Text */
+.project-list-button.is-orange {
+  background-color: #e44d26; /* Orange background */
+  color: white; /* White text */
+  text-transform: uppercase; /* Make text uppercase */
+}
+
+.project-list-button.is-orange:hover {
+  background-color: #c43d1e; /* Darker orange on hover */
+}
+
+/* Optional: You can also define a smaller button style for the Project List Page */
+.project-list-button.is-small {
+  padding: 0.5rem 1.25rem; /* Smaller padding for smaller buttons */
+  font-size: 0.9rem; /* Slightly smaller font size */
+  border-radius: 4px; /* Slightly smaller border radius */
+}
+
+/* Example of a full-width button */
+.project-list-button.is-fullwidth {
+  width: 100%; /* Make the button span the full width */
+}
+
+/* Make sure buttons in the list have the same height */
+.project-list-button.is-small,
+.project-list-button.is-fullwidth {
+  height: 40px; /* Uniform height for buttons */
+}
+
+/* Custom styling for the Project List Page Buttons */
+.project-list-button {
+  padding: 0.75rem 1.5rem; /* Uniform padding for size consistency */
+  font-size: 1rem; /* Consistent font size */
+  font-family: 'Roboto', sans-serif; /* Use Roboto font */
+  text-align: center; /* Center text inside the button */
+  border-radius: 5px; /* Rounded corners */
+  width: auto; /* Allow the button width to adjust automatically */
+  display: inline-block; /* Keep buttons inline */
+  text-transform: none; /* Ensures the text is not capitalized by default */
+  border: none; /* Remove default border */
+  box-shadow: none; /* Remove default button shadow */
+}
+
+/* Orange Button for the Project List Page */
+.project-list-button.is-orange {
+  background-color: #e44d26; /* Orange background */
+  color: white; /* White text */
+}
+
+.project-list-button.is-orange:hover {
+  background-color: #c43d1e; /* Darker orange on hover */
+}
+
+
+.favorite-btn {
+  all: unset;
+  cursor: pointer;
+  display: inline;
+}
+
+.favorite-star {
+  font-size: 1.4rem;
+  color: gray;
+  transition: color 0.2s ease;
+}
+
+.favorite-star.favorited {
+  color: orange !important;
+}
+
