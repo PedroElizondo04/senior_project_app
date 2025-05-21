@@ -1,0 +1,45 @@
+{% extends "project_manager/base.html" %}
+{% block content %}
+{% load static %}
+<section class="section" style="padding-top: 120px;">
+  <div class="container has-text-centered">
+      <h1 class="title is-3 mb-6">What would you like to do?</h1>
+
+      <div class="columns is-centered is-variable is-8 is-multiline">
+            <!-- Student View -->
+
+
+<div class="column is-one-third">
+  <div class="box has-text-centered">
+    <a href="{% url 'manager:projectProposal' %}" class="landingbutton">
+      <figure class="image is-128x128 is-inline-block mb-2">
+        <img src="{% static 'create-project.png' %}" alt="Advisors Icon">
+      </figure>
+      <div class="is-size-5 has-text-weight-semibold">Create a Project</div>
+    </a>
+  </div>
+</div>
+<div class="column is-one-third">
+  <div class="box has-text-centered">
+    <a href="{% url 'manager:projectList' %}" class="landingbutton">
+      <figure class="image is-128x128 is-inline-block mb-2">
+        <img src="{% static 'view-projects.png' %}" alt="Advisors Icon">
+      </figure>
+      <div class="is-size-5 has-text-weight-semibold">View Projects</div>
+    </a>
+  </div>
+</div>
+<div class="column is-one-third">
+  <div class="box has-text-centered">
+    <a href="{% url 'manager:advisorList' %}" class="landingbutton">
+      <figure class="image is-128x128 is-inline-block mb-2">
+        <img src="{% static 'advisor-list.png' %}" alt="Advisors Icon">
+      </figure>
+      <div class="is-size-5 has-text-weight-semibold">Advisors</div>
+    </a>
+  </div>
+</div>
+      </div>
+  </div>
+</section>
+{% endblock %}

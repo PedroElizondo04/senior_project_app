@@ -1,0 +1,35 @@
+{% extends "project_manager/base.html" %}
+
+{% block content %}
+<section class="section">
+  <div class="container" style="max-width: 700px;">
+    <div class="box">
+
+      <h2 class="title is-4 mb-4">Application from {{ application.applicant.get_full_name }}</h2>
+
+      <div class="content">
+        <p><strong>Email:</strong> {{ application.applicant.email }}</p>
+        <p><strong>Message:</strong></p>
+        <div class="box has-background-light">
+          {{ application.message }}
+        </div>
+        <p><strong>Applied at:</strong> {{ application.applied_at|date:"F j, Y, g:i a" }}</p>
+      </div>
+
+      <form method="post" class="mt-5">
+        {% csrf_token %}
+        <div class="buttons">
+          <button type="submit" name="admit" class="button is-success is-light"> Admit</button>
+          <button type="submit" name="discard" class="button is-danger is-light"> Discard</button>
+        </div>
+      </form>
+
+      <hr>
+      <a href="{% url 'manager:projectDetail' application.project.id %}" class="button is-link is-light mt-3">
+        ← Back to Project
+      </a>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

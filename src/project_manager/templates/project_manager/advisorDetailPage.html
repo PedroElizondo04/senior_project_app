@@ -1,0 +1,63 @@
+{% extends "project_manager/base.html" %}
+
+{% block content %}
+
+<section class="section" style="padding-top: 60px;">
+  <div class="container">
+    <a href="{% url 'manager:advisorList' %}" class="button is-light mb-5">
+      ← Back to Advisor List
+    </a>
+
+    <div class="advisor-profile">
+      <div class="columns is-vcentered">
+
+        <div class="column is-3 has-text-centered">
+          <h1 class="title">{{ advisor.get_full_name }}</h1>
+
+          <figure class="image">
+            <img src="{{ advisor.image.url }}" alt="{{ advisor.get_full_name }}">
+          </figure>
+
+          <h4 class="title is-4">{{ advisor.title }}</h4>
+          <p class="mt-1">
+            <a href="mailto:{{ advisor.user.email }}" class="has-text-link">
+                {{ advisor.user.email }}
+            </a>
+          </p>
+        </div>
+
+        <div class="column">
+          <h5 class="title is-5"> Biography </h5>
+          <hr class="my-4">
+          <p class="is-size-5 mb-5">
+            {{ advisor.user.bio }}
+
+          </p>
+          <hr class="my-4">
+          <div class=columns>
+          <div class="column">
+          <h5 class="title is-5"> Courses Taught</h5>
+          <p class="is-size-5 mb-5">
+            {{ advisor.courses_taught }}
+          </p>
+          </div>
+          <div class="column">
+          <h5 class="title is-5"> Skills </h5>
+          {% for skill in advisor.user.skills.all %}
+            <li>{{ skill.name }}</li>
+          {% empty %}
+            <li>No skills listed</li>
+          {% endfor %}
+          </div>
+        </div>
+
+    {% if role == "Admin" %}
+    <div class="button-container">
+      <a href="/admin/projects/advisor/{{ advisor.id }}/change/" class="button is-medium is-gray roboto-font">
+        Edit Profile
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

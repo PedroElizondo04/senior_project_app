@@ -1,0 +1,90 @@
+{% extends "project_manager/base.html" %}
+
+{% block content %}
+    <div class="mt-6 mb-5">
+      <a href="{% url 'manager:projectList' %}" class="button is-light mb-5">
+        ← Back to Project List Page
+      </a>
+    </div>
+    <!-- Project Title -->
+    <h1 class="title is-2 mb-2">
+      {{ project.title }}  <!-- Dynamically show project title -->
+    </h1>
+
+    <!-- Line under title -->
+    <hr class="my-4">
+
+    <!-- Project Description -->
+    <div class="content mb-5">
+      <p>
+        {{ project.description }}  <!-- Dynamically show project description -->
+      </p>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Skills, Members, Advisor, Buttons -->
+    <div class="columns is-variable is-8">
+
+      <!-- Left Column (Skills) -->
+      <div class="column is-4">
+        <p class="has-text-weight-bold mb-2">Skills needed:</p>
+        <ul>
+          {% for skill in project.skills_required.all %}
+            <li>{{ skill.name }}</li>
+          {% empty %}
+            <li>No skills required</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Right Section: Members + Advisor + Buttons -->
+      <div class="column is-8">
+        <div class="columns is-multiline">
+
+          <!-- Members Section -->
+          <div class="column is-6">
+            <p class="has-text-weight-bold mb-2">
+              Members: <span class="has-text-weight-normal">{{ project.students.count }}/{{ project.member_limit }}</span>
+            </p>
+            <!-- List member names -->
+            {% for member in project.members.all %}
+              <p>{{ member.get_fullname }}</p>  <!-- Display each member's name -->
+            {% empty %}
+              <p>No members</p>
+            {% endfor %}
+          </div>
+
+          <!-- Advisor Section -->
+          <div class="column is-3">
+            <p class="has-text-weight-bold mb-2">Advisor:</p>
+            <p>
+              {% if project.advisor %}
+                {{ project.advisor.user.first_name }} {{ project.advisor.user.last_name }}  <!-- Dynamically show advisor name -->
+              {% else %}
+                N/A
+              {% endif %}
+            </p>
+          </div>
+
+          <!-- Buttons Section -->
+          <div class="column is-3">
+            <div class="is-flex is-flex-direction-column align-buttons">
+              {% if project.created_by == request.user %}
+              <button class="button is-orange half-width is-tall mb-3">
+                <a href="{% url 'manager:projectApplications' project.id %}">View Applications</a>
+              </button>
+              <button class="button is-orange half-width is-tall mb-3">
+                <a href="{% url 'manager:projectEdit' project.id %}">Edit Project</a>
+              </button>
+              {% else %}
+                <button class="button is-orange half-width is-tall mb-3">Apply</button>
+              {% endif %}
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+{% endblock %}

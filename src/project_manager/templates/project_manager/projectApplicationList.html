@@ -1,0 +1,15 @@
+{% extends "project_manager/base.html" %}
+
+{% block content %}
+<h2>Applications for {{ applications.0.project.title }}</h2>
+<ul>
+	{% for application in applications %}
+	<li>
+   <h3 class="title is-3 ml-2 pt-6"><a href="{% url 'manager:applicationDetail' application.id %}">{{ application.applicant.get_full_name }}</a></h3>
+		
+	</li>
+	{% empty %}
+	<li>No applications yet.</li>
+	{% endfor %}
+</ul>
+{% endblock %}
