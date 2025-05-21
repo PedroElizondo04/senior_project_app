@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Page</title>
+    {% load static %}
+    {% load bulma_tags %}
+    <!-- Bulma CSS -->
+  <link rel="stylesheet" href="{% static 'bulma/css/style.min.css' %}">
+</head>
+
+<body>
+    <!-- Navbar -->
+<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
+            <span class="welcome-text">Welcome</span>&thinsp;Faculty and Students!
+        </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navMenu" class="navbar-menu">
+      <div class="navbar-end">
+  
+        <!-- UTRGV Logo -->
+        <a class="navbar-item" style="padding-right: 0; cursor: auto;">
+          <img src="{% static 'utrgv-logo.png' %}" alt="UTRGV Logo" class="logo" />
+        </a>
+      </div>
+    </div>
+</nav>
+    
+    <div class="is-flex is-justify-content-center">
+    <!-- Login Box -->
+    <section class="section" style="padding-top: 300px;">
+        <div class="container">
+            <div class="box login-box has-text-centered">
+                <h2 class="title is-4 mb-4">Login to access your senior project!</h2>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input type="email" class="input" name="username" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input type="password" class="input" name="password" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+
+                    <div class="field mt-4">
+                        <div class="control">
+                            <button type="submit" class="button is-login is-fullwidth">Login</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
+
+{# Display a form #}
+

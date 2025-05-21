@@ -1,70 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Advisor Profile</title>
+  <title>{{ advisor.user.first_name }} {{ advisor.user.last_name }} - Profile</title>
   {% load static %}
-  <link href="{% static 'css/style.css' %}" class="back-link-advisor" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
+
 <body>
 
-  <!-- Fixed Header -->
-  <div class="header">
-    <span class="bold-text">John Doe, <span class="role">Student</span></span>
-    <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+<!-- Navbar -->
+<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
+      <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
+      <span class="role">{{ role }}</span>  <!-- Displays role dynamically -->
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
 
-  <!-- Profile List Wrapper -->
-  <div class="profile-list">
-    <div class="profile-card2">
-      <p>
-        <a href="{% url 'advisorList' %}">Back to advisors list</a>
-      </p>
-      
-      <!-- Profile Details Section -->
-      <div class="profile-details">
-        <img src="{% static 'advisorpic.png' %}" alt="nurbekov_profile_image" class="profile-picture">
-        <div class="info">
-          <h3 class="advisor-name">Askar Nurbekov</h3>
-          <p class="advisor-title">Lecturer I</p>
-          <h4 class="advisor-email">askar.nurbekov01@utrgv.edu</h4>
+  <div id="navMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <!-- Logout Link -->
+      <a href="{% url 'logout' %}" class="navbar-item has-text-light logout-link" style="cursor: pointer; margin-right: 10px;">
+        Log out
+      </a>
+
+      <!-- UTRGV Logo -->
+      <a class="navbar-item" style="padding-right: 0; cursor: auto;">
+        <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
+      </a>
+    </div>
+  </div>
+</nav>
+
+<section class="section" style="padding-top: 1px;">
+  <div class="container">
+    <a href="{% url 'advisorList' %}" class="button is-light mb-5">
+      ← Back to Advisor List
+    </a>
+
+    <div class="advisor-profile">
+      <div class="columns is-vcentered">
+
+        <div class="column is-3 has-text-centered">
+          <h1 class="title">{{ advisor.user.first_name }} {{ advisor.user.last_name }}</h1>
+
+          <figure class="image">
+            <img src="{% if advisor.image %}{{ advisor.image.url }}{% else %}{% static 'default_profile.png' %}{% endif %}" alt="{{ advisor.user.first_name }} {{ advisor.user.last_name }}">
+          </figure>
+
+          <p class="mt-1">
+            <a href="mailto:{{ advisor.user.email }}" class="has-text-link">
+              {% if advisor.user.email %}
+                {{ advisor.user.email }}
+              {% else %}
+                N/A
+              {% endif %}
+            </a>
+          </p>
         </div>
-      </div>
-      
-      <div>
-        <!-- Advisor Description -->
-        <p class="advisor-description">
-          I am currently a Lecturer I in the Department of Computer Science at the University of Texas Rio Grande Valley (UTRGV).<br>
-          I am an absolute god at leetcode, and I do three hard leetcode problems every day while I have my breakfast (<strong>alfazick</strong> on leetcode.com). I also have a FIDE Chess rating of 2049.
-        </p>
-      </div>
-      
-      <!-- Two-Column Layout for Courses and Skills -->
-      <div class="two-column">
-        <div class="courses">
-          <h3>Courses Taught:</h3>
-          <ul>
-            <li>Computer Science I</li>
-            <li>Programming Unix/Linux Environments</li>
-            <li>Systems Programming</li>
-            <li>Advanced Operating Systems (Graduate Course)</li>
-          </ul>
+
+        <div class="column">
+          <p class="is-size-5 mb-5">
+            {{ advisor.bio }}
+          </p>
         </div>
-        <div class="skills">
-          <h3>Skills:</h3>
-          <ul>
-            <li>Machine Learning</li>
-            <li>Computer Vision</li>
-            <li>Cybersecurity</li>
-            <li>Information Systems Security</li>
-            <li>Lebron James of Leetcode</li>
-          </ul>
-        </div>
+
       </div>
-      
-    </div> <!-- .profile-card -->
-  </div> <!-- .profile-list -->
+    </div>
+
+    {% if role == "Admin" %}
+    <div class="button-container">
+      <a href="/admin/projects/advisor/{{ advisor.id }}/change/" class="button is-medium is-gray roboto-font">
+        Edit Profile
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>
 
 </body>
 </html>

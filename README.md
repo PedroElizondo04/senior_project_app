@@ -1,65 +1,166 @@
-# Senior Project Manager
+# Models V2
+```txt
+modelsV2
+├── src
+│   ├── core
+│   │   ├── asgi.py
+│   │   ├── __init__.py
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   ├── media
+│   │   └── profile_pics
+│   │       ├── advisorpic.png
+│   │       ├── askar_nurbekov.jpg
+│   │       ├── default.png
+│   │       ├── emmett-tomai.jpg
+│   │       ├── erik_enriquez.jpg
+│   │       ├── marzieh-ayati-02.jpg
+│   │       └── timothy-wylie.jpg
+│   ├── project_manager
+│   │   ├── migrations
+│   │   │   ├── 0001_initial.py
+│   │   │   ├── 0002_alter_user_managers.py
+│   │   │   ├── 0003_alter_user_email.py
+│   │   │   ├── 0004_project_skills_required.py
+│   │   │   ├── 0005_project_member_limit.py
+│   │   │   ├── 0006_projectapplication.py
+│   │   │   ├── 0007_alter_project_advisor_alter_project_created_by.py
+│   │   │   ├── 0008_favorite.py
+│   │   │   ├── 0009_studentprofile.py
+│   │   │   ├── 0010_advisorprofile_image.py
+│   │   │   └── __init__.py
+│   │   ├── static
+│   │   │   └── project_manager
+│   │   │       ├── css
+│   │   │       │   └── style.css
+│   │   │       ├── advisorpic.png
+│   │   │       ├── advisor.png
+│   │   │       ├── create-project.png
+│   │   │       ├── utrgv-logo-orange.png
+│   │   │       ├── utrgv-logo.svg
+│   │   │       ├── utrgv.svg
+│   │   │       └── view-projects.png
+│   │   ├── templates
+│   │   │   ├── project_manager
+│   │   │   │   ├── advisorDetailPage.html
+│   │   │   │   ├── advisorListPage.html
+│   │   │   │   ├── base.html
+│   │   │   │   ├── landingPage.html
+│   │   │   │   ├── loginPage.html
+│   │   │   │   ├── projectApplicationDetailView.html
+│   │   │   │   ├── projectApplicationList.html
+│   │   │   │   ├── projectApplicationPage.html
+│   │   │   │   ├── projectDetailPage.html
+│   │   │   │   ├── projectListPage.html
+│   │   │   │   └── projectProposalPage.html
+│   │   │   └── static
+│   │   │       └── css
+│   │   │           └── style.css
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── forms.py
+│   │   ├── __init__.py
+│   │   ├── managers.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── static
+│   ├── staticfiles
+│   │   ├── admin
+│   │   │   ├── css
+│   │   │   │   ├── vendor
+│   │   │   │   │   └── select2
+│   │   │   │   ├── autocomplete.css
+│   │   │   │   ├── base.css
+│   │   │   │   ├── changelists.css
+│   │   │   │   ├── dark_mode.css
+│   │   │   │   ├── dashboard.css
+│   │   │   │   ├── forms.css
+│   │   │   │   ├── login.css
+│   │   │   │   ├── nav_sidebar.css
+│   │   │   │   ├── responsive.css
+│   │   │   │   ├── responsive_rtl.css
+│   │   │   │   ├── rtl.css
+│   │   │   │   ├── unusable_password_field.css
+│   │   │   │   └── widgets.css
+│   │   │   ├── img
+│   │   │   │   ├── gis
+│   │   │   │   │   ├── move_vertex_off.svg
+│   │   │   │   │   └── move_vertex_on.svg
+│   │   │   │   ├── calendar-icons.svg
+│   │   │   │   ├── icon-addlink.svg
+│   │   │   │   ├── icon-alert.svg
+│   │   │   │   ├── icon-calendar.svg
+│   │   │   │   ├── icon-changelink.svg
+│   │   │   │   ├── icon-clock.svg
+│   │   │   │   ├── icon-deletelink.svg
+│   │   │   │   ├── icon-hidelink.svg
+│   │   │   │   ├── icon-no.svg
+│   │   │   │   ├── icon-unknown-alt.svg
+│   │   │   │   ├── icon-unknown.svg
+│   │   │   │   ├── icon-viewlink.svg
+│   │   │   │   ├── icon-yes.svg
+│   │   │   │   ├── inline-delete.svg
+│   │   │   │   ├── LICENSE
+│   │   │   │   ├── README.txt
+│   │   │   │   ├── search.svg
+│   │   │   │   ├── selector-icons.svg
+│   │   │   │   ├── sorting-icons.svg
+│   │   │   │   ├── tooltag-add.svg
+│   │   │   │   └── tooltag-arrowright.svg
+│   │   │   └── js
+│   │   │       ├── admin
+│   │   │       │   ├── DateTimeShortcuts.js
+│   │   │       │   └── RelatedObjectLookups.js
+│   │   │       ├── vendor
+│   │   │       │   ├── jquery
+│   │   │       │   ├── select2
+│   │   │       │   └── xregexp
+│   │   │       ├── actions.js
+│   │   │       ├── autocomplete.js
+│   │   │       ├── calendar.js
+│   │   │       ├── cancel.js
+│   │   │       ├── change_form.js
+│   │   │       ├── core.js
+│   │   │       ├── filters.js
+│   │   │       ├── inlines.js
+│   │   │       ├── jquery.init.js
+│   │   │       ├── nav_sidebar.js
+│   │   │       ├── popup_response.js
+│   │   │       ├── prepopulate_init.js
+│   │   │       ├── prepopulate.js
+│   │   │       ├── SelectBox.js
+│   │   │       ├── SelectFilter2.js
+│   │   │       ├── theme.js
+│   │   │       ├── unusable_password_field.js
+│   │   │       └── urlify.js
+│   │   ├── django_select2
+│   │   │   ├── django_select2.css
+│   │   │   └── django_select2.js
+│   │   └── project_manager
+│   │       ├── css
+│   │       │   └── style.css
+│   │       ├── advisorpic.png
+│   │       ├── advisor.png
+│   │       ├── create-project.png
+│   │       ├── utrgv-logo-orange.png
+│   │       ├── utrgv-logo.svg
+│   │       ├── utrgv.svg
+│   │       └── view-projects.png
+│   ├── templates
+│   │   └── registration
+│   │       └── login.html
+│   ├── db.sqlite3
+│   └── manage.py
+├── tests
+│   └── __init__.py
+├── notes.txt
+├── poetry.lock
+├── pyproject.toml
+└── README.md
 
-## Description:
-A web-based application that students and advisors can use to share project ideas,
+34 directories, 126 files
 
-communicate with each other, and to form teams with an assigned advisor.
-
-### Members:
-- Pedro Elizondo (pedro.elizondo02@utrgv.edu)
-- Angelo Brian Navilon (angelobrian.navilon01@utrgv.edu)
-- Angel Ballesteros (angel.ballesteros01@utrgv.edu)
-- Alejandro Garcia (alejandro.garcia35@utrgv.edu)
-
-### Advisor: 
-Dr. Jonathan Reyes (jonatan.reyes01@utrgv.edu)
-
-### Codespace Setup Instructions
-```sh
-chmod u+x codespace_setup.sh
-./codespace_setup.sh
-```
-Then:
-```sh
-chmod u+x codespace_activate.sh
-./codespace_activate.sh
-```
-### Making a Seperate Branch from Main (Group Members Only)
-Step 1: Ensure Local Repo is Up to Date
-```sh
-git checkout main       # Switch to the main branch
-git pull origin main    # Get the latest changes from GitHub
-```
-Step 2: Create and Switch to the New Branch
-```sh
-git checkout -b feature-branch-name   # "feature" would be what you are implementing
-```
-Step 3: Make your changes and commit
-```sh
-git add .      # Stage all changed files
-git commit -m "Your commit message here"
-```
-Step 4: Push the Branch into Github
-```sh
-git push origin feature-branch-name
-```
-Step 5: Create a Pull Request
-
-Go to your repository on GitHub.
-Click on the "Compare & pull request" button that appears after pushing the branch.
-Add a clear title and description for your changes.
-Select main as the base branch and your new branch as the compare branch.
-Click Create pull request.
-
-Step 6: Request Reviews and Merge
-
-If necessary, request a review from teammates or an advisor.
-Once approved, merge the pull request.
-After merging, delete the feature branch on GitHub.
-
-Step 7: Clean Up Locally
-```sh
-git checkout main            # Switch back to main
-git pull origin main         # Get the latest changes
-git branch -d feature-branch-name  # Delete the local branch
 ```

@@ -1,0 +1,66 @@
+{% extends "project_manager/base.html" %}
+{% block content %}
+{{ form.non_field_errors }}
+<section class="section">
+    <div class="container">
+
+      <!-- Back Button -->
+      <a href="{% url 'manager:landingPage' %}" class="button is-light mb-5">
+        ← Back to Landing Page
+      </a>
+
+      <!-- Form -->
+      <form action="{% url 'manager:projectProposal' %}" method="POST" >
+        {% csrf_token %}
+
+        <!-- Project Title Input -->
+        <div class="field">
+          <div class="control pb-1">
+            {{ form.title }}
+          </div>
+        </div>
+
+        <!-- Project Description Textarea -->
+        <div class="field">
+          <div class="control">
+            {{ form.description }}
+          </div>
+        </div>
+
+        <div class="columns is-mobile">
+
+          <!-- Skills Input -->
+          <div class="column">
+            <div class="field" style="max-width: 400px;">
+              <label class="label label-special">Skills needed:</label>
+              <div class="control">
+                {{ form.skills_required }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Members Dropdown -->
+          <div class="column">
+            <div class="field">
+              <label class="label label-special" for="members">Members:</label>
+              <div class="control">
+                <div class="select is-custom">
+                 {{ form.member_limit }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Submit Button -->
+        <div class="button-right-align">
+          <button type="submit" class="button is-orange is-medium" style="padding: 1rem 2rem;">
+              Submit
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </section>
+{% endblock %}

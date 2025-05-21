@@ -1,0 +1,51 @@
+{% extends "project_manager/base.html" %}
+
+{% block content %}
+{% load static %}
+<h2>Advisors List</h2>
+
+    <a href="{% url 'manager:landingPage' %}" class="button is-light mb-5">
+      ← Back to Landing Page
+    </a>
+
+    <h2 class="title is-2 mb-5">Advisors</h2>
+
+    <div class="columns is-multiline">
+      <!-- Loop through advisors dynamically -->
+      {% for advisor in advisors_list %}
+      <div class="column is-one-third">
+        <a href="{% url 'manager:advisorDetail' advisor.advisorprofile.id %}" class="card-link-wrapper">
+          <div class="card p-5 advisor-card">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-200x200">
+                  <!-- Display image, use default if not found -->
+                  <img src="{% if advisor.advisorprofile.image %}{{ advisor.advisorprofile.image.url }}{% else %}{% static 'default_profile.png' %}{% endif %}" alt=" {{ advisor.get_full_name }} " style="object-fit: contain; height: 200px; width: 200px;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <!-- Display advisor name -->
+                  <h3 class="title is-3 mb-3 advisor-name">{{ advisor.get_full_name }}</h3>
+                  <p class="is-size-6 mt-2 advisor-email">
+                      {{ advisor.advisorprofile.title }}
+                  </p>
+                  <p class="is-size-6 mt-2 advisor-email">
+                      {{ advisor.email }}
+                  </p>
+                  <h5 class="is-size-6 mt-2 advisor-email">
+                      {{ advisor.campus|upper }}
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% empty %}
+      <p>No advisors available.</p>
+      {% endfor %}
+    </div>
+
+{% endblock %}
+

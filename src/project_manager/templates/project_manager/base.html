@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Senior Project Manager{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'bulma/css/style.min.css' %}">
+</head>
+<body>
+<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
+      <span>{{ user.get_full_name }}</span>,&thinsp;
+      <span class="role">{{ user.user_type|upper }}</span>  <!-- Displays role dynamically -->
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <!-- Logout Link -->
+
+	    <form action="{% url 'logout' %}" method="post" class="navbar-item has-text-light logout-link" style="cursor: pointer; margin-right: 10px;">
+	      {% csrf_token %}
+	      <button type="submit">Log Out</button>
+	    </form>
+      <!-- UTRGV Logo -->
+      <a class="navbar-item" style="padding-right: 10; cursor: auto;">
+        <img src="{% static 'utrgv-logo.png' %}" alt="UTRGV Logo" class="logo"  height="50" />
+      </a>
+    </div>
+  </div>
+</nav>
+  <section class="section" style="padding-top: 30px;">
+    <div class="container">
+    {% block content %}
+    {% endblock %}
+    </div>
+  </section>
+</body>
+</html>

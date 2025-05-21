@@ -1,89 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Profile List</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advisor List</title>
   {% load static %}
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet" />
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
 </head>
+
 <body>
-  <div class="header">
-    <span>John Doe, <span class="role">Student</span></span>
-    <img src="{% static 'utrgv.svg' %}" alt="UTRGV Logo" class="logo">
+
+<!-- Navbar -->
+<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
+      <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
+      <span class="role">{{ role }}</span>  <!-- Displays role dynamically -->
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
 
-  <a href="{% url 'landing' 'student' %}" class="back-link">Back to Landing Page</a>
+  <div id="navMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <!-- Logout Link -->
+      <a href="{% url 'logout' %}" class="navbar-item has-text-light logout-link" style="cursor: pointer; margin-right: 10px;">
+        Log out
+      </a>
 
-  <h2>Advisors</h2>
-  <!-- Wrap the table in a container -->
-  <div class="table-container">
-    <table class="profile-table">
-      <tr>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Askar Nurbekov</a></h3>
-              <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">askar.nurbekov01@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'advisorpic.png' %}" alt="nurbekov_profile_image">
-          </div>
-        </td>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Jonatan Reyes</a></h3>
-              <p>Assistant Professor of Practice</p>
-              <h4><a href="mailto:jonatan.reyes01@utrgv.edu">jonatan.reyes01@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'advisorpic.png' %}" alt="reyes_profile_image">
-          </div>
-        </td>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Erik Enriquez</a></h3>
-              <p>Lecturer I</p>
-              <h4><a href="mailto:erik.enriquez01@utrgv.edu">erik.enriquez01@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'advisorpic.png' %}" alt="enriquez_profile_image">
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Askar Nurbekov</a></h3>
-              <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">askar.nurbekov01@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'advisorpic.png' %}" alt="nurbekov_profile_image">
-          </div>
-        </td>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Askar Nurbekov</a></h3>
-              <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">askar.nurbekov01@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'advisorpic.png' %}" alt="nurbekov_profile_image">
-          </div>
-        </td>
-        <td>
-          <div class="profile-card">
-            <div class="info">
-              <h3><a href="{% url 'advisorProfileView' 'askar_nurbekov' %}">Askar Nurbekov</a></h3>
-              <p>Lecturer I</p>
-              <h4><a href="mailto:askar.nurbekov01@utrgv.edu">askar.nurbekov01@utrgv.edu</a></h4>
-            </div>
-            <img src="{% static 'advisorpic.png' %}" alt="nurbekov_profile_image">
-          </div>
-        </td>
-      </tr>
-    </table>
+      <!-- UTRGV Logo -->
+      <a class="navbar-item" style="padding-right: 0; cursor: auto;">
+        <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
+      </a>
+    </div>
   </div>
+</nav>
+
+<!-- Main Section -->
+<section class="section" style="padding-top: 0px;"> 
+  <div class="container is-fluid">
+
+    <a href="{% url 'landingPage' %}" class="button is-light mb-5">
+      ← Back to Landing Page
+    </a>
+
+    <h2 class="title is-2 mb-5">Advisors</h2>
+
+    <div class="columns is-multiline">
+      <!-- Loop through advisors dynamically -->
+      {% for advisor in advisors %}
+      <div class="column is-one-third">
+        <a href="{% url 'advisorProfileView' advisor.id %}" class="card-link-wrapper">  <!-- Use id here -->
+          <div class="card p-5 advisor-card">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-200x200">
+                  <!-- Display image, use default if not found -->
+                  <img src="{% if advisor.image %}{{ advisor.image.url }}{% else %}{% static 'default_profile.png' %}{% endif %}" alt="{{ advisor.user.first_name }} {{ advisor.user.last_name }}" style="object-fit: contain; height: 200px; width: 200px;">
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <!-- Display advisor name -->
+                  <h3 class="title is-3 mb-3 advisor-name">{{ advisor.user.first_name }} {{ advisor.user.last_name }}</h3>
+                  <p class="is-size-6 mt-2 advisor-email">
+                    {% if advisor.user.email %}
+                      {{ advisor.user.email }}
+                    {% else %}
+                      N/A
+                    {% endif %}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% empty %}
+      <p>No advisors available.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
 </body>
 </html>

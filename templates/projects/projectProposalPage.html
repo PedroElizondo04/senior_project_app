@@ -1,21 +1,146 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-  </head>
-  <body>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Proposal</title>
+
+  <!-- Bulma CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body class="has-navbar-fixed-top">
+
+<!-- Navbar -->
+<nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item navbar-name" style="padding-left: 0; cursor: auto;">
+      <span>{{ user.first_name }} {{ user.last_name }}</span>,&thinsp;
+      <span class="role">{{ role }}</span>  <!-- Displays role dynamically -->
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navMenu" class="navbar-menu">
+    <div class="navbar-end">
+      <!-- Logout Link -->
+      <a href="{% url 'logout' %}" class="navbar-item has-text-light logout-link" style="cursor: pointer; margin-right: 10px;">
+        Log out
+      </a>
+
+      <!-- UTRGV Logo -->
+      <a class="navbar-item" style="padding-right: 0; cursor: auto;">
+        <img src="{% static 'utrgv.png' %}" alt="UTRGV Logo" class="logo" />
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- Main Content -->
   <section class="section">
     <div class="container">
-      <h1 class="title">
-        Hello World
-      </h1>
-      <p class="subtitle">
-        My first website with <strong>Bulma</strong>!
-      </p>
+
+      <!-- Back Button -->
+      <a href="{% url 'landingPage' %}" class="button is-light mb-5">
+        ← Back to Landing Page
+      </a>
+
+      <!-- Form -->
+      <form method="POST" action="{% if existing_project %}{% url 'projectProposal' existing_project.id %}{% else %}{% url 'projectProposal' %}{% endif %}">
+        {% csrf_token %}
+
+        <!-- Project Title Input -->
+        <div class="field">
+          <div class="control">
+            <input
+              type="text"
+              name="title"
+              class="input is-large has-background-light has-text-black"
+              placeholder="Project Title"
+              style="background-color: #d3d3d3; border: none; font-weight: bold;"
+              value="{% if existing_project %}{{ existing_project.title }}{% else %}{{ '' }}{% endif %}"
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Project Description Textarea -->
+        <div class="field">
+          <div class="control">
+            <textarea
+              name="description"
+              id="description"
+              class="textarea has-background-light has-text-black"
+              placeholder="Description"
+              style="background-color: #d3d3d3; border: none; font-weight: bold; min-height: 240px;"
+              required
+            >{% if existing_project %}{{ existing_project.description }}{% else %}{{ '' }}{% endif %}</textarea>
+          </div>
+        </div>
+
+        <div class="columns is-mobile">
+
+          <!-- Skills Input -->
+          <div class="column">
+            <div class="field" style="max-width: 400px;">
+              <label class="label label-special">Skills needed:</label>
+              <div class="control">
+                <input
+                  type="text"
+                  name="skills"
+                  id="skills"
+                  class="input has-background-light has-text-black"
+                  placeholder="Ex.) Rust, Algorithms, Linux, C++, CLI"
+                  style="background-color: #d3d3d3; border: none; font-weight: bold;"
+                  value="{% if existing_project %}{{ existing_project.skills_required.all|join:', ' }}{% else %}{{ '' }}{% endif %}"
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Members Dropdown -->
+          <div class="column">
+            <div class="field">
+              <label class="label label-special" for="members">Members:</label>
+              <div class="control">
+                <div class="select is-custom">
+                  <select name="member_limit" id="members">
+                    <option value="2" {% if existing_project and existing_project.member_limit == 2 %} selected {% endif %}>2</option>
+                    <option value="3" {% if existing_project and existing_project.member_limit == 3 %} selected {% endif %}>3</option>
+                    <option value="4" {% if existing_project and existing_project.member_limit == 4 %} selected {% endif %}>Max Members</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Submit Button -->
+        <div class="button-right-align">
+          <button type="submit" class="button is-orange is-medium" style="padding: 1rem 2rem;">
+            {% if existing_project %}
+              Save Changes
+            {% else %}
+              Submit
+            {% endif %}
+          </button>
+        </div>
+      </form>
+
     </div>
   </section>
-  </body>
+
+</body>
+
 </html>

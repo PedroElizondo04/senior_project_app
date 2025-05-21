@@ -1,0 +1,29 @@
+{% extends "project_manager/base.html" %}
+
+{% block content %}
+  <h2>Apply for {{ project.title }}</h2>
+  
+<form method="post" class="box" style="max-width: 600px; margin: auto;">
+  {% csrf_token %}
+
+  <!-- Message Field -->
+  <div class="field">
+    <label class="label has-text-weight-bold">Application Message</label>
+    <div class="control">
+      {{ form.message }}
+      {% if form.message.errors %}
+        <p class="help is-danger">{{ form.message.errors.0 }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="field mt-5 has-text-centered">
+    <div class="control">
+      <button type="submit" class="button is-primary is-medium has-text-weight-bold">
+        Submit Application
+      </button>
+    </div>
+  </div>
+</form>
+{% endblock %}
