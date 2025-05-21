@@ -1,6 +1,7 @@
 import os
 import csv
 import django
+import logging
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "senior_project_app.settings")
 django.setup()
@@ -9,9 +10,20 @@ from django.contrib.auth.models import User
 from projects.models import Student, Advisor, Project, Skill
 from django.contrib.contenttypes.models import ContentType
 
-# Directory where CSV files are stored
-CSV_DIR = os.path.join(os.path.dirname(__file__), "csv_data")
+# Setup logging
+logging.basicConfig(
+    filename="import_log.txt",
+    filemode="w",  # Overwrite each time
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
+def log(message):
+    print(message)  # Show on console
+    logging.info(message)
+
+# CSV Directory
+CSV_DIR = os.path.join(os.path.dirname(__file__), "csv_data")
 
 def import_students():
     """Bulk import students from students.csv"""
@@ -22,19 +34,29 @@ def import_students():
 
         for row in reader:
             username = row["username"]
-            password = row["password"]  # Read plain-text password from CSV
+            password = row["password"]
+            project_title = row.get("project_title", "").strip()
 
             user, created = User.objects.get_or_create(username=username)
-
             if created:
-                user.set_password(password)  # Hash the password properly
+                user.set_password(password)
                 user.save()
-                print(f"✅ Created user: {username}")
+                log(f"✅ Created user: {username}")
 
             student, student_created = Student.objects.get_or_create(user=user)
 
+            if project_title:
+                try:
+                    project = Project.objects.get(title=project_title)
+                    student.created_project = project
+                    student.save()
+                    log(f"✅ Linked {username} to project '{project_title}'")
+                except Project.DoesNotExist:
+                    log(f"⚠️ Warning: Project '{project_title}' not found for student {username}.")
+
             if student_created:
-                print(f"✅ Created Student entry for user: {username}")
+                log(f"✅ Created Student entry for user: {username}")
+
 
 def import_advisors():
     """Bulk import advisors from advisors.csv"""
@@ -48,16 +70,18 @@ def import_advisors():
             password = row["password"].strip()
 
             user, created = User.objects.get_or_create(username=username)
-
             if created:
-                user.set_password(password)  # Hash the password properly
+                user.set_password(password)
                 user.save()
-                print(f"✅ Created user: {username}")
+                log(f"✅ Created user: {username}")
 
             advisor, advisor_created = Advisor.objects.get_or_create(user=user)
 
             if advisor_created:
-                print(f"✅ Created Advisor entry for user: {username}")
+                log(f"✅ Created Advisor entry for user: {username}")
+            else:
+                log(f"⚠️ Skipping duplicate advisor entry: {username}")
+
 
 def import_skills():
     """Bulk import skills from skills.csv"""
@@ -66,23 +90,23 @@ def import_skills():
     with open(csv_file, newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
 
-        existing_skills = set(Skill.objects.values_list("name", flat=True))  # Get existing skill names
+        existing_skills = set(Skill.objects.values_list("name", flat=True))
         skills_to_create = []
 
         for row in reader:
             skill_name = row["name"].strip()
-            if skill_name and skill_name not in existing_skills:  # Avoid duplicates
+            if skill_name and skill_name not in existing_skills:
                 skills_to_create.append(Skill(name=skill_name))
 
         if skills_to_create:
             Skill.objects.bulk_create(skills_to_create)
-            print(f"✅ Successfully imported {len(skills_to_create)} new skills")
+            log(f"✅ Successfully imported {len(skills_to_create)} new skills")
         else:
-            print("⚠️ No new skills to import (all already exist)")
+            log("⚠️ No new skills to import (all already exist)")
 
 
 def import_advisor_projects():
-    """Bulk import advisor-created projects"""
+    """Bulk import advisor-created projects from advisor_projects.csv"""
     csv_file = os.path.join(CSV_DIR, "advisor_projects.csv")
 
     with open(csv_file, newline="", encoding="utf-8") as file:
@@ -95,19 +119,16 @@ def import_advisor_projects():
             status = row["status"].strip()
             member_limit = int(row["member_limit"])
             advisor_username = row["advisor_username"].strip()
-            skills_required = [s.strip() for s in row["skills_required"].split(",")]  # List of skills
+            skills_required = [s.strip() for s in row["skills_required"].split(",")]
 
-            # Get the advisor object (if exists)
             try:
                 advisor = Advisor.objects.get(user__username=advisor_username)
             except Advisor.DoesNotExist:
-                print(f"⚠️ Warning: Advisor '{advisor_username}' not found. Skipping project '{title}'.")
+                log(f"⚠️ Advisor '{advisor_username}' not found. Skipping project '{title}'.")
                 continue
 
-            # Get Advisor ContentType
-            advisor_content_type = ContentType.objects.get_for_model(Advisor)
+            author_type = ContentType.objects.get_for_model(Advisor)
 
-            # Create project with author fields
             project, created = Project.objects.get_or_create(
                 title=title,
                 defaults={
@@ -115,30 +136,31 @@ def import_advisor_projects():
                     "status": status,
                     "member_limit": member_limit,
                     "advisor": advisor,
-                    "author_type": advisor_content_type,  # Set author type to Advisor
-                    "author_id": advisor.id,  # Set author ID to Advisor's ID
+                    "author_type": author_type,
+                    "author_id": advisor.id
                 }
             )
 
             if created:
-                # Link required skills
                 for skill_name in skills_required:
                     skill, _ = Skill.objects.get_or_create(name=skill_name)
                     project.skills_required.add(skill)
 
+                project.update_status()
                 projects_created += 1
-                print(f"✅ Created project: {title} (Author: {advisor.user.username})")
+                log(f"✅ Created project: {title} (Advisor: {advisor_username})")
             else:
-                print(f"⚠️ Skipping duplicate project: {title}")
+                log(f"⚠️ Skipping duplicate project: {title}")
 
-    print(f"🎉 Successfully imported {projects_created} advisor-created projects")
+    log(f"🎉 Successfully imported {projects_created} advisor-created projects")
+
 
 if __name__ == "__main__":
-    print("🚀 Starting bulk import...")
+    log("🚀 Starting bulk import...")
 
     import_students()
     import_advisors()
     import_skills()
-    import_advisor_projects()  # Inserts advisor-created projects
+    import_advisor_projects()
 
-    print("🎉 Data import complete!")
+    log("🎉 Data import complete!")
