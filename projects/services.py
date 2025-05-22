@@ -4,6 +4,25 @@ from .models import Project, Skill, Student, Advisor
 from django.contrib.contenttypes.models import ContentType
 from django.utils.timezone import now
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+# -------------------------------
+# Create a Django User account
+# -------------------------------
+def create_user_account(username, password, email=None, first_name=None, last_name=None):
+    """
+    Creates a new Django user account. Returns the user object and a 'created' flag.
+    Raises ValidationError if the username already exists.
+    """
+    user, created = User.objects.get_or_create(username=username)
+    if created:
+        user.set_password(password)
+        user.email = email or ''
+        user.first_name = first_name or ''
+        user.last_name = last_name or ''
+        user.save()
+    return user, created
 
 # -------------------------------
 # Determine user role from Django user instance
